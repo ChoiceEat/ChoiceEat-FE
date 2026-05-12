@@ -75,9 +75,15 @@ export default function DetailOverlay({ open, cardType, onClose }) {
     <div className={`detail-overlay${open ? ' open' : ''}`}>
       <button className="detail-back-btn" onClick={onClose}>←</button>
 
+      {/* 스크롤 영역 — 하단 버튼 바 높이만큼 패딩 확보 */}
       <div className="detail-scroll" ref={scrollRef}>
         <div className="detail-body">
-          <div className="detail-badge-pill">{data.badge}</div>
+          
+          <div className="detail-restaurant-img">
+            <div className="detail-img-icon"/>
+            <span >음식점 이미지</span>
+          </div>
+
           <h1 className="detail-name">{data.name}</h1>
           <p className="detail-avg-price">{data.price} 평균</p>
           <p className="detail-meta">
@@ -85,6 +91,8 @@ export default function DetailOverlay({ open, cardType, onClose }) {
           </p>
           <p className="detail-status">{data.status}</p>
           <p className="detail-desc">{data.desc}</p>
+
+          
 
           <div className="detail-info-box">
             <h3 className="detail-box-title">대표 메뉴</h3>
@@ -107,8 +115,21 @@ export default function DetailOverlay({ open, cardType, onClose }) {
             <p className="detail-info-text">{data.features.join(' · ')}</p>
           </div>
 
-          <button className="detail-nav-btn rewarded-ad-btn">길찾기</button>
+          {/* 하단 고정 버튼 바가 가리지 않도록 여백 */}
+          <div className="detail-bottom-spacer" />
         </div>
+      </div>
+
+      {/* 하단 고정 글래스모피즘 버튼 바 */}
+      <div className="detail-fixed-btns">
+        {/* 선택 확정 버튼 */}
+        <button className="detail-nav-btn rewarded-ad-btn">
+          ✓ 선택 확정
+        </button>
+        {/* 길찾기 버튼 */}
+        <button className="detail-nav-btn rewarded-ad-btn">
+          길찾기
+        </button>
       </div>
     </div>
   );
