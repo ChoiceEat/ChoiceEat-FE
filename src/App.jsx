@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <h1>This is main branch</h1>
+      <h1>This is develop branch</h1>
     </>
   );
 }
