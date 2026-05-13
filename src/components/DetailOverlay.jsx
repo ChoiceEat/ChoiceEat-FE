@@ -15,8 +15,6 @@ export default function DetailOverlay({ open, restaurant, onClose, onConfirm }) 
 
       <div className="detail-scroll" ref={scrollRef}>
         <div className="detail-body">
-          <div className="detail-badge-pill">{restaurant.badge}</div>
-
           <div className="detail-restaurant-img">
             <span>음식점 이미지</span>
           </div>

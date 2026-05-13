@@ -23,6 +23,8 @@ export default function App() {
   const [cardType, setCardType] = useState('balance');
   const [detailOpen, setDetailOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [verticalDrag, setVerticalDrag] = useState(0);
+  const [launching, setLaunching] = useState(false);
 
   const dragging = useRef(false);
   const origin = useRef({ x: 0, y: 0 });
@@ -30,6 +32,25 @@ export default function App() {
 
   const selectedRestaurant = RESTAURANTS[cardType] ?? RESTAURANTS.balance;
   const translateX = -idx * 100 + (offset / window.innerWidth) * 100;
+
+  const dragProgress = verticalDrag < 0 ? Math.min(Math.abs(verticalDrag) / 280, 1) : 0;
+  const liftScale = 1 - dragProgress * 0.08;
+  const activeCardStyle = launching
+    ? {
+        transform: 'translateY(-110vh) scale(0.84)',
+        opacity: 0,
+        transition: 'transform 0.38s cubic-bezier(0.4, 0, 0.8, 0.5), opacity 0.28s ease-in',
+        pointerEvents: 'none',
+      }
+    : verticalDrag < 0
+    ? {
+        transform: `translateY(${verticalDrag * 0.75}px) scale(${liftScale})`,
+        transition: 'none',
+      }
+    : {
+        transform: 'translateY(0px) scale(1)',
+        transition: 'transform 0.52s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      };
 
   const handleClose = () => {
     setDetailOpen(false);
@@ -69,6 +90,8 @@ export default function App() {
 
     if (axis.current === 'h') {
       setOffset(dx);
+    } else if (axis.current === 'v') {
+      setVerticalDrag(dy < 0 ? dy : 0);
     }
   }, []);
 
@@ -84,11 +107,17 @@ export default function App() {
 
     if (dy < -SWIPE_THRESHOLD && Math.abs(dy) > Math.abs(dx)) {
       const currentType = cardTypeMap[idx];
-
       setCardType(currentType);
+      setLaunching(true);
       setDetailOpen(true);
+      setTimeout(() => {
+        setLaunching(false);
+        setVerticalDrag(0);
+      }, 420);
       return;
     }
+
+    setVerticalDrag(0);
 
     if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dy) > Math.abs(dx)) {
       return;
@@ -197,15 +226,15 @@ export default function App() {
         className={`cards-track${offset === 0 ? ' animated' : ''}`}
         style={{ transform: `translateX(${translateX}vw)` }}
       >
-        <div className="card-slide">
+        <div className="card-slide" style={idx === 0 ? activeCardStyle : {}}>
           <ValueCard />
         </div>
 
-        <div className="card-slide">
+        <div className="card-slide" style={idx === 1 ? activeCardStyle : {}}>
           <BalanceCard />
         </div>
 
-        <div className="card-slide">
+        <div className="card-slide" style={idx === 2 ? activeCardStyle : {}}>
           <QualityCard />
         </div>
       </div>
