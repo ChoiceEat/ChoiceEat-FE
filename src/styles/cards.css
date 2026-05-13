@@ -140,11 +140,19 @@ body {
   filter: drop-shadow(0 0 6px rgba(50, 90, 240, .50));
 }
 
+/* ===== CARD FLOAT ANIMATION ===== */
+@keyframes card-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
 /* ===== iOS GLASS CARD ===== */
 .glass-card {
   width: min(88vw, 360px);
   border-radius: 38px;
   overflow: hidden;
+  will-change: transform;
+  animation: card-float 3.6s ease-in-out infinite;
   background: linear-gradient(
     140deg,
     rgba(255, 255, 255, .58) 0%,
@@ -842,6 +850,11 @@ body {
   color: rgba(0, 0, 0, .48);
   line-height: 1.9;
 }
+
+/* Stagger each card's float so they never move in sync */
+.card-slide:nth-child(1) .glass-card { animation-delay:  0s;     }
+.card-slide:nth-child(2) .glass-card { animation-delay: -1.2s;   }
+.card-slide:nth-child(3) .glass-card { animation-delay: -2.4s;   }
 
 .confirm-simple-btn {
   width: 100%;
