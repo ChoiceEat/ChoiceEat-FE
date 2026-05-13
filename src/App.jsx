@@ -4,6 +4,7 @@ import BalanceCard from './components/BalanceCard';
 import ValueCard from './components/ValueCard';
 import QualityCard from './components/QualityCard';
 import DetailOverlay from './components/DetailOverlay';
+import DirectionsView from './components/DirectionsView';
 import ConfirmComplete from './components/ConfirmComplete';
 import './styles/cards.css';
 
@@ -23,6 +24,7 @@ export default function App() {
   const [cardType, setCardType] = useState('balance');
   const [detailOpen, setDetailOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [directionsOpen, setDirectionsOpen] = useState(false);
   const [verticalDrag, setVerticalDrag] = useState(0);
   const [launching, setLaunching] = useState(false);
 
@@ -64,8 +66,17 @@ export default function App() {
   const handleRestart = () => {
     setConfirmOpen(false);
     setDetailOpen(false);
+    setDirectionsOpen(false);
     setCardType('balance');
     setIdx(INITIAL_IDX);
+  };
+
+  const handleDirections = () => {
+    setDirectionsOpen(true);
+  };
+
+  const handleDirectionsBack = () => {
+    setDirectionsOpen(false);
   };
 
   const startDrag = useCallback((x, y) => {
@@ -220,6 +231,13 @@ export default function App() {
         restaurant={selectedRestaurant}
         onClose={handleClose}
         onConfirm={handleConfirm}
+        onDirections={handleDirections}
+      />
+
+      <DirectionsView
+        open={directionsOpen}
+        restaurant={selectedRestaurant}
+        onBack={handleDirectionsBack}
       />
 
       <div

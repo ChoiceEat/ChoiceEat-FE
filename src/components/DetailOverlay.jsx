@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function DetailOverlay({ open, restaurant, onClose, onConfirm }) {
+export default function DetailOverlay({ open, restaurant, onClose, onConfirm, onDirections }) {
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function DetailOverlay({ open, restaurant, onClose, onConfirm }) 
           ✓ 선택 확정
         </button>
 
-        <button className="detail-nav-btn rewarded-ad-btn">
+        <button className="detail-nav-btn rewarded-ad-btn" onClick={onDirections}>
           길찾기
         </button>
       </div>
