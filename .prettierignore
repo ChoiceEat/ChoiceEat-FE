@@ -1,0 +1,27 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Environment variables
+.env
+.env.local
+.env.*
+
+# Git and Logs
+.git/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Static assets
+public/
+vendor/
+
+# Package manager lock files
+package-lock.json
+yarn.lock
