@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSwipe } from "../../hooks/useSwipe";
 import { useSurvey } from "../../hooks/useSurvey";
 import styles from "./SelectionStep.module.scss";
@@ -18,6 +19,25 @@ export default function SelectionStep({
   const navigate = useNavigate();
   const { isSearchable } = useSurvey();
 
+  const location = useLocation();
+
+  const targetProgress = (stepNumber / 3) * 100;
+  const prevProgress = ((stepNumber - 1) / 3) * 100;
+
+  // state로 방향 전달 (없으면 앞으로 가는 방향으로 간주)
+  const isGoingBack = location.state?.direction === "back";
+
+  const [progressWidth, setProgressWidth] = useState(
+    isGoingBack ? targetProgress : prevProgress, // 뒤로: 현재값에서 시작, 앞으로: 이전값에서 시작
+  );
+
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      setProgressWidth(isGoingBack ? prevProgress : targetProgress);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [targetProgress, isGoingBack, prevProgress]);
+
   // 다음 페이지로 이동
   const goNext = () => {
     if (manualNext) {
@@ -31,7 +51,7 @@ export default function SelectionStep({
 
   // 이전 페이지로 이동
   const goPrev = () => {
-    if (prevPath) navigate(prevPath);
+    if (prevPath) navigate(prevPath, { state: { direction: "back" } });
   };
 
   // 스와이프 연결
@@ -74,7 +94,7 @@ export default function SelectionStep({
           <div className={styles.progressBar}>
             <div
               className={styles.progressFill}
-              style={{ width: `${(stepNumber / 3) * 100}%` }}
+              style={{ width: `${progressWidth}%` }}
             />
           </div>
         </div>
