@@ -88,7 +88,7 @@ export default function SelectionStep({
       {/* ── 하단 흰색 영역 ── */}
       <div className={styles.bottomSection}>
         <h3 className={styles.questionTitle}>
-          {stepNumber}. {title} <span className={styles.required}>*</span>
+          {stepNumber}. {title}
         </h3>
 
         <div className={styles.options}>
