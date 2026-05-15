@@ -20,7 +20,13 @@ export default function SelectionStep({
 
   // 다음 페이지로 이동
   const goNext = () => {
-    navigate(nextPath);
+    if (manualNext) {
+      // Step3: isSearchable()이 true일 때만 이동
+      if (isSearchable()) navigate(nextPath);
+    } else {
+      // Step1, 2: 무조건 이동
+      navigate(nextPath);
+    }
   };
 
   // 이전 페이지로 이동
