@@ -32,9 +32,10 @@ export default function SelectionStep({
   useSwipe(goNext, goPrev);
 
   const handleSelect = (value) => {
-    onSelect(value);
-    // manualNext가 false인 Step1, Step2만 선택 후 자동으로 다음으로 이동
-    if (!manualNext) {
+    // 이미 선택된 값을 다시 클릭하면 null로 취소
+    const newValue = selected === value ? null : value;
+    onSelect(newValue);
+    if (!manualNext && newValue !== null) {
       setTimeout(() => navigate(nextPath), 500);
     }
   };
