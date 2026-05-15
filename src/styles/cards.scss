@@ -231,38 +231,42 @@ body {
 .card-nav {
   margin-bottom: 12px;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.card-nav-row {
-  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 5px;
-  padding: 2px 0;
-}
-
-.card-nav-arrow {
-  font-size: 12px;
-  color: rgba(0, 0, 0, .32);
-  letter-spacing: -1px;
+  justify-content: center;
+  gap: 16px;
+  width: min(88vw, 360px);
 }
 
 .card-nav-label {
-  font-size: 13px;
-  color: rgba(0, 0, 0, .40);
-  font-weight: 500;
+  flex: none;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  transition: font-size 0.22s ease, font-weight 0.22s ease, opacity 0.22s ease, color 0.22s ease;
 }
 
 .card-nav-label.current {
   font-size: 15px;
   color: rgba(0, 0, 0, .84);
   font-weight: 800;
+  opacity: 1;
+}
+
+.card-nav-side {
+  flex: none;
+  font-size: 12px;
+  color: rgba(0, 0, 0, .32);
+  font-weight: 500;
+  opacity: 0.50;
+  line-height: 1.4;
 }
 
 /* ===== POSITION DOTS ===== */
 .card-dots {
   display: flex;
+  justify-content: center;
   gap: 7px;
   margin-bottom: 18px;
 }
