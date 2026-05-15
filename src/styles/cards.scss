@@ -10,47 +10,78 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ===== APP LOGO ===== */
+.app-logo {
+  position: fixed;
+  top: 52px;
+  left: 24px;
+  z-index: 10;
+  font-family: 'Alfa Slab One', serif;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
+  pointer-events: none;
+}
+
 /* ===== APP WRAPPER ===== */
 .swipe-app {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 18% 22%, rgba(255, 185, 105, .62), transparent 28%),
-    radial-gradient(circle at 82% 20%, rgba(255, 110, 170, .50), transparent 30%),
-    radial-gradient(circle at 50% 90%, rgba(100, 180, 255, .50), transparent 32%),
-    linear-gradient(180deg, #faf9f5 0%, #eeeae2 100%);
+  background: #10B981;
+  user-select: none;
+  touch-action: none;
+  position: relative;
+}
+
+/* ===== INNER CENTERED CONTENT COLUMN ===== */
+.swipe-inner {
+  max-width: 390px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  user-select: none;
-  touch-action: none;
   position: relative;
 }
 
 /* ===== HORIZONTAL CARD TRACK ===== */
 .cards-track {
   display: flex;
-  width: 300vw;
+  width: calc(390px * 3);
   will-change: transform;
   align-self: flex-start;
+  overflow: visible;
 }
 
 .cards-track.animated {
-  transition: transform 0.44s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.62s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .card-slide {
-  width: 100vw;
+  width: 390px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 28px;
+  padding: 0 14px;
   position: relative;
+  transition: transform 0.62s ease, opacity 0.62s ease;
 }
 
-/* ===== GLOBAL SWIPE HINT PILLS (for balance card only) ===== */
+.card-slide--inactive {
+  transform: scale(0.92);
+  opacity: 0.55;
+}
+
+.card-slide--active {
+  transform: scale(1.00);
+  opacity: 1;
+}
+
+/* ===== GLOBAL SWIPE HINT PILLS ===== */
 .global-hint {
   position: fixed;
   top: 50%;
@@ -68,9 +99,9 @@ body {
 .global-hint.right { right: 10px; }
 
 .global-hint__arrows {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 400;
-  letter-spacing: -3px;
+  letter-spacing: 0;
   line-height: 1;
 }
 
@@ -84,7 +115,7 @@ body {
 .global-hint.left .global-hint__label,
 .global-hint.right .global-hint__arrows,
 .global-hint.right .global-hint__label {
-  color: rgba(0, 0, 0, .36);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 /* Heartbeat (lub-dub) animations */
@@ -140,102 +171,82 @@ body {
   filter: drop-shadow(0 0 6px rgba(50, 90, 240, .50));
 }
 
-/* ===== CARD FLOAT ANIMATION ===== */
-@keyframes card-float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-6px); }
-}
-
-/* ===== iOS GLASS CARD ===== */
+/* ===== FLAT WHITE CARD ===== */
 .glass-card {
-  width: min(88vw, 360px);
-  border-radius: 38px;
+  width: 310px;
+  max-width: 310px;
+  height: 450px;
+  border-radius: 24px;
   overflow: hidden;
   will-change: transform;
-  animation: card-float 3.6s ease-in-out infinite;
-  background: linear-gradient(
-    140deg,
-    rgba(255, 255, 255, .58) 0%,
-    rgba(255, 255, 255, .22) 28%,
-    rgba(255, 255, 255, .11) 56%,
-    rgba(255, 255, 255, .46) 100%
-  );
-  backdrop-filter: blur(44px) saturate(210%) brightness(1.08);
-  -webkit-backdrop-filter: blur(44px) saturate(210%) brightness(1.08);
-  border: 1.2px solid rgba(255, 255, 255, .82);
-  box-shadow:
-    0 48px 100px rgba(0, 0, 0, .18),
-    0 22px 44px rgba(0, 0, 0, .10),
-    inset 0 1.5px 1px rgba(255, 255, 255, .98),
-    inset 0 -2px 16px rgba(255, 255, 255, .18),
-    inset 0 0 36px rgba(255, 255, 255, .06);
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
   cursor: grab;
   position: relative;
 }
 
 .glass-card:active { cursor: grabbing; }
 
-/* Top-left highlight gradient */
-.glass-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    122deg,
-    rgba(255, 255, 255, .88) 0%,
-    rgba(255, 255, 255, .42) 14%,
-    rgba(255, 255, 255, .08) 32%,
-    transparent 50%
-  );
-  opacity: .92;
-  pointer-events: none;
-  z-index: 3;
-  border-radius: inherit;
-}
-
-/* Diagonal shine sweep */
-.glass-card::after {
-  content: '';
-  position: absolute;
-  top: -130px;
-  left: -90px;
-  width: 130px;
-  height: 660px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, .88),
-    transparent
-  );
-  transform: rotate(24deg);
-  filter: blur(10px);
-  opacity: .52;
-  animation: shine-sweep 6.5s linear infinite;
-  pointer-events: none;
-  z-index: 4;
-}
-
-@keyframes shine-sweep {
-  0%   { transform: translateX(-290px) rotate(24deg); }
-  100% { transform: translateX(580px)  rotate(24deg); }
-}
-
 /* ===== CARD INNER CONTENT ===== */
 .card-inner {
   position: relative;
   z-index: 2;
-  padding: 22px 22px 20px;
+  padding: 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* ===== CARD BODY (white section below image) ===== */
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: #ffffff;
+}
+
+/* ===== CARD LABEL TAG ===== */
+.card-label {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.40);
+  font-weight: 500;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 12px;
+}
+
+/* ===== CARD DESCRIPTION ===== */
+.card-desc {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.60);
+  text-align: center;
+  line-height: 1.6;
+  padding: 0 12px;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* ===== CARD HEADER (tabs wrapper) ===== */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 6px;
 }
 
 /* ===== NAVIGATION BREADCRUMB ===== */
 .card-nav {
-  margin-bottom: 12px;
+  margin-bottom: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  width: min(88vw, 360px);
+  height: 34px;
+  width: 100%;
+  max-width: 390px;
 }
 
 .card-nav-label {
@@ -248,18 +259,18 @@ body {
 }
 
 .card-nav-label.current {
-  font-size: 15px;
-  color: rgba(0, 0, 0, .84);
+  font-size: 16px;
+  color: #ffffff;
   font-weight: 800;
   opacity: 1;
 }
 
 .card-nav-side {
   flex: none;
-  font-size: 12px;
-  color: rgba(0, 0, 0, .32);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
   font-weight: 500;
-  opacity: 0.50;
+  opacity: 1;
   line-height: 1.4;
 }
 
@@ -268,39 +279,32 @@ body {
   display: flex;
   justify-content: center;
   gap: 7px;
-  margin-bottom: 18px;
+  margin-top: 14px;
+  margin-bottom: 14px;
 }
 
 .card-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, .16);
+  background: rgba(255, 255, 255, 0.45);
   transition: background 0.25s ease;
 }
 
 .card-dot.active {
-  background: rgba(0, 0, 0, .60);
+  background: rgba(255, 255, 255, 1.0);
   transform: scale(1.1);
 }
 
-/* ===== RESTAURANT IMAGE PLACEHOLDER ===== */
+/* ===== RESTAURANT IMAGE ===== */
 .restaurant-img {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 24px;
+  height: 180px;
+  flex-shrink: 0;
   background: linear-gradient(135deg, #ece8e1 0%, #d8d2c8 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(0, 0, 0, .28);
-  font-size: 13px;
-  font-weight: 500;
-  box-shadow:
-    0 14px 32px rgba(0, 0, 0, .13),
-    inset 0 1px 0 rgba(255, 255, 255, .60);
+  border-radius: 14px;
   overflow: hidden;
-  margin-bottom: 14px;
+  position: relative;
 }
 
 .restaurant-img img {
@@ -309,17 +313,57 @@ body {
   object-fit: cover;
 }
 
-/* ===== VALUE BADGE ===== */
-.value-badge {
-  padding: 10px 14px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, .50);
-  border: 1px solid rgba(255, 255, 255, .65);
+/* Dark gradient overlay at the bottom of the image for text readability */
+.restaurant-img__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
+  pointer-events: none;
+}
+
+/* Name + price wrapper, bottom-left of image */
+.restaurant-img__info {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  z-index: 1;
+}
+
+/* Restaurant name overlaid on image, bottom-left */
+.restaurant-img__name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+/* Restaurant price overlaid on image, below name */
+.restaurant-img__price {
   font-size: 13px;
-  color: rgba(0, 0, 0, .56);
-  line-height: 1.6;
-  margin-bottom: 14px;
-  backdrop-filter: blur(12px);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+/* ===== VALUE / REVIEW BADGE ===== */
+.value-badge {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #10B981;
+  font-size: 15px;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: left;
+  flex-shrink: 0;
+  margin: 12px 12px 0;
 }
 
 /* ===== RESTAURANT INFO ===== */
@@ -332,48 +376,55 @@ body {
 }
 
 .restaurant-price {
-  font-size: 18px;
-  font-weight: 700;
-  color: rgba(0, 0, 0, .74);
-  margin-bottom: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.65);
+  margin-bottom: 12px;
 }
 
 .restaurant-meta {
-  font-size: 13px;
-  color: rgba(0, 0, 0, .48);
-  margin-bottom: 3px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.48);
+  padding: 0 12px;
+  flex-shrink: 0;
 }
 
 .restaurant-status {
-  font-size: 12px;
-  color: rgba(0, 0, 0, .38);
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.36);
+  padding: 0 12px;
+  flex-shrink: 0;
+  margin-bottom: 16px;
 }
 
-/* ===== SWIPE UP HINT ===== */
+/* ===== FLEX SPACER ===== */
+.card-spacer {
+  flex: 1;
+}
+
+/* ===== SWIPE UP HINT (outside card, below dots) ===== */
 .swipe-up-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, .55);
-  margin-top: 14px;
+  gap: 4px;
+  margin-top: 12px;
 }
 
 .swipe-up-arrow {
-  font-size: 18px;
-  color: rgba(0, 0, 0, .32);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.55);
   animation: bob-up 2s ease-in-out infinite;
 }
 
 @keyframes bob-up {
-  0%, 100% { transform: translateY(0px); opacity: 0.32; }
-  50%       { transform: translateY(-6px); opacity: 0.70; }
+  0%, 100% { transform: translateY(0px); opacity: 0.40; }
+  50%       { transform: translateY(-5px); opacity: 0.80; }
 }
 
 .swipe-up-text {
   font-size: 11px;
-  color: rgba(0, 0, 0, .36);
+  color: rgba(255, 255, 255, 0.70);
   font-weight: 500;
 }
 
@@ -547,30 +598,39 @@ body {
 
 /* ===== NAVIGATION BUTTON (glass morphism) ===== */
 .detail-nav-btn {
+  position: relative;
+  overflow: hidden;
+
   width: 100%;
-  padding: 16px;
-  border-radius: 18px;
-  border: 1.2px solid rgba(255, 255, 255, .82);
-  background: linear-gradient(
-    140deg,
-    rgba(255, 255, 255, .58) 0%,
-    rgba(255, 255, 255, .22) 28%,
-    rgba(255, 255, 255, .11) 56%,
-    rgba(255, 255, 255, .46) 100%
-  );
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: 16px 24px;
+  border-radius: 999px;
+
+  border: 1.3px solid rgba(255, 255, 255, .85);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, .78) 0%,
+      rgba(255, 255, 255, .38) 42%,
+      rgba(235, 242, 250, .30) 100%
+    );
+
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, .12),
-    inset 0 1.5px 1px rgba(255, 255, 255, .98),
-    inset 0 -1px 8px rgba(255, 255, 255, .18);
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  color: rgba(0, 0, 0, .75);
+    0 12px 28px rgba(120, 130, 150, .18),
+    inset 0 1.5px 1px rgba(255, 255, 255, .95),
+    inset 0 -1px 10px rgba(255, 255, 255, .30);
+
+  font-size: 15px;
+  font-weight: 800;
+  color: rgba(40, 40, 44, .86);
+
   cursor: pointer;
-  margin-top: 8px;
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease;
 }
 
 .detail-nav-btn:active {
@@ -720,7 +780,7 @@ body {
 
 
 .detail-bottom-spacer {
-  height: 80px; 
+  height: 80px;
 }
 
 
@@ -764,42 +824,6 @@ body {
 
 .detail-confirm-btn:active {
   opacity: 0.7;
-}
-
-.detail-nav-btn {
-  position: relative;
-  overflow: hidden;
-
-  width: 100%;
-  padding: 16px 24px;
-  border-radius: 999px;
-
-  border: 1.3px solid rgba(255, 255, 255, .85);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, .78) 0%,
-      rgba(255, 255, 255, .38) 42%,
-      rgba(235, 242, 250, .30) 100%
-    );
-
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-
-  box-shadow:
-    0 12px 28px rgba(120, 130, 150, .18),
-    inset 0 1.5px 1px rgba(255, 255, 255, .95),
-    inset 0 -1px 10px rgba(255, 255, 255, .30);
-
-  font-size: 15px;
-  font-weight: 800;
-  color: rgba(40, 40, 44, .86);
-
-  cursor: pointer;
-  transition:
-    transform .16s ease,
-    box-shadow .16s ease;
 }
 
 .confirm-simple-page {
@@ -862,11 +886,6 @@ body {
   line-height: 1.8;
   margin: 0;
 }
-
-/* Stagger each card's float so they never move in sync */
-.card-slide:nth-child(1) .glass-card { animation-delay:  0s;     }
-.card-slide:nth-child(2) .glass-card { animation-delay: -1.2s;   }
-.card-slide:nth-child(3) .glass-card { animation-delay: -2.4s;   }
 
 /* ===== DIRECTIONS VIEW ===== */
 .directions-view {

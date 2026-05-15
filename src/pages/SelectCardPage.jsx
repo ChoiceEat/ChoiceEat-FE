@@ -33,7 +33,8 @@ export default function SelectCardPage() {
   const axis = useRef(null);
 
   const selectedRestaurant = RESTAURANTS[cardType] ?? RESTAURANTS.balance;
-  const translateX = -idx * 100 + (offset / window.innerWidth) * 100;
+  const slideW = 390;
+  const translateXpx = -idx * slideW + offset;
 
   const dragProgress = verticalDrag < 0 ? Math.min(Math.abs(verticalDrag) / 280, 1) : 0;
   const liftScale = 1 - dragProgress * 0.08;
@@ -170,9 +171,11 @@ export default function SelectCardPage() {
       }}
       onTouchEnd={e => endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY)}
     >
+    <div className="swipe-inner">
+      <p className="app-logo">Choice Eat</p>
       {idx === 0 && (
         <div className={`global-hint right${swipeHint === 'right' ? ' hinting' : ''}`}>
-          <div className="global-hint__arrows">»</div>
+          <div className="global-hint__arrows">&gt;</div>
           <div className="global-hint__label">밸런스</div>
         </div>
       )}
@@ -180,12 +183,12 @@ export default function SelectCardPage() {
       {idx === 1 && (
         <>
           <div className={`global-hint left${swipeHint === 'left' ? ' hinting' : ''}`}>
-            <div className="global-hint__arrows">«</div>
+            <div className="global-hint__arrows">&lt;</div>
             <div className="global-hint__label">가성비</div>
           </div>
 
           <div className={`global-hint right${swipeHint === 'right' ? ' hinting' : ''}`}>
-            <div className="global-hint__arrows">»</div>
+            <div className="global-hint__arrows">&gt;</div>
             <div className="global-hint__label">퀄리티</div>
           </div>
         </>
@@ -193,7 +196,7 @@ export default function SelectCardPage() {
 
       {idx === 2 && (
         <div className={`global-hint left${swipeHint === 'left' ? ' hinting' : ''}`}>
-          <div className="global-hint__arrows">«</div>
+          <div className="global-hint__arrows">&lt;</div>
           <div className="global-hint__label">밸런스</div>
         </div>
       )}
@@ -209,12 +212,6 @@ export default function SelectCardPage() {
             </span>
           ))}
         </nav>
-
-        <div className="card-dots">
-          {CARDS.map((_, i) => (
-            <div key={i} className={`card-dot${i === idx ? ' active' : ''}`} />
-          ))}
-        </div>
       </div>
 
       <DetailOverlay
@@ -231,21 +228,32 @@ export default function SelectCardPage() {
         onBack={handleDirectionsBack}
       />
 
+      <div className="card-dots">
+        {CARDS.map((_, i) => (
+          <div key={i} className={`card-dot${i === idx ? ' active' : ''}`} />
+        ))}
+      </div>
+
       <div
         className={`cards-track${offset === 0 ? ' animated' : ''}`}
-        style={{ transform: `translateX(${translateX}vw)` }}
+        style={{ transform: `translateX(${translateXpx}px)` }}
       >
-        <div className="card-slide" style={idx === 0 ? activeCardStyle : {}}>
+        <div className={`card-slide${idx === 0 ? ' card-slide--active' : ' card-slide--inactive'}`} style={idx === 0 ? activeCardStyle : {}}>
           <ValueCard />
         </div>
 
-        <div className="card-slide" style={idx === 1 ? activeCardStyle : {}}>
+        <div className={`card-slide${idx === 1 ? ' card-slide--active' : ' card-slide--inactive'}`} style={idx === 1 ? activeCardStyle : {}}>
           <BalanceCard />
         </div>
 
-        <div className="card-slide" style={idx === 2 ? activeCardStyle : {}}>
+        <div className={`card-slide${idx === 2 ? ' card-slide--active' : ' card-slide--inactive'}`} style={idx === 2 ? activeCardStyle : {}}>
           <QualityCard />
         </div>
+      </div>
+
+      <div className="swipe-up-hint">
+        <div className="swipe-up-arrow">↑</div>
+        <div className="swipe-up-text">위로 밀어서 선택</div>
       </div>
 
       {idx === 1 && (
@@ -255,6 +263,7 @@ export default function SelectCardPage() {
           <i className="ti ti-chevron-right" aria-hidden="true" />
         </button>
       )}
+    </div>
     </div>
   );
 }
