@@ -13,7 +13,7 @@ export default function Step1Budget() {
       options={OPTIONS}
       selected={answers.budget} // 저장된 선택값 표시
       onSelect={(value) => setAnswer("budget", value)} // 선택 시 저장
-      prevPath={null} // null이면 뒤로가기 버튼 안 보임
+      prevPath="/"
       nextPath="/step2"
       charImg="/char-budget.png"
       speechText="00님의 예산안을 기준점으로 맛집을 찾아드릴게요!"

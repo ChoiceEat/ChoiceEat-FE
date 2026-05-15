@@ -17,8 +17,16 @@ export function SurveyProvider({ children }) {
     setAnswers({ budget: null, vibe: null, menu: null });
   };
 
+  const isSearchable = () => {
+    return (
+      answers.budget !== null || answers.vibe !== null || answers.menu !== null
+    );
+  };
+
   return (
-    <SurveyContext.Provider value={{ answers, setAnswer, resetAnswers }}>
+    <SurveyContext.Provider
+      value={{ answers, setAnswer, resetAnswers, isSearchable }}
+    >
       {children}
     </SurveyContext.Provider>
   );

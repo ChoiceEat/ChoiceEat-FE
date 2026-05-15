@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useSwipe } from "../../hooks/useSwipe";
+import { useSurvey } from "../../hooks/useSurvey";
 import styles from "./SelectionStep.module.scss";
 
 export default function SelectionStep({
@@ -8,17 +9,18 @@ export default function SelectionStep({
   options, // 선택지 배열 ['한식', '중식', ...]
   selected, // 현재 선택된 값
   onSelect, // 선택했을 때 실행할 함수
-  prevPath, // 이전 페이지 경로 (null이면 뒤로가기 버튼 안 보임)
+  prevPath, // 이전 페이지 경로
   nextPath, // 다음 페이지 경로
   charImg, // 상단 캐릭터 이미지 경로
   speechText, // 말풍선 텍스트
   manualNext, // true면 선택해도 자동으로 안 넘어감 (Step3용)
 }) {
   const navigate = useNavigate();
+  const { isSearchable } = useSurvey();
 
-  // 다음 페이지로 이동 (선택된 값이 있을 때만)
+  // 다음 페이지로 이동
   const goNext = () => {
-    if (selected) navigate(nextPath);
+    navigate(nextPath);
   };
 
   // 이전 페이지로 이동
@@ -98,9 +100,9 @@ export default function SelectionStep({
         {/* Step3 전용 검색하기 버튼 */}
         {manualNext && (
           <button
-            className={`${styles.searchBtn} ${selected ? styles.searchActive : ""}`}
+            className={`${styles.searchBtn} ${isSearchable() ? styles.searchActive : ""}`}
             onClick={goNext}
-            disabled={!selected}
+            disabled={!isSearchable()}
           >
             검색하기
           </button>
