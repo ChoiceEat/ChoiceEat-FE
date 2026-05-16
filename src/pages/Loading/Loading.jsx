@@ -20,7 +20,7 @@ export default function Loading() {
         // navigate('/result', { state: { result: data } })
 
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        navigate("/result", { state: { answers } });
+        navigate("/pick", { state: { answers } });
       } catch (err) {
         console.error("API 호출 실패:", err);
       }
