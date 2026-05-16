@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\ChoiceEat-FE\" -Recurse -Force)",
+      "Bash(Select-Object -Property FullName)",
+      "Bash(Copy-Item *)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\ChoiceEat-FE\" -File | Where-Object { $_.Name -match '^vite\\\\.config\\\\.' } | ForEach-Object { $_.FullName })"
+    ]
+  }
+}
