@@ -1,5 +1,5 @@
-import SelectCardPage from './pages/SelectCardPage';
+import AppRouter from "./router/AppRouter";
 
 export default function App() {
-  return <SelectCardPage />;
+  return <AppRouter />;
 }
