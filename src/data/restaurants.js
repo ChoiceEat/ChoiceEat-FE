@@ -1,5 +1,10 @@
+import balanceImg from '../assets/balance.png';
+import valueImg from '../assets/value.png';
+import qualityImg from '../assets/quality.png';
+
 export const RESTAURANTS = {
   quality: {
+    image: qualityImg,
     badge: 'QUALITY PICK',
     name: '고급 레스토랑',
     price: '35,000원',
@@ -24,6 +29,7 @@ export const RESTAURANTS = {
   },
 
   balance: {
+    image: balanceImg,
     badge: 'BALANCE PICK',
     name: '균형잡힌 음식점',
     price: '18,000원',
@@ -48,6 +54,7 @@ export const RESTAURANTS = {
   },
 
   value: {
+    image: valueImg,
     badge: 'VALUE PICK',
     name: '저렴한 맛집',
     price: '8,000원',
