@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import { RESTAURANTS } from "../data/restaurants";
 import BalanceCard from "../components/BalanceCard";
 import ValueCard from "../components/ValueCard";
@@ -14,14 +15,18 @@ const CARDS = [
   { label: "퀄리티 픽" },
 ];
 
-const INITIAL_IDX = 1;
 const SWIPE_THRESHOLD = 48;
 const cardTypeMap = { 0: "value", 1: "balance", 2: "quality" };
+const typeToIdx = { value: 0, balance: 1, quality: 2 };
 
 export default function SelectCardPage() {
-  const [idx, setIdx] = useState(INITIAL_IDX);
+  const { state } = useLocation();
+  const initialType = state?.selectedType ?? "balance";
+  const initialIdx = typeToIdx[initialType] ?? 1;
+
+  const [idx, setIdx] = useState(initialIdx);
   const [offset, setOffset] = useState(0);
-  const [cardType, setCardType] = useState("balance");
+  const [cardType, setCardType] = useState(initialType);
   const [detailOpen, setDetailOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [directionsOpen, setDirectionsOpen] = useState(false);
@@ -71,7 +76,7 @@ export default function SelectCardPage() {
     setDetailOpen(false);
     setDirectionsOpen(false);
     setCardType("balance");
-    setIdx(INITIAL_IDX);
+    setIdx(1);
   };
 
   const handleDirections = () => {
