@@ -6,6 +6,9 @@ import Step3Menu from "../pages/Step3Menu/Step3Menu";
 import Loading from "../pages/Loading/Loading";
 import PickList from "../pages/PickList/PickList";
 import SelectCardPage from "../pages/SelectCardPage";
+import DirectionsView from "../pages/DirectionsView";
+import ConfirmComplete from "../pages/ConfirmComplete";
+
 export default function AppRouter() {
   return (
     <Routes>
@@ -16,6 +19,8 @@ export default function AppRouter() {
       <Route path="/loading" element={<Loading />} />
       <Route path="/pick" element={<PickList />} />
       <Route path="/result" element={<SelectCardPage />} />
+      <Route path="/directions" element={<DirectionsView />} />
+      <Route path="/confirm" element={<ConfirmComplete />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

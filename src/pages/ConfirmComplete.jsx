@@ -1,8 +1,10 @@
-import {useNavigate} from "react-router-dom";
-export default function ConfirmComplete({ restaurant }) {
+import { useNavigate, useLocation } from "react-router-dom";
 
+export default function ConfirmComplete() {
   const navigate = useNavigate();
-  
+  const { state } = useLocation();
+  const restaurant = state?.restaurant;
+
   if (!restaurant) return null;
 
   return (

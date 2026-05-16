@@ -1,12 +1,10 @@
 import { useState, useRef, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RESTAURANTS } from "../data/restaurants";
 import BalanceCard from "../components/BalanceCard";
 import ValueCard from "../components/ValueCard";
 import QualityCard from "../components/QualityCard";
 import DetailOverlay from "../components/DetailOverlay";
-import DirectionsView from "./DirectionsView";
-import ConfirmComplete from "./ConfirmComplete";
 import "../styles/cards.scss";
 
 const CARDS = [
@@ -21,6 +19,7 @@ const typeToIdx = { value: 0, balance: 1, quality: 2 };
 
 export default function SelectCardPage() {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const initialType = state?.selectedType ?? "balance";
   const initialIdx = typeToIdx[initialType] ?? 1;
 
@@ -28,8 +27,6 @@ export default function SelectCardPage() {
   const [offset, setOffset] = useState(0);
   const [cardType, setCardType] = useState(initialType);
   const [detailOpen, setDetailOpen] = useState(false);
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [directionsOpen, setDirectionsOpen] = useState(false);
   const [verticalDrag, setVerticalDrag] = useState(0);
   const [launching, setLaunching] = useState(false);
 
@@ -68,34 +65,22 @@ export default function SelectCardPage() {
 
   const handleConfirm = () => {
     setDetailOpen(false);
-    setConfirmOpen(true);
-  };
-
-  const handleRestart = () => {
-    setConfirmOpen(false);
-    setDetailOpen(false);
-    setDirectionsOpen(false);
-    setCardType("balance");
-    setIdx(1);
+    navigate("/confirm", { state: { restaurant: selectedRestaurant } });
   };
 
   const handleDirections = () => {
-    setDirectionsOpen(true);
-  };
-
-  const handleDirectionsBack = () => {
-    setDirectionsOpen(false);
+    navigate("/directions", { state: { restaurant: selectedRestaurant } });
   };
 
   const startDrag = useCallback(
     (x, y) => {
-      if (confirmOpen || detailOpen) return;
+      if (detailOpen) return;
 
       dragging.current = true;
       axis.current = null;
       origin.current = { x, y };
     },
-    [confirmOpen, detailOpen],
+    [detailOpen],
   );
 
   const moveDrag = useCallback((x, y) => {
@@ -160,15 +145,6 @@ export default function SelectCardPage() {
   );
 
   const swipeHint = offset < -20 ? "left" : offset > 20 ? "right" : null;
-
-  if (confirmOpen) {
-    return (
-      <ConfirmComplete
-        restaurant={selectedRestaurant}
-        onRestart={handleRestart}
-      />
-    );
-  }
 
   return (
     <div
@@ -244,12 +220,6 @@ export default function SelectCardPage() {
           onClose={handleClose}
           onConfirm={handleConfirm}
           onDirections={handleDirections}
-        />
-
-        <DirectionsView
-          open={directionsOpen}
-          restaurant={selectedRestaurant}
-          onBack={handleDirectionsBack}
         />
 
         <div className="card-dots">

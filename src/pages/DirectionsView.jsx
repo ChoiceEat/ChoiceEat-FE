@@ -1,12 +1,17 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import mapImg from "../assets/map.png";
 
-export default function DirectionsView({ open, restaurant, onBack }) {
+export default function DirectionsView() {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const restaurant = state?.restaurant;
+
   if (!restaurant) return null;
 
   const { name, walkingMinutes, distanceKm, carMinutes } = restaurant;
 
   return (
-    <div className={`directions-view${open ? " open" : ""}`}>
+    <div className="directions-view open">
       <div className="directions-map-placeholder">
         <img
           src={mapImg}
@@ -25,7 +30,7 @@ export default function DirectionsView({ open, restaurant, onBack }) {
 
       <div className="directions-btns">
         <button className="directions-btn-primary">길찾기 시작</button>
-        <button className="directions-btn-ghost" onClick={onBack}>
+        <button className="directions-btn-ghost" onClick={() => navigate(-1)}>
           ← 뒤로
         </button>
       </div>
