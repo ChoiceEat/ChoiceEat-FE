@@ -1,4 +1,8 @@
-export default function ConfirmComplete({ restaurant, onRestart }) {
+import {useNavigate} from "react-router-dom";
+export default function ConfirmComplete({ restaurant }) {
+
+  const navigate = useNavigate();
+  
   if (!restaurant) return null;
 
   return (
@@ -15,7 +19,7 @@ export default function ConfirmComplete({ restaurant, onRestart }) {
           <p>전화: {restaurant.phone}</p>
         </div>
 
-        <button className="confirm-simple-btn" onClick={onRestart}>
+        <button className="confirm-simple-btn" onClick={() => navigate("/")}>
           처음으로
         </button>
       </div>
