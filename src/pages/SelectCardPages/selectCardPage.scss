@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   /* 헤더 108px 초록, 나머지 흰색 — 전체 너비로 펼쳐짐 */
-  background: linear-gradient(to bottom, #10B981 108px, #ffffff 108px);
+  background: linear-gradient(to bottom, #10B981 60px, #ffffff 60px);
   user-select: none;
   touch-action: none;
   position: relative;
@@ -24,7 +24,7 @@
 
 /* ===== HEADER ===== */
 .scp-header {
-  height: 108px;
+  height: 60px;
   background: transparent; /* 부모 그라디언트가 초록 제공 */
   display: flex;
   align-items: flex-end;
