@@ -34,7 +34,7 @@ export default function DetailOverlay() {
         <button className="do-back-btn" onClick={onClose}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
-        <p className="do-title">{koreanBadge}을 선택하신 것 맞나요?</p>
+        <p className="do-title">oo님 {koreanBadge}을 선택하신 것 맞나요?</p>
       </div>
 
       <div className="do-scroll" ref={scrollRef}>
