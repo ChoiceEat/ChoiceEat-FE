@@ -20,7 +20,11 @@ export default function Splash() {
           className={styles.charImg}
         />
         <h1 className={styles.appName}>Choice Eat</h1>
-        <p className={styles.tagline}>오늘 뭐 먹지? 고민 끝!</p>
+        <img
+          src="/tagline.svg"
+          alt="오늘 뭐 먹지? 고민 끝!"
+          className={styles.tagline}
+        />
       </div>
       <button className={styles.startBtn} onClick={handleStart}>
         시작하기
