@@ -5,7 +5,7 @@ import Step2Vibe from "../pages/Step2Vibe/Step2Vibe";
 import Step3Menu from "../pages/Step3Menu/Step3Menu";
 import Loading from "../pages/Loading/Loading";
 import PickList from "../pages/PickList/PickList";
-import SelectCardPage from "../pages/SelectCardPage";
+import SelectCardPage from "../pages/SelectCardPages/SelectCardPage";
 import DirectionsView from "../pages/DirectionsView";
 import ConfirmComplete from "../pages/ConfirmComplete";
 
