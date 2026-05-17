@@ -1,9 +1,5 @@
-function App() {
-  return (
-    <>
-      <h1>This is main branch</h1>
-    </>
-  );
-}
+import AppRouter from "./router/AppRouter";
 
-export default App;
+export default function App() {
+  return <AppRouter />;
+}

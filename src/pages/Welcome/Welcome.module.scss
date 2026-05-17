@@ -1,0 +1,47 @@
+@use '../../styles/variables' as *;
+
+.container {
+  min-height: 100dvh;
+  background: $bg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 20px 48px;
+}
+
+.topText {
+  width: auto;
+  height: 20px;       
+}
+
+.mainImg {
+  width: 280px;      
+  height: auto;
+}
+
+.desc {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #17110e;
+  text-align: center;
+  line-height: 23px;
+  letter-spacing: -0.5px;
+}
+
+.btn {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 99px;   
+  background: $green;
+  color: #fff;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active { opacity: 0.85; }
+}

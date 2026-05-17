@@ -1,0 +1,48 @@
+@use '../../styles/variables' as *;
+
+.container {
+  min-height: 100dvh;
+  background: $bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinnerWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(46, 204, 138, 0.2);
+  border-top-color: $green;
+  border-left-color: $green;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.subText {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 20px;
+  color: #17110e;
+  font-weight: 400;
+  margin-top: 24px;
+}
+
+.mainText {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #007542;
+  text-align: center;
+  line-height: 1.5;
+  margin-top: 8px;
+}
