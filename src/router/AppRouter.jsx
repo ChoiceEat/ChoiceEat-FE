@@ -6,7 +6,7 @@ import Step3Menu from "../pages/Step3Menu/Step3Menu";
 import Loading from "../pages/Loading/Loading";
 import PickList from "../pages/PickList/PickList";
 import SelectCardPage from "../pages/SelectCardPages/SelectCardPage";
-import DirectionsView from "../pages/DirectionsView";
+import DirectionsView from "../pages/DirectionsView/DirectionsView";
 import ConfirmComplete from "../pages/ConfirmComplete/ConfirmComplete";
 
 export default function AppRouter() {

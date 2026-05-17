@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import mapImg from "../assets/map.png";
+import mapImg from "../../assets/map.png";
 import "./DirectionsView.scss";
 
 export default function DirectionsView() {

@@ -4,7 +4,7 @@ import { RESTAURANTS } from '../../data/restaurants';
 import BalanceCard from './BalanceCard';
 import ValueCard from './ValueCard';
 import QualityCard from './QualityCard';
-import DetailOverlay from '../../components/DetailOverlay';
+import DetailOverlay from '../DetailOverlay/DetailOverlay';
 import './selectCardPage.scss';
 import '../../styles/cards.scss';
 
