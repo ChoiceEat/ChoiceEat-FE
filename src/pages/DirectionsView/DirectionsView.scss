@@ -1,17 +1,14 @@
 .dv-page {
   width: 100vw;
   height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
-/* ===== MAP ===== */
+/* ===== MAP (full background) ===== */
 .dv-map {
-  flex: 0 0 45%;
-  position: relative;
-  overflow: hidden;
+  position: absolute;
+  inset: 0;
 
   img {
     width: 100%;
@@ -45,14 +42,22 @@
 
 /* ===== BOTTOM SHEET ===== */
 .dv-sheet {
-  flex: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60dvh;
   background: #fff;
   border-radius: 24px 24px 0 0;
-  margin-top: -24px;
   padding: 12px 24px 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  touch-action: none;
+
+  &--snapping {
+    transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+  }
 }
 
 .dv-sheet-handle {
