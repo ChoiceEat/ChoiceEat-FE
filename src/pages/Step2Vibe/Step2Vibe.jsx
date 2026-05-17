@@ -9,7 +9,7 @@ export default function Step2Vibe() {
   return (
     <SelectionStep
       stepNumber={2}
-      title="당신의 분위기를 알려주세요."
+      title="당신이 원하는 분위기를 알려주세요."
       options={OPTIONS}
       selected={answers.vibe}
       onSelect={(value) => setAnswer("vibe", value)}

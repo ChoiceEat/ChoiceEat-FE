@@ -33,7 +33,12 @@ export default function Loading() {
     <div className={styles.container}>
       <div className={styles.spinnerWrap}>
         <div className={styles.spinner} />
-        <p className={styles.text}>로딩 중</p>
+        <p className={styles.subText}>잠시만 기다려 주세요...</p>
+        <p className={styles.mainText}>
+          OO님께 꼭 맞는 메뉴를
+          <br />
+          초이스 하고 있어요!
+        </p>
       </div>
     </div>
   );

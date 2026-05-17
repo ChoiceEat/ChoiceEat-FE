@@ -29,8 +29,20 @@
   to { transform: rotate(360deg); }
 }
 
-.text {
-  font-size: 15px;
-  color: #171102;
-  font-weight: 500;
+.subText {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 20px;
+  color: #17110e;
+  font-weight: 400;
+  margin-top: 24px;
+}
+
+.mainText {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #007542;
+  text-align: center;
+  line-height: 1.5;
+  margin-top: 8px;
 }

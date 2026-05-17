@@ -10,38 +10,34 @@
   padding: 80px 20px 48px;
 }
 
-.logoArea {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+.topText {
+  width: auto;
+  height: 20px;       
 }
 
-.charImg {
-  width: 180px;
-  height: 180px;
-  object-fit: contain;
+.mainImg {
+  width: 280px;      
+  height: auto;
 }
 
-.appName {
-  font-family: 'Alfa Slab One', serif;
-  font-size: 40px;
-  letter-spacing: 0.02em;
-  color: $green;
-}
-
-.tagline {
-  font-size: 20px;
+.desc {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   color: #17110e;
+  text-align: center;
+  line-height: 23px;
+  letter-spacing: -0.5px;
 }
 
-.startBtn {
+.btn {
   width: 100%;
   padding: 18px;
   border: none;
-  border-radius: 99px;
+  border-radius: 99px;   
   background: $green;
   color: #fff;
+  font-family: 'Pretendard', sans-serif;
   font-size: 17px;
   font-weight: 700;
   cursor: pointer;
