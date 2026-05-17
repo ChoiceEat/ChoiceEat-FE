@@ -4,7 +4,6 @@ import { RESTAURANTS } from '../../data/restaurants';
 import BalanceCard from './BalanceCard';
 import ValueCard from './ValueCard';
 import QualityCard from './QualityCard';
-import DetailOverlay from '../DetailOverlay/DetailOverlay';
 import './selectCardPage.scss';
 import '../../styles/cards.scss';
 
@@ -24,7 +23,6 @@ export default function SelectCardPage() {
   const [offset, setOffset] = useState(0);
   const [verticalDrag, setVerticalDrag] = useState(0);
   const [launching, setLaunching] = useState(false);
-  const [detailOpen, setDetailOpen] = useState(false);
   const [containerW, setContainerW] = useState(window.innerWidth);
   const [ready, setReady] = useState(false);
 
@@ -89,11 +87,10 @@ export default function SelectCardPage() {
   }, []);
 
   const startDrag = useCallback((x, y) => {
-    if (detailOpen) return;
     dragging.current = true;
     axis.current = null;
     origin.current = { x, y };
-  }, [detailOpen]);
+  }, []);
 
   const moveDrag = useCallback((x, y) => {
     if (!dragging.current) return;
@@ -114,8 +111,11 @@ export default function SelectCardPage() {
 
     if (dy < -SWIPE_THRESHOLD && Math.abs(dy) > Math.abs(dx)) {
       setLaunching(true);
-      setDetailOpen(true);
-      setTimeout(() => { setLaunching(false); setVerticalDrag(0); }, 420);
+      setTimeout(() => {
+        setLaunching(false);
+        setVerticalDrag(0);
+        navigate('/detail', { state: { restaurant: RESTAURANTS[TYPES[idx]] } });
+      }, 380);
       return;
     }
     setVerticalDrag(0);
@@ -123,15 +123,7 @@ export default function SelectCardPage() {
     if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dy) > Math.abs(dx)) return;
     if (dx < 0 && idx < 2) setIdx(i => i + 1);
     if (dx > 0 && idx > 0) setIdx(i => i - 1);
-  }, [idx]);
-
-  const handleClose = () => setDetailOpen(false);
-  const handleConfirm = () => {
-    setDetailOpen(false);
-    navigate('/confirm', { state: { restaurant: selectedRestaurant } });
-  };
-  const handleDirections = () =>
-    navigate('/directions', { state: { restaurant: selectedRestaurant } });
+  }, [idx, navigate]);
 
   const handleAdClick = () => {
     alert('광고 기능은 준비 중입니다.');
@@ -246,13 +238,6 @@ export default function SelectCardPage() {
         </div>
       </div>
 
-      <DetailOverlay
-        open={detailOpen}
-        restaurant={selectedRestaurant}
-        onClose={handleClose}
-        onConfirm={handleConfirm}
-        onDirections={handleDirections}
-      />
     </div>
   );
 }

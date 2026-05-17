@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./DetailOverlay.scss";
 
 const BADGE_KR = {
@@ -7,27 +8,28 @@ const BADGE_KR = {
   "VALUE PICK": "가성비 픽",
 };
 
-export default function DetailOverlay({
-  open,
-  restaurant,
-  onClose,
-  onConfirm,
-  onDirections,
-}) {
+export default function DetailOverlay() {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const restaurant = state?.restaurant;
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    if (open && scrollRef.current) scrollRef.current.scrollTop = 0;
-  }, [open, restaurant]);
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  }, []);
 
   if (!restaurant) return null;
+
+  const onClose = () => navigate(-1);
+  const onConfirm = () => navigate("/confirm", { state: { restaurant } });
+  const onDirections = () => navigate("/directions", { state: { restaurant } });
 
   const ratingValue = restaurant.rating.split(" ").pop();
   const koreanBadge = BADGE_KR[restaurant.badge] ?? restaurant.badge;
   const moreCount = restaurant.menus.length + 3;
 
   return (
-    <div className={`do-overlay${open ? " do-overlay--open" : ""}`}>
+    <div className="do-overlay do-overlay--open">
       <div className="do-header">
         <button className="do-back-btn" onClick={onClose}>
           <img src="/icons/back.png" alt="뒤로" />
