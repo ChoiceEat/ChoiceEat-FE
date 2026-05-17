@@ -7,7 +7,7 @@ import Loading from "../pages/Loading/Loading";
 import PickList from "../pages/PickList/PickList";
 import SelectCardPage from "../pages/SelectCardPages/SelectCardPage";
 import DirectionsView from "../pages/DirectionsView";
-import ConfirmComplete from "../pages/ConfirmComplete";
+import ConfirmComplete from "../pages/ConfirmComplete/ConfirmComplete";
 
 export default function AppRouter() {
   return (
