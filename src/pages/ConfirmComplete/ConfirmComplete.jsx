@@ -20,7 +20,7 @@ export default function ConfirmComplete() {
     <div className="cc-page">
       <header className="cc-header">
         <button className="cc-back-btn" onClick={() => navigate(-1)}>
-          <img src="/icons/back.svg" alt="뒤로" />
+          <img src="/icons/back.png" alt="뒤로" />
         </button>
         <span className="cc-logo">Choice Eat</span>
         <div className="cc-header-right">
