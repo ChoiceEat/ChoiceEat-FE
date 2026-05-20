@@ -15,7 +15,7 @@ export default function Step1Budget() {
       onSelect={(value) => setAnswer("budget", value)} // 선택 시 저장
       prevPath="/"
       nextPath="/step2"
-      charImg="/char-budget.png"
+      charImg="/char-budget.svg"
       speechText="00님의 예산안을 기준점으로 맛집을 찾아드릴게요!"
     />
   );

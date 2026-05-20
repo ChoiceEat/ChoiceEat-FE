@@ -15,7 +15,7 @@ export default function Step3Menu() {
       onSelect={(value) => setAnswer("menu", value)}
       prevPath="/step2"
       nextPath="/loading"
-      charImg="/char-menu.png"
+      charImg="/char-main.svg"
       speechText="00님이 먹고싶은 메뉴를 알려주세요!"
       manualNext={true} // 선택해도 자동으로 안 넘어감
     />

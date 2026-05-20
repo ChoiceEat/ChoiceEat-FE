@@ -15,19 +15,15 @@ export default function Splash() {
     <div className={styles.container}>
       <div className={styles.logoArea}>
         <img
-          src="/char-main.png"
+          src="/char-main.svg"
           alt="Choice Eat 캐릭터"
           className={styles.charImg}
         />
         <h1 className={styles.appName}>Choice Eat</h1>
-        <img
-          src="/tagline.svg"
-          alt="오늘 뭐 먹지? 고민 끝!"
-          className={styles.tagline}
-        />
+        <p className={styles.tagline}>오늘 뭐 먹지? 고민 끝!</p>
       </div>
       <button className={styles.startBtn} onClick={handleStart}>
-        시작하기
+        맛집 찾으러 가기
       </button>
     </div>
   );

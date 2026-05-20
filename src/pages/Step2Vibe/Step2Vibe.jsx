@@ -15,7 +15,7 @@ export default function Step2Vibe() {
       onSelect={(value) => setAnswer("vibe", value)}
       prevPath="/step1"
       nextPath="/step3"
-      charImg="/char-vibe.png"
+      charImg="/char-vibe.svg"
       speechText="00님이 생각하는 분위기를 알려주세요!"
     />
   );
