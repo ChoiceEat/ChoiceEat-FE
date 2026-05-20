@@ -55,9 +55,7 @@ export default function DetailOverlay() {
             </button>
 
             <div className="do-name-price">
-              <h2 className="do-name">{restaurant.name}</h2>
-              <p className="do-price">{restaurant.price} 평균</p>
-            </div>
+              <h2 className="do-name">{restaurant.name}</h2>            </div>
 
             <div className="do-rating-badge">
               <span className="do-rating-star">★</span>

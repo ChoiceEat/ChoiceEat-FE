@@ -51,8 +51,6 @@ export default function SelectCardPage() {
     return () => { cancelAnimationFrame(raf); obs.disconnect(); };
   }, []);
 
-  const selectedType = TYPES[idx];
-  const selectedRestaurant = RESTAURANTS[selectedType];
 
   const centerOffset = (containerW - CARD_W) / 2;
   const translateX = -(idx * CARD_W) + centerOffset + offset;

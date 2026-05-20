@@ -1,4 +1,4 @@
-export default function Card({ image, name, price, label, desc, meta, status, tags = [], activeTags = [], onTagClick }) {
+export default function Card({ image, name, label, desc, meta, status, tags = [], activeTags = [], onTagClick }) {
   return (
     <div className="result-card">
       <div
@@ -8,7 +8,6 @@ export default function Card({ image, name, price, label, desc, meta, status, ta
         <div className="result-card__image-overlay" />
         <div className="result-card__image-info">
           <p className="result-card__image-name">{name}</p>
-          <p className="result-card__image-price">{price}</p>
         </div>
       </div>
       <div className="result-card__body">

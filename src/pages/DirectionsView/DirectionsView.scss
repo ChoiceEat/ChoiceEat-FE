@@ -47,18 +47,20 @@
   left: 0;
   width: 100%;
   height: 60dvh;
+
   background: #fff;
   border-radius: 24px 24px 0 0;
   padding: 12px 24px 0;
+
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
   touch-action: none;
+  will-change: transform;
 
-  &--snapping {
-    transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
-  }
 }
+
 
 .dv-sheet-handle {
   width: 40px;
