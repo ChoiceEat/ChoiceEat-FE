@@ -1,6 +1,8 @@
 import balanceImg from '../assets/balance.png';
-// import valueImg from '../assets/value.png';
+import valueImg from '../assets/value.png';
 import qualityImg from '../assets/quality.png';
+import example1 from '../assets/example1.png';
+import example2 from '../assets/example2.png';
 
 export const RESTAURANTS = {
   quality: {
@@ -23,9 +25,9 @@ export const RESTAURANTS = {
     tags: ['양식', '오마카세', '혼밥', '양 많은', '데이트', '깔끔한', '모던', '주차 가능', '넓은 매장', '예약 가능'],
     selectedTags: ['주차 가능', '넓은 매장', '예약 가능'],
     menus: [
-      { name: '립아이 스테이크', price: '42,000원' },
-      { name: '트러플 파스타', price: '28,000원' },
-      { name: '하우스 와인', price: '15,000원' },
+      { name: '립아이 스테이크', price: '42,000원', image: qualityImg },
+      { name: '트러플 파스타', price: '28,000원', image: example1 },
+      { name: '하우스 와인', price: '15,000원', image: example2 },
     ],
     features: ['예약 권장', '주차 가능', '단체석 보유', '와인 페어링'],
   },
@@ -50,9 +52,9 @@ export const RESTAURANTS = {
     tags: ['일식', '데이트', '혼밥', '친구 모임', '조용한', '감성 맛집', '양 많은', '주차 가능', '요즘 핫한', '퀄리티 좋은'],
     selectedTags: ['양 많은', '주차 가능'],
     menus: [
-      { name: '시그니처 라멘', price: '14,000원' },
-      { name: '사시미 정식', price: '22,000원' },
-      { name: '계절 사이드', price: '8,000원' },
+      { name: '시그니처 라멘', price: '14,000원', image: balanceImg },
+      { name: '사시미 정식', price: '22,000원', image: example1 },
+      { name: '계절 사이드', price: '8,000원', image: example2 },
     ],
     features: ['주차 가능', '예상 웨이팅 20분', '포장 가능', '단체 예약 가능'],
   },
@@ -77,10 +79,17 @@ export const RESTAURANTS = {
     tags: ['한식', '국밥', '혼밥', '양 많은', '가성비', '깔끔한', '연중무휴', '해장', '포장가능', '넓은 매장', '예약 가능'],
     selectedTags: ['양 많은', '가성비', '포장가능'],
     menus: [
-      { name: '된장찌개 정식', price: '8,000원' },
-      { name: '순두부찌개', price: '8,000원' },
-      { name: '공기밥 추가', price: '1,000원' },
+      { name: '된장찌개 정식', price: '8,000원', image: valueImg },
+      { name: '순두부찌개', price: '8,000원', image: example1 },
+      { name: '공기밥 추가', price: '1,000원', image: example2 },
     ],
     features: ['주차 가능', '예상 웨이팅 10분', '포장 가능', '매일 운영'],
   },
 };
+
+export const RECOMMENDED_RESTAURANTS = [
+  { id: 1, type: 'value',   name: '이순신 소국밥', tag: '가성비 픽', image: valueImg },
+  { id: 2, type: 'balance', name: '이토우야',      tag: '밸런스 픽', image: balanceImg },
+  { id: 3, type: 'quality', name: '야르 레스토랑', tag: '퀄리티 픽', image: qualityImg },
+  { id: 4, name: '우왕굿',  tag: '밸런스 픽', image: '/empty-store/store4.jpg' },
+];

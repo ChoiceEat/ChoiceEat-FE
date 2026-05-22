@@ -1,14 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from '../Settings/Settings.module.scss';
-import value from '../../assets/value.png';
-import example1 from '../../assets/example1.png';
-import example2 from '../../assets/example2.png';
 import ForkKnifeIcon from '../../assets/icons/fork-knife.png';
 import HomeInactiveIcon from '../../assets/icons/home-inactive.svg';
 import SettingsInactiveIcon from '../../assets/icons/settings-inactive.svg';
 import './MenuRecommend.scss';
-
-const FOOD_IMAGES = [value, example1, example2];
 
 export default function MenuRecommend() {
   const navigate = useNavigate();
@@ -41,7 +36,7 @@ export default function MenuRecommend() {
             <div className="mr-card-img-wrap">
               <img
                 className="mr-card-img"
-                src={FOOD_IMAGES[i] ?? '/empty-food.svg'}
+                src={menu.image ?? '/empty-food.svg'}
                 alt={menu.name}
                 onError={e => { e.currentTarget.src = '/empty-food.svg'; }}
               />

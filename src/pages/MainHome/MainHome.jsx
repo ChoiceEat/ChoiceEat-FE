@@ -2,22 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainHome.scss';
 import styles from "../Settings/Settings.module.scss";
-import value from '../../assets/value.png';
-import example1 from '../../assets/example1.png';
-import example2 from '../../assets/example2.png';
 import ForkKnifeIcon from '../../assets/icons/fork-knife.png';
 import HomeActiveIcon from "../../assets/icons/home-active.svg";
 import SettingsInactiveIcon from "../../assets/icons/settings-inactive.svg";
-
-
-
-// 추천 맛집 데이터
-const recommendedRestaurants = [
-  { id: 1, name: '나는야 짜장면', tag: '밸런스 픽', image: value },
-  { id: 2, name: '우동우야',     tag: '가성비 픽', image: example1 },
-  { id: 3, name: '곱도티맛',    tag: '퀄리티 픽', image: example2 },
-  { id: 4, name: '우왕굿',      tag: '밸런스 픽', image: '/empty-store/store4.jpg' },
-];
+import { RECOMMENDED_RESTAURANTS, RESTAURANTS } from '../../data/restaurants';
 
 export default function MainHome() {
   const navigate = useNavigate();
@@ -83,18 +71,18 @@ export default function MainHome() {
             <span className="mh-highlight">초이스잇</span> 히스토리
           </h2>
 
-          {recommendedRestaurants.length === 0 ? (
+          {RECOMMENDED_RESTAURANTS.length === 0 ? (
             <div className="mh-empty-history">
               <p>초이스잇과 함께 첫 맛집을 찾아볼까요? 🍚</p>
               <img src="/char-smile.png" alt="empty" className="mh-empty-icon" />
             </div>
           ) : (
             <div className="mh-restaurant-grid">
-              {recommendedRestaurants.map((item) => (
+              {RECOMMENDED_RESTAURANTS.map((item) => (
                 <div
                   key={item.id}
                   className="mh-restaurant-card"
-                  onClick={() => navigate(`/restaurant/${item.id}`)}
+                  onClick={() => navigate('/detail', { state: { restaurant: RESTAURANTS[item.type] } })}
                 >
                   <div className="mh-card-image-wrap">
                     <img
