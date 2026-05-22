@@ -285,8 +285,32 @@
     opacity: 0.85;
   }
 
+
+
   &--confirm {
     width: 100%;
-    background: #0b6e4a;
+    background: #FAFAFA;
   }
 }
+
+.do-btn-green{
+    flex: 1;
+    height: 46px;
+    border: none;
+    border-radius: 100px;
+    color:#5C736B;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.35px;
+    cursor: pointer;
+    box-shadow: 0 8px 4px rgba(24, 150, 108, 0.1);
+    transition:
+      transform 0.14s ease,
+      opacity 0.14s ease;
+    
+
+    &:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+} 

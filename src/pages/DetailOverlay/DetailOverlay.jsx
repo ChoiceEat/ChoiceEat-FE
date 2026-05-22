@@ -149,7 +149,7 @@ export default function DetailOverlay() {
             길찾기
           </button>
         </div>
-        <button className="do-btn do-btn--confirm" onClick={onConfirm}>
+        <button className="do-btn-green do-btn--confirm" onClick={onConfirm}>
           선택 확정
         </button>
       </div>
