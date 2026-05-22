@@ -8,15 +8,16 @@ export default function Step1Budget() {
 
   return (
     <SelectionStep
-      stepNumber={1}
-      title="당신의 예산을 알려주세요."
+      stepNumber={3}
+      title="예산을 선택해주세요"
       options={OPTIONS}
       selected={answers.budget} // 저장된 선택값 표시
       onSelect={(value) => setAnswer("budget", value)} // 선택 시 저장
-      prevPath="/"
-      nextPath="/step2"
-      charImg="/char-budget.png"
+      prevPath="/step2"
+      nextPath="/loading"
+      charImg="/char-budget.svg"
       speechText="00님의 예산안을 기준점으로 맛집을 찾아드릴게요!"
+      manualNext={true} // 선택해도 자동으로 안 넘어감
     />
   );
 }

@@ -21,7 +21,7 @@ export default function DetailOverlay() {
   if (!restaurant) return null;
 
   const onClose = () => navigate(-1);
-  const onConfirm = () => navigate("/home", { state: { restaurant } });
+  const onConfirm = () => navigate("/confirm", { state: { restaurant } });
   const onDirections = () => navigate("/directions", { state: { restaurant } });
 
   const ratingValue = restaurant.rating.split(" ").pop();
@@ -55,7 +55,8 @@ export default function DetailOverlay() {
             </button>
 
             <div className="do-name-price">
-              <h2 className="do-name">{restaurant.name}</h2>            </div>
+              <h2 className="do-name">{restaurant.name}</h2>            
+            </div>
 
             <div className="do-rating-badge">
               <span className="do-rating-star">★</span>

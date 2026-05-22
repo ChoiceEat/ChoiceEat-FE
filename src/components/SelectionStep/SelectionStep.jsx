@@ -118,7 +118,15 @@ export default function SelectionStep({
               className={`${styles.optBtn} ${selected === label ? styles.active : ""}`}
               onClick={() => handleSelect(label)}
             >
-              <span className={styles.checkIcon}>✓</span>
+              <img
+                src={
+                  selected === label
+                    ? "/icons/check-active.svg"
+                    : "/icons/check-default.svg"
+                }
+                alt=""
+                className={styles.checkIcon}
+              />
               {label}
             </button>
           ))}

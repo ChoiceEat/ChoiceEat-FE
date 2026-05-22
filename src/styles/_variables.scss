@@ -1,3 +1,28 @@
+// Colors
 $green: #10b981;      /* 메인 초록색 */
-$bg: #fafafa;         /* 배경색*/
-$btn-default: #e4f0ec; /* 버튼 기본 배경색 */
+$white: #fafafa;         /* 서브 흰색 */
+$text-black: #17110e; /* 글씨 기본 검정 */
+
+// Fonts
+
+// Regular 
+@font-face {
+  font-family: 'Ria Sans'; 
+  src: url('../assets/fonts/RiaSans-Regular.woff2') format('woff2');
+  font-weight: 400; 
+  font-style: normal;
+  font-display: swap;
+}
+
+// Bold 
+@font-face {
+  font-family: 'Ria Sans'; 
+  src: url('../assets/fonts/RiaSans-Bold.woff2') format('woff2'); 
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+$font-logo: 'Alfa Slab One', serif;
+$font-title: 'Ria Sans', sans-serif;
+$font-content: 'Pretendard Variable', Pretendard, sans-serif;

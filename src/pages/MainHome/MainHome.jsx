@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainHome.scss';
+import styles from "../Settings/Settings.module.scss";
 import value from '../../assets/value.png';
 import example1 from '../../assets/example1.png';
 import example2 from '../../assets/example2.png';
+import ForkKnifeIcon from '../../assets/icons/fork-knife.png';
+import HomeActiveIcon from "../../assets/icons/home-active.svg";
+import SettingsInactiveIcon from "../../assets/icons/settings-inactive.svg";
+
+
 
 // 추천 맛집 데이터
 const recommendedRestaurants = [
@@ -15,7 +21,6 @@ const recommendedRestaurants = [
 
 export default function MainHome() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('home');
   const [savedAddress] = useState(
     () => JSON.parse(localStorage.getItem('savedAddress') || 'null')
   );
@@ -54,7 +59,7 @@ export default function MainHome() {
               찾으러 <strong>바로가기</strong>
               <button
                 className="mh-banner-arrow"
-                onClick={() => navigate('/recommend')}
+                onClick={() => navigate('/step1')}
                 aria-label="맛집 찾기"
               >
                 <img src="/icons/next.svg"/>
@@ -64,7 +69,7 @@ export default function MainHome() {
         </div>
         <div className="mh-banner-mascot">
           <img
-            src="char-menu.png"
+            src="char-main.svg"
             alt="초이스잇 마스코트"
             className="mh-mascot-img"
           />
@@ -120,36 +125,29 @@ export default function MainHome() {
         </div>
       </main>
 
-      {/* ── 하단 탭바 ── */}
-      <nav className="mh-tab-bar">
-        <button
-          className={`mh-tab-item ${activeTab === 'home' ? 'mh-tab-active' : ''}`}
-          onClick={() => { setActiveTab('home'); navigate('/'); }}
-        >
-          <img src="icons/home.svg" alt="home" className="mh-tab-icon"/>
-          <span>홈</span>
-        </button>
-
-        {/* 중앙 FAB */}
-        <button
-          className="mh-tab-fab"
-          onClick={() => navigate('/recommend')}
-          aria-label="맛집 찾기"
-        >
-          <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 3V10C8 12.2 9.8 14 12 14V26" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-            <path d="M12 3V14" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-            <path d="M16 3V26M16 3C16 3 21 6 21 10C21 14 16 14 16 14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-
-        <button
-          className={`mh-tab-item ${activeTab === 'settings' ? 'mh-tab-active' : ''}`}
-          onClick={() => setActiveTab('settings')}
-        >
-          <img src="icons/Settings.svg" alt="설정" className="mh-tab-icon"/>
-          <span>설정</span>
-        </button>
+      {/* ── 하단 내비게이션 ── */}
+      <nav className={styles.nav}>
+        <div className={styles.navBar}>
+          <button className={styles.navTab} onClick={() => navigate('/home')}>
+            <img
+              src={HomeActiveIcon}
+              alt="홈"
+              className={styles.navTabIcon}
+            />
+            <span className={`${styles.navTabLabel} ${styles.navTabLabelActive}`}>홈</span>
+          </button>
+          <button className={styles.navTab} onClick={() => navigate('/settings')}>
+            <img
+              src={SettingsInactiveIcon}
+              alt="설정"
+              className={styles.navTabIcon}
+            />
+            <span className={styles.navTabLabel}>설정</span>
+          </button>
+        </div>
+        <div className={styles.navFab} onClick={() => navigate('/step1')} style={{ cursor: 'pointer' }}>
+          <img src={ForkKnifeIcon} alt="" className={styles.navFabIcon} />
+        </div>
       </nav>
 
     </div>
