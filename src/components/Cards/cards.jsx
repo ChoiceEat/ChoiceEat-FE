@@ -3,7 +3,7 @@ import { useState } from 'react';
 const FALLBACK_IMG = '/empty-store2.svg';
 
 export default function Card({ image, name, label, desc, meta, status, tags = [], activeTags = [], onTagClick }) {
-  const [imgSrc, setImgSrc] = useState(image);
+  const [imgSrc, setImgSrc] = useState(image || FALLBACK_IMG);
 
   return (
     <div className="result-card">

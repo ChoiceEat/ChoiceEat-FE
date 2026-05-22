@@ -115,7 +115,7 @@ export default function DirectionsView() {
         <div className="dv-sheet-handle" />
 
         <div className="dv-restaurant-img">
-          <img src={image} alt={name} />
+          <img src={image || '/empty-store2.svg'} alt={name} onError={e => { e.currentTarget.src = '/empty-store2.svg'; }} />
         </div>
 
         <div className="dv-info">

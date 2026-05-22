@@ -257,6 +257,7 @@
 .do-btns {
   display: flex;
   gap: 7px;
+  margin-bottom: 8px;
 }
 
 .do-btn {
@@ -276,5 +277,10 @@
   &:active {
     transform: scale(0.97);
     opacity: 0.85;
+  }
+
+  &--confirm {
+    width: 100%;
+    background: #0b6e4a;
   }
 }

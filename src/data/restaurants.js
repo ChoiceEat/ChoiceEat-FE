@@ -1,5 +1,5 @@
 import balanceImg from '../assets/balance.png';
-import valueImg from '../assets/value.png';
+// import valueImg from '../assets/value.png';
 import qualityImg from '../assets/quality.png';
 
 export const RESTAURANTS = {
@@ -58,7 +58,7 @@ export const RESTAURANTS = {
   },
 
   value: {
-    image: valueImg,
+    image: '',
     badge: 'VALUE PICK',
     name: '이순신 소국밥',
     price: '8,000원',
