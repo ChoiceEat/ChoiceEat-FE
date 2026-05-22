@@ -17,7 +17,7 @@ export default function Welcome() {
         </p>
       </div>
       <button className={styles.btn} onClick={() => navigate("/step1")}>
-        질문하러 가기
+        답변하러 가기
       </button>
     </div>
   );
