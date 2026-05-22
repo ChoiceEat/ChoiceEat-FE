@@ -1,0 +1,122 @@
+@use '../../styles/variables' as *;
+
+.container {
+  min-height: 100dvh;
+  background: $white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px 40px;
+}
+
+.topNav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 67px;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.illustration {
+  object-fit: contain;
+  margin-top: 178px;
+}
+
+.title {
+  font-family: $font-content;
+  font-size: 22px;
+  font-weight: 700;
+  color: $text-black;
+  text-align: center;
+  margin-top: 29px;
+}
+
+.desc {
+  font-family: $font-content;
+  font-size: 16px;
+  font-weight: 500;
+  color: #91a69f;
+  text-align: center;
+  line-height: 20px;
+  letter-spacing: -0.4px;
+  margin-top: 19px;
+}
+
+.btnGroup {
+  display: flex;
+  gap: 15px;
+  margin-top: 55px;
+}
+
+.btnBack {
+  height: 45px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 80px;
+  background: #dfe3e2;
+  color: #5c736b;
+  font-family: $font-content;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active { opacity: 0.85; }
+}
+
+.btnPrimary {
+  height: 45px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 100px;
+  background: $green;
+  color: $white;
+  font-family: $font-content;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active { opacity: 0.85; }
+}
+
+.infoLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 103px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.infoText {
+  font-family: $font-content;
+  font-size: 14px;
+  font-weight: 500;
+  color: #5c736b;
+  text-align: center;
+  letter-spacing: -0.35px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

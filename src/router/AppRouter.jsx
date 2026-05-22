@@ -10,6 +10,9 @@ import SelectCardPage from "../pages/SelectCardPages/SelectCardPage";
 import DirectionsView from "../pages/DirectionsView/DirectionsView";
 import ConfirmComplete from "../pages/ConfirmComplete/ConfirmComplete";
 import DetailOverlay from "../pages/DetailOverlay/DetailOverlay";
+import LocationError from "../pages/LocationError/LocationError";
+import NetworkError from "../pages/NetworkError/NetworkError";
+import SearchError from "../pages/SearchError/SearchError";
 
 export default function AppRouter() {
   return (
@@ -25,6 +28,9 @@ export default function AppRouter() {
       <Route path="/directions" element={<DirectionsView />} />
       <Route path="/confirm" element={<ConfirmComplete />} />
       <Route path="/detail" element={<DetailOverlay />} />
+      <Route path="/location-error" element={<LocationError />} />
+      <Route path="/network-error" element={<NetworkError />} />
+      <Route path="/search-error" element={<SearchError />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
