@@ -137,7 +137,7 @@
 // 구분선
 .divider {
   height: 1px;
-  background: #e4e4e4;
+  background: #dfe3e2;
   margin: 0 30px 20px;
 }
 
@@ -168,13 +168,13 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #ffffff;
+    background: $white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
     transition: left 0.25s ease;
   }
 
   &.toggleOn {
-    background: #10b981;
+    background: $green;
 
     &::after {
       left: calc(100% - 28px); // 55 - 4(padding) - 24(thumb) - 3(gap) ≈ 27px
@@ -238,7 +238,7 @@
 }
 
 .navTabLabelActive {
-  color: #10b981;
+  color: $green;
 }
 
 
@@ -250,7 +250,7 @@
   width: 67px;
   height: 67px;
   border-radius: 100px;
-  background: linear-gradient(179.744deg, #10b981 0.22%, #089466 166.65%);
+  background: linear-gradient(179.744deg, $green 0.22%, #089466 166.65%);
   box-shadow: 0 8px 4px rgba(24, 150, 108, 0.15);
   display: flex;
   align-items: center;
@@ -278,7 +278,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #ffffff;
+  background: $white;
   border-radius: 20px 20px 0 0;
   padding: 28px 30px 48px;
   z-index: 201;
@@ -299,7 +299,7 @@
   padding: 18px 0;
   background: none;
   border: none;
-  border-bottom: 1px solid #e4e4e4;
+  border-bottom: 1px solid #dfe3e2;
   font-family: $font-content;
   font-size: 16px;
   font-weight: 500;
@@ -319,6 +319,6 @@
 }
 
 .sheetItemActive {
-  color: #10b981;
+  color: $green;
   font-weight: 600;
 }
