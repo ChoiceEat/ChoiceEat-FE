@@ -21,7 +21,7 @@ export default function DetailOverlay() {
   if (!restaurant) return null;
 
   const onClose = () => navigate(-1);
-  const onConfirm = () => navigate("/confirm", { state: { restaurant } });
+  const onConfirm = () => navigate("/home", { state: { restaurant } });
   const onDirections = () => navigate("/directions", { state: { restaurant } });
 
   const ratingValue = restaurant.rating.split(" ").pop();
@@ -41,7 +41,7 @@ export default function DetailOverlay() {
         <div className="do-card">
           {/* 이미지 영역 */}
           <div className="do-image-wrap">
-            <img className="do-main-img" src={restaurant.image} alt={restaurant.name} />
+            <img className="do-main-img" src={restaurant.image} alt={restaurant.name} onError={e => { e.currentTarget.src = '/empty-store2.svg'; }} />
             <div className="do-img-gradient" />
 
             <button className="do-share-btn" aria-label="공유">
@@ -79,16 +79,16 @@ export default function DetailOverlay() {
           {/* 사진 썸네일 */}
           <div className="do-photos">
             <div className="do-photo">
-              <img src={restaurant.image} alt="" />
+              <img src={restaurant.image} alt="" onError={e => { e.currentTarget.src = '/empty-store2.svg'; }} />
             </div>
             <div className="do-photo">
-              <img src={restaurant.image} alt="" />
+              <img src={restaurant.image} alt="" onError={e => { e.currentTarget.src = '/empty-store2.svg'; }} />
             </div>
             <div className="do-photo">
-              <img src={restaurant.image} alt="" />
+              <img src={restaurant.image} alt="" onError={e => { e.currentTarget.src = '/empty-store2.svg'; }} />
             </div>
             <div className="do-photo do-photo--more">
-              <img src={restaurant.image} alt="" />
+              <img src={restaurant.image} alt="" onError={e => { e.currentTarget.src = '/empty-store2.svg'; }} />
               <span>+{moreCount}</span>
             </div>
           </div>

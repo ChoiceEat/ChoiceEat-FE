@@ -1,10 +1,17 @@
+import { useState } from 'react';
+
+const FALLBACK_IMG = '/empty-store2.svg';
+
 export default function Card({ image, name, label, desc, meta, status, tags = [], activeTags = [], onTagClick }) {
+  const [imgSrc, setImgSrc] = useState(image);
+
   return (
     <div className="result-card">
       <div
         className="result-card__image"
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${imgSrc})` }}
       >
+        <img src={imgSrc} alt="" style={{ display: 'none' }} onError={() => setImgSrc(FALLBACK_IMG)} />
         <div className="result-card__image-overlay" />
         <div className="result-card__image-info">
           <p className="result-card__image-name">{name}</p>

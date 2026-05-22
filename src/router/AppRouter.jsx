@@ -10,6 +10,8 @@ import SelectCardPage from "../pages/SelectCardPages/SelectCardPage";
 import DirectionsView from "../pages/DirectionsView/DirectionsView";
 import ConfirmComplete from "../pages/ConfirmComplete/ConfirmComplete";
 import DetailOverlay from "../pages/DetailOverlay/DetailOverlay";
+import MainHome from "../pages/MainHome/MainHome";
+import Address from "../pages/Address/Address";
 
 export default function AppRouter() {
   return (
@@ -25,6 +27,8 @@ export default function AppRouter() {
       <Route path="/directions" element={<DirectionsView />} />
       <Route path="/confirm" element={<ConfirmComplete />} />
       <Route path="/detail" element={<DetailOverlay />} />
+      <Route path="/home" element={<MainHome />} />
+      <Route path="/address" element={<Address />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
