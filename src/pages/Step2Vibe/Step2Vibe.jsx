@@ -9,13 +9,13 @@ export default function Step2Vibe() {
   return (
     <SelectionStep
       stepNumber={2}
-      title="당신이 원하는 분위기를 알려주세요."
+      title="원하는 분위기를 선택해주세요"
       options={OPTIONS}
       selected={answers.vibe}
       onSelect={(value) => setAnswer("vibe", value)}
       prevPath="/step1"
       nextPath="/step3"
-      charImg="/char-vibe.png"
+      charImg="/char-vibe.svg"
       speechText="00님이 생각하는 분위기를 알려주세요!"
     />
   );

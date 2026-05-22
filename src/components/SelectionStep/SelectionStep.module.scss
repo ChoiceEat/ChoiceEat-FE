@@ -18,7 +18,7 @@
 .backBtn {
   background: none;
   border: none;
-  color: #fff;
+  color: $white;
   font-size: 22px;
   cursor: pointer;
   align-self: flex-start;
@@ -28,9 +28,10 @@
 }
 
 .topTitle {
-  font-size: 24px;
-  font-weight: 800;
-  color: #fff;
+  font-family: $font-title;
+  font-size: 20px;
+  font-weight: 700;
+  color: $white;
   margin-bottom: 16px;
   line-height: 1.3;
 }
@@ -53,74 +54,78 @@
 }
 
 .stepLabel {
+  font-family: $font-content;
   font-size: 12px;
-  font-weight: 700;
-  color: #fff;
+  font-weight: 500;
+  color: $white;
 }
 
 .finish {
+  font-family: $font-content;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  color: #007542;
 }
 
 .finishActive {
-  color: #fff;
-  font-weight: 700;
+  font-weight: 500;
+  color: $white;
 }
 
 .progressBar {
   height: 4px;
-  background: rgba(255, 255, 255, 0.3);
+  background: #007542;
   border-radius: 2px;
 }
 
 .progressFill {
   height: 100%;
-  background: #fff;
+  background: $white;
   border-radius: 2px;
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 말풍선 */
 .speechBubble {
-  background: #fff;
-  border-radius: 20px;
-  padding: 12px 20px;
-  margin: 16px 4px -20px;
+  background: $white;
+  border-radius: 8px;
+  padding: 9px 30px;
+  margin: 16px 0 20px;
   text-align: center;
-  font-size: 13px;
-  color: #444;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: $font-content;
+  font-size: 12px;
+  font-weight: 600;
+  color: #00754e;
+  letter-spacing: -0.3px;
   position: relative;
-  z-index: 1;
 
-  /* 말풍선 위쪽 꼬리 */
   &::before {
     content: '';
     position: absolute;
     top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 17px;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-bottom: 8px solid #fff;
+    border-bottom: 8px solid $white;
   }
 }
 
 /* ── 하단 흰색 영역 ── */
 .bottomSection {
-  background: #fff;
+  background: $white;
   flex: 1;
-  padding: 36px 20px 24px;
+  padding: 20px 20px 62px;
   display: flex;
   flex-direction: column;
 }
 
 .questionTitle {
-  font-size: 18px;
+  font-family: $font-content;
+  font-size: 22px;
   font-weight: 800;
-  color: #111;
-  margin-bottom: 20px;
+  color: $text-black;
+  margin-top: 26px;
+  margin-bottom: 38px;
 }
 
 
@@ -136,10 +141,10 @@
   padding: 16px 20px;
   border: none;
   border-radius: 99px;
-  background: $btn-default;
+  background: #e4f0ec;
   color: #5c736b;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 400;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -150,20 +155,19 @@
   /* 선택된 버튼 스타일 */
   &.active {
     background: $green;
-    color: #fff;
+    color: $white;
     font-weight: 700;
 
-    .checkIcon { color: #fff; }
+    .checkIcon { color: $white; }
   }
 
   &:active { transform: scale(0.98); }
 }
 
 .checkIcon {
-  font-size: 16px;
-  color: #ccc;
   flex-shrink: 0;
-  font-weight: 700;
+  width: 25px;
+  height: 25px;
 }
 
 /* Step3 전용 검색하기 버튼 */
@@ -172,10 +176,11 @@
   padding: 18px;
   border: none;
   border-radius: 99px;
-  background: #ced6d3;      /* 미선택 시 회색 */
-  color: #fafafa;
-  font-size: 16px;
-  font-weight: 700;
+  background: #dfe3e2;      /* 미선택 시 회색 */
+  font-family: $font-content;
+  color: $white;
+  font-size: 18px;
+  font-weight: 600;
   margin-top: 16px;
   cursor: pointer;
   transition: background 0.2s;
