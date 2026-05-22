@@ -2,7 +2,7 @@ import balanceImg from '../assets/balance.png';
 import valueImg from '../assets/value.png';
 import qualityImg from '../assets/quality.png';
 import example1 from '../assets/example1.png';
-import example2 from '../assets/example2.png';
+// import example2 from '../assets/example2.png';
 
 export const RESTAURANTS = {
   quality: {
@@ -27,7 +27,7 @@ export const RESTAURANTS = {
     menus: [
       { name: '립아이 스테이크', price: '42,000원', image: qualityImg },
       { name: '트러플 파스타', price: '28,000원', image: example1 },
-      { name: '하우스 와인', price: '15,000원', image: example2 },
+      { name: '하우스 와인', price: '15,000원', image: ''}, //빈 이미지 테스트용
     ],
     features: ['예약 권장', '주차 가능', '단체석 보유', '와인 페어링'],
   },
@@ -54,7 +54,7 @@ export const RESTAURANTS = {
     menus: [
       { name: '시그니처 라멘', price: '14,000원', image: balanceImg },
       { name: '사시미 정식', price: '22,000원', image: example1 },
-      { name: '계절 사이드', price: '8,000원', image: example2 },
+      { name: '계절 사이드', price: '8,000원', image: '' },
     ],
     features: ['주차 가능', '예상 웨이팅 20분', '포장 가능', '단체 예약 가능'],
   },
@@ -81,7 +81,7 @@ export const RESTAURANTS = {
     menus: [
       { name: '된장찌개 정식', price: '8,000원', image: valueImg },
       { name: '순두부찌개', price: '8,000원', image: example1 },
-      { name: '공기밥 추가', price: '1,000원', image: example2 },
+      { name: '공기밥 추가', price: '1,000원', image: '' },
     ],
     features: ['주차 가능', '예상 웨이팅 10분', '포장 가능', '매일 운영'],
   },

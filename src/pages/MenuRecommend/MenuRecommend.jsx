@@ -36,7 +36,7 @@ export default function MenuRecommend() {
             <div className="mr-card-img-wrap">
               <img
                 className="mr-card-img"
-                src={menu.image ?? '/empty-food.svg'}
+                src={menu.image || '/empty-food.svg'}
                 alt={menu.name}
                 onError={e => { e.currentTarget.src = '/empty-food.svg'; }}
               />

@@ -42,7 +42,7 @@ export default function MainHome() {
       <section className="mh-banner">
         <div className="mh-banner-content">
           <p className="mh-banner-text">
-            {savedAddress ? savedAddress.name : '나만의'} 맛집<br />
+            나만의 맛집<br />
             <span className="mh-banner-text-row">
               찾으러 <strong>바로가기</strong>
               <button
