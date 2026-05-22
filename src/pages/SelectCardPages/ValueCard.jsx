@@ -3,8 +3,17 @@ import Card from "../../components/Cards/cards";
 import { RESTAURANTS } from "../../data/restaurants";
 
 export default function ValueCard({ activeTags, onTagClick }) {
-  const { image, name, desc, rating, reviews, category, distance, status, tags } =
-    RESTAURANTS.value;
+  const {
+    image,
+    name,
+    desc,
+    rating,
+    reviews,
+    category,
+    distance,
+    status,
+    tags,
+  } = RESTAURANTS.value;
   return (
     <Card
       image={image}

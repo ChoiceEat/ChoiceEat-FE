@@ -91,7 +91,11 @@
 .do-img-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(72, 72, 72, 0) 37%, rgb(26, 26, 26) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(72, 72, 72, 0) 37%,
+    rgb(26, 26, 26) 100%
+  );
   border-radius: 20px;
 }
 
@@ -272,7 +276,9 @@
   letter-spacing: -0.35px;
   cursor: pointer;
   box-shadow: 0 8px 4px rgba(24, 150, 108, 0.1);
-  transition: transform 0.14s ease, opacity 0.14s ease;
+  transition:
+    transform 0.14s ease,
+    opacity 0.14s ease;
 
   &:active {
     transform: scale(0.97);

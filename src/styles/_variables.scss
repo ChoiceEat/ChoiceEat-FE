@@ -1,28 +1,28 @@
 // Colors
-$green: #10b981;      /* 메인 초록색 */
-$white: #fafafa;         /* 서브 흰색 */
+$green: #10b981; /* 메인 초록색 */
+$white: #fafafa; /* 서브 흰색 */
 $text-black: #17110e; /* 글씨 기본 검정 */
 
 // Fonts
 
-// Regular 
+// Regular
 @font-face {
-  font-family: 'Ria Sans'; 
-  src: url('../assets/fonts/RiaSans-Regular.woff2') format('woff2');
-  font-weight: 400; 
+  font-family: "Ria Sans";
+  src: url("../assets/fonts/RiaSans-Regular.woff2") format("woff2");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
-// Bold 
+// Bold
 @font-face {
-  font-family: 'Ria Sans'; 
-  src: url('../assets/fonts/RiaSans-Bold.woff2') format('woff2'); 
+  font-family: "Ria Sans";
+  src: url("../assets/fonts/RiaSans-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-$font-logo: 'Alfa Slab One', serif;
-$font-title: 'Ria Sans', sans-serif;
-$font-content: 'Pretendard Variable', Pretendard, sans-serif;
+$font-logo: "Alfa Slab One", serif;
+$font-title: "Ria Sans", sans-serif;
+$font-content: "Pretendard Variable", Pretendard, sans-serif;

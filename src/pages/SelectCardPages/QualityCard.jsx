@@ -3,8 +3,17 @@ import Card from "../../components/Cards/cards";
 import { RESTAURANTS } from "../../data/restaurants";
 
 export default function QualityCard({ activeTags, onTagClick }) {
-  const { image, name, desc, rating, reviews, category, distance, status, tags } =
-    RESTAURANTS.quality;
+  const {
+    image,
+    name,
+    desc,
+    rating,
+    reviews,
+    category,
+    distance,
+    status,
+    tags,
+  } = RESTAURANTS.quality;
   return (
     <Card
       image={image}

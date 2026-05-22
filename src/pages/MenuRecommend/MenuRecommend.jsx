@@ -1,9 +1,9 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import styles from '../Settings/Settings.module.scss';
-import ForkKnifeIcon from '../../assets/icons/fork-knife.png';
-import HomeInactiveIcon from '../../assets/icons/home-inactive.svg';
-import SettingsInactiveIcon from '../../assets/icons/settings-inactive.svg';
-import './MenuRecommend.scss';
+import { useLocation, useNavigate } from "react-router-dom";
+import styles from "../Settings/Settings.module.scss";
+import ForkKnifeIcon from "../../assets/icons/fork-knife.png";
+import HomeInactiveIcon from "../../assets/icons/home-inactive.svg";
+import SettingsInactiveIcon from "../../assets/icons/settings-inactive.svg";
+import "./MenuRecommend.scss";
 
 export default function MenuRecommend() {
   const navigate = useNavigate();
@@ -36,9 +36,11 @@ export default function MenuRecommend() {
             <div className="mr-card-img-wrap">
               <img
                 className="mr-card-img"
-                src={menu.image || '/empty-food.svg'}
+                src={menu.image || "/empty-food.svg"}
                 alt={menu.name}
-                onError={e => { e.currentTarget.src = '/empty-food.svg'; }}
+                onError={(e) => {
+                  e.currentTarget.src = "/empty-food.svg";
+                }}
               />
             </div>
             <div className="mr-card-info">
@@ -51,16 +53,31 @@ export default function MenuRecommend() {
 
       <nav className={styles.nav}>
         <div className={styles.navBar}>
-          <button className={styles.navTab} onClick={() => navigate('/home')}>
-            <img src={HomeInactiveIcon} alt="홈" className={styles.navTabIcon} />
+          <button className={styles.navTab} onClick={() => navigate("/home")}>
+            <img
+              src={HomeInactiveIcon}
+              alt="홈"
+              className={styles.navTabIcon}
+            />
             <span className={styles.navTabLabel}>홈</span>
           </button>
-          <button className={styles.navTab} onClick={() => navigate('/settings')}>
-            <img src={SettingsInactiveIcon} alt="설정" className={styles.navTabIcon} />
+          <button
+            className={styles.navTab}
+            onClick={() => navigate("/settings")}
+          >
+            <img
+              src={SettingsInactiveIcon}
+              alt="설정"
+              className={styles.navTabIcon}
+            />
             <span className={styles.navTabLabel}>설정</span>
           </button>
         </div>
-        <div className={styles.navFab} onClick={() => navigate('/step1')} style={{ cursor: 'pointer' }}>
+        <div
+          className={styles.navFab}
+          onClick={() => navigate("/step1")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={ForkKnifeIcon} alt="" className={styles.navFabIcon} />
         </div>
       </nav>

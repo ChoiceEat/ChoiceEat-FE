@@ -2,7 +2,11 @@
   min-height: 100dvh;
   background: #fff;
   padding: 0 24px;
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "Pretendard",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   max-width: 480px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -84,7 +88,8 @@
   width: 27px;
   height: 27px;
   object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(58%) sepia(97%) saturate(347%) hue-rotate(118deg) brightness(92%);
+  filter: brightness(0) saturate(100%) invert(58%) sepia(97%) saturate(347%)
+    hue-rotate(118deg) brightness(92%);
 }
 
 // ── 입력 가이드 ────────────────────────────────────────────

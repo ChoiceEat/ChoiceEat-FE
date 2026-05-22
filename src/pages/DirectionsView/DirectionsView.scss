@@ -58,9 +58,7 @@
   overflow: hidden;
   touch-action: none;
   will-change: transform;
-
 }
-
 
 .dv-sheet-handle {
   width: 40px;
@@ -183,7 +181,9 @@
   letter-spacing: -0.3px;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-  transition: transform 0.14s ease, opacity 0.14s ease;
+  transition:
+    transform 0.14s ease,
+    opacity 0.14s ease;
 
   img {
     width: 22px;

@@ -3,8 +3,17 @@ import Card from "../../components/Cards/cards";
 import { RESTAURANTS } from "../../data/restaurants";
 
 export default function BalanceCard({ activeTags, onTagClick }) {
-  const { image, name, desc, rating, reviews, category, distance, status, tags } =
-    RESTAURANTS.balance;
+  const {
+    image,
+    name,
+    desc,
+    rating,
+    reviews,
+    category,
+    distance,
+    status,
+    tags,
+  } = RESTAURANTS.balance;
   return (
     <Card
       image={image}
