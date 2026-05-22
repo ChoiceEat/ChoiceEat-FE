@@ -20,7 +20,6 @@
 .navRight {
   display: flex;
   align-items: center;
-  gap: 21px;
 }
 
 .iconBtn {
@@ -35,8 +34,6 @@
 }
 
 .illustration {
-  width: 107px;
-  height: 127px;
   object-fit: contain;
   margin-top: 178px;
 }
@@ -78,13 +75,13 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
 
   &:active { opacity: 0.85; }
 }
 
-.btnSettings {
+.btnPrimary {
   height: 45px;
   padding: 0 22px;
   border: none;
@@ -95,8 +92,8 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
 
   &:active { opacity: 0.85; }
 }
@@ -118,6 +115,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #5c736b;
+  text-align: center;
   letter-spacing: -0.35px;
   text-decoration: underline;
   text-underline-offset: 3px;
