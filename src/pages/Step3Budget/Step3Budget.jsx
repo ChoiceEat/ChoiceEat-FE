@@ -9,7 +9,7 @@ export default function Step1Budget() {
   return (
     <SelectionStep
       stepNumber={3}
-      title="원하는 예산을 알려주세요."
+      title="예산을 선택해주세요"
       options={OPTIONS}
       selected={answers.budget} // 저장된 선택값 표시
       onSelect={(value) => setAnswer("budget", value)} // 선택 시 저장

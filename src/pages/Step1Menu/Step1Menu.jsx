@@ -9,7 +9,7 @@ export default function Step3Menu() {
   return (
     <SelectionStep
       stepNumber={1}
-      title="원하는 메뉴를 알려주세요."
+      title="먹고싶은 메뉴를 선택해주세요"
       options={OPTIONS}
       selected={answers.menu}
       onSelect={(value) => setAnswer("menu", value)}
