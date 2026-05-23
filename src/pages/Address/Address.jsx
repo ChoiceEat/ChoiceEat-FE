@@ -9,19 +9,23 @@ export default function Address() {
   const [hasSearched, setHasSearched] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
 
-  if (!localStorage.getItem("savedAddresses")) {
-    localStorage.setItem("savedAddresses", JSON.stringify(SAMPLE_ADDRESSES));
-  }
-  if (!localStorage.getItem("savedAddress")) {
-    localStorage.setItem("savedAddress", JSON.stringify(SAMPLE_ADDRESSES[0]));
-  }
+  const [savedAddresses] = useState(() => {
+    const stored = localStorage.getItem("savedAddresses");
+    if (!stored) {
+      localStorage.setItem("savedAddresses", JSON.stringify(SAMPLE_ADDRESSES));
+      return SAMPLE_ADDRESSES;
+    }
+    return JSON.parse(stored);
+  });
 
-  const savedAddresses = JSON.parse(
-    localStorage.getItem("savedAddresses") || "[]",
-  );
-  const activeAddress = JSON.parse(
-    localStorage.getItem("savedAddress") || "null",
-  );
+  const [activeAddress] = useState(() => {
+    const stored = localStorage.getItem("savedAddress");
+    if (!stored) {
+      localStorage.setItem("savedAddress", JSON.stringify(SAMPLE_ADDRESSES[0]));
+      return SAMPLE_ADDRESSES[0];
+    }
+    return JSON.parse(stored);
+  });
 
   const handleSearch = () => {
     const q = query.trim();
@@ -70,7 +74,11 @@ export default function Address() {
             onClick={handleBack}
             aria-label="뒤로가기"
           >
-            <img className="back-icon" src="/icons/backToaddress.svg" alt="뒤로가기" />
+            <img
+              className="back-icon"
+              src="/icons/backToaddress.svg"
+              alt="뒤로가기"
+            />
           </button>
           <input
             className="addr-pill-input"
