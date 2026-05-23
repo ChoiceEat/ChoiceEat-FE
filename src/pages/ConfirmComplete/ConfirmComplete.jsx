@@ -1,11 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "./ConfirmComplete.scss";
-
-const BADGE_LABELS = {
-  "QUALITY PICK": "퀄리티 높은 음식점",
-  "BALANCE PICK": "균형잡힌 음식점",
-  "VALUE PICK": "가성비 좋은 음식점",
-};
+import { BADGE_LABELS } from "../../data/constants";
 
 export default function ConfirmComplete() {
   const navigate = useNavigate();

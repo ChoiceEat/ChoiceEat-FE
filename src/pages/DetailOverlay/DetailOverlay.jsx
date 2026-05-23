@@ -3,12 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./DetailOverlay.scss";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "../../hooks/useHistory";
-
-const BADGE_KR = {
-  "QUALITY PICK": "퀄리티 픽",
-  "BALANCE PICK": "밸런스 픽",
-  "VALUE PICK": "가성비 픽",
-};
+import { BADGE_KR } from "../../data/constants";
 
 export default function DetailOverlay() {
   const navigate = useNavigate();
@@ -45,7 +40,9 @@ export default function DetailOverlay() {
         <button className="do-back-btn" onClick={onClose}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
-        <p className="do-title">{nickname}님 {koreanBadge}을 선택하신 것 맞나요?</p>
+        <p className="do-title">
+          {nickname}님 {koreanBadge}을 선택하신 것 맞나요?
+        </p>
       </div>
 
       <div className="do-scroll" ref={scrollRef}>
@@ -63,7 +60,7 @@ export default function DetailOverlay() {
             <div className="do-img-gradient" />
 
             <button className="do-share-btn" aria-label="공유">
-              <img src="/icons/share-detail.svg"/>
+              <img src="/icons/share-detail.svg" />
             </button>
 
             <div className="do-name-price">
