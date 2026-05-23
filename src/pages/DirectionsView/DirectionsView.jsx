@@ -1,17 +1,16 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import mapImg from "../../assets/map.png";
 import "./DirectionsView.scss";
 
-// 스냅 포지션 (translateY 값, 0 = 완전히 열림)
 const SNAP_OPEN = 0;
-const SNAP_CLOSED = window.innerHeight * 0.6 - 80; // 핸들만 보이는 높이
 
 export default function DirectionsView() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const restaurant = state?.restaurant;
+  const SNAP_CLOSED = useMemo(() => window.innerHeight * 0.6 - 80, []);
 
   const sheetRef = useRef(null);
   // ref로만 관리 → 클로저 캡처 문제 없음
