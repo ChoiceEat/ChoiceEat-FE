@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
+import { useAuth } from "../../hooks/useAuth";
 import CharacterImg from "../../../public/char-login.svg";
 import PersonIcon from "../../assets/icons/person.svg";
 import LockIcon from "../../assets/icons/lock.svg";
@@ -9,6 +10,7 @@ import EyeIcon from "../../assets/icons/eye.svg";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +36,8 @@ export default function Login() {
       return;
     }
 
-    navigate("/home");
+    login({ email: user.email, nickname: user.nickname });
+    navigate("/welcome");
   };
 
   return (
