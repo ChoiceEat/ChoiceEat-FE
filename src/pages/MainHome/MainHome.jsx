@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MainHome.scss";
-import styles from "../Settings/Settings.module.scss";
-import ForkKnifeIcon from "../../assets/icons/fork-knife.png";
-import HomeActiveIcon from "../../assets/icons/home-active.svg";
-import SettingsInactiveIcon from "../../assets/icons/settings-inactive.svg";
+import BottomNav from "../../components/BottomNav/BottomNav";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "../../hooks/useHistory";
 
@@ -79,14 +76,13 @@ export default function MainHome() {
       <main className="mh-main">
         <section className="mh-section">
           <h2 className="mh-section-title">
-             <button
+            <button
               className="mh-location-btn"
               onClick={() => navigate("/menu-history")}
-              >
+            >
               <span className="mh-highlight">초이스잇</span> 히스토리
               <img src="/icons/arrow-right.svg" className="mh-chevron" />
             </button>
-            
           </h2>
 
           {historyList.length === 0 ? (
@@ -104,9 +100,7 @@ export default function MainHome() {
                 <div
                   key={restaurant.name}
                   className="mh-restaurant-card"
-                  onClick={() =>
-                    navigate("/detail", { state: { restaurant } })
-                  }
+                  onClick={() => navigate("/detail", { state: { restaurant } })}
                 >
                   <div className="mh-card-image-wrap">
                     <img
@@ -137,37 +131,7 @@ export default function MainHome() {
         </div>
       </main>
 
-      {/* ── 하단 내비게이션 ── */}
-      <nav className={styles.nav}>
-        <div className={styles.navBar}>
-          <button className={styles.navTab} onClick={() => navigate("/home")}>
-            <img src={HomeActiveIcon} alt="홈" className={styles.navTabIcon} />
-            <span
-              className={`${styles.navTabLabel} ${styles.navTabLabelActive}`}
-            >
-              홈
-            </span>
-          </button>
-          <button
-            className={styles.navTab}
-            onClick={() => navigate("/settings")}
-          >
-            <img
-              src={SettingsInactiveIcon}
-              alt="설정"
-              className={styles.navTabIcon}
-            />
-            <span className={styles.navTabLabel}>설정</span>
-          </button>
-        </div>
-        <div
-          className={styles.navFab}
-          onClick={() => navigate("/welcome")}
-          style={{ cursor: "pointer" }}
-        >
-          <img src={ForkKnifeIcon} alt="" className={styles.navFabIcon} />
-        </div>
-      </nav>
+      <BottomNav activePage="home" />
     </div>
   );
 }

@@ -1,9 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import styles from "../Settings/Settings.module.scss";
-import ForkKnifeIcon from "../../assets/icons/fork-knife.png";
-import HomeInactiveIcon from "../../assets/icons/home-inactive.svg";
-import SettingsInactiveIcon from "../../assets/icons/settings-inactive.svg";
 import "./MenuRecommend.scss";
+import BottomNav from "../../components/BottomNav/BottomNav";
 
 export default function MenuRecommend() {
   const navigate = useNavigate();
@@ -51,36 +48,7 @@ export default function MenuRecommend() {
         ))}
       </div>
 
-      <nav className={styles.nav}>
-        <div className={styles.navBar}>
-          <button className={styles.navTab} onClick={() => navigate("/home")}>
-            <img
-              src={HomeInactiveIcon}
-              alt="홈"
-              className={styles.navTabIcon}
-            />
-            <span className={styles.navTabLabel}>홈</span>
-          </button>
-          <button
-            className={styles.navTab}
-            onClick={() => navigate("/settings")}
-          >
-            <img
-              src={SettingsInactiveIcon}
-              alt="설정"
-              className={styles.navTabIcon}
-            />
-            <span className={styles.navTabLabel}>설정</span>
-          </button>
-        </div>
-        <div
-          className={styles.navFab}
-          onClick={() => navigate("/step1")}
-          style={{ cursor: "pointer" }}
-        >
-          <img src={ForkKnifeIcon} alt="" className={styles.navFabIcon} />
-        </div>
-      </nav>
+      <BottomNav />
     </div>
   );
 }
