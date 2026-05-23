@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./DetailOverlay.scss";
+import { useAuth } from "../../hooks/useAuth";
+import { useHistory } from "../../hooks/useHistory";
 
 const BADGE_KR = {
   "QUALITY PICK": "퀄리티 픽",
@@ -12,7 +14,11 @@ export default function DetailOverlay() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const restaurant = state?.restaurant;
+  const fromRecommend = state?.fromRecommend ?? false;
   const scrollRef = useRef(null);
+  const { user } = useAuth();
+  const nickname = user?.nickname ?? "00";
+  const { addItem } = useHistory();
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
@@ -21,7 +27,10 @@ export default function DetailOverlay() {
   if (!restaurant) return null;
 
   const onClose = () => navigate(-1);
-  const onConfirm = () => navigate("/confirm", { state: { restaurant } });
+  const onConfirm = () => {
+    addItem(restaurant);
+    navigate("/confirm", { state: { restaurant } });
+  };
   const onDirections = () => navigate("/directions", { state: { restaurant } });
   const onMenuRecommend = () =>
     navigate("/menu-recommend", { state: { restaurant } });
@@ -36,7 +45,7 @@ export default function DetailOverlay() {
         <button className="do-back-btn" onClick={onClose}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
-        <p className="do-title">oo님 {koreanBadge}을 선택하신 것 맞나요?</p>
+        <p className="do-title">{nickname}님 {koreanBadge}을 선택하신 것 맞나요?</p>
       </div>
 
       <div className="do-scroll" ref={scrollRef}>
@@ -134,9 +143,11 @@ export default function DetailOverlay() {
             길찾기
           </button>
         </div>
-        <button className="do-btn-green do-btn--confirm" onClick={onConfirm}>
-          선택 확정
-        </button>
+        {fromRecommend && (
+          <button className="do-btn-green do-btn--confirm" onClick={onConfirm}>
+            선택 확정
+          </button>
+        )}
       </div>
     </div>
   );

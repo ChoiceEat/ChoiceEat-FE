@@ -120,7 +120,7 @@ export default function SelectCardPage() {
           setLaunching(false);
           setVerticalDrag(0);
           navigate("/detail", {
-            state: { restaurant: RESTAURANTS[TYPES[idx]] },
+            state: { restaurant: RESTAURANTS[TYPES[idx]], fromRecommend: true },
           });
         }, 380);
         return;

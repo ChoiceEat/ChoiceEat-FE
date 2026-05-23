@@ -56,7 +56,7 @@ export default function ConfirmComplete() {
       </div>
 
       <div className="cc-footer">
-        <button className="cc-home-btn" onClick={() => navigate("/")}>
+        <button className="cc-home-btn" onClick={() => navigate("/home")}>
           처음으로
         </button>
       </div>
