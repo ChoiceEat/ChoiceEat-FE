@@ -5,7 +5,7 @@ import BalanceCard from "./BalanceCard";
 import ValueCard from "./ValueCard";
 import QualityCard from "./QualityCard";
 import "./selectCardPage.scss";
-import "../../styles/cards.scss";
+import "./cards.scss";
 
 const TYPES = ["value", "balance", "quality"];
 const LABELS = ["가성비 픽", "밸런스 픽", "퀄리티 픽"];
