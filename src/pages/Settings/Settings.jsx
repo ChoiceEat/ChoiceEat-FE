@@ -134,7 +134,7 @@ export default function Setting() {
       {/* ── 하단 내비게이션 ── */}
       <nav className={styles.nav}>
         <div className={styles.navBar}>
-          <button className={styles.navTab} onClick={() => navigate("/")}>
+          <button className={styles.navTab} onClick={() => navigate("/home")}>
             <img
               src={HomeInactiveIcon}
               alt="홈"
@@ -142,7 +142,10 @@ export default function Setting() {
             />
             <span className={styles.navTabLabel}>홈</span>
           </button>
-          <button className={styles.navTab}>
+          <button
+            className={styles.navTab}
+            onClick={() => navigate("/settings")}
+          >
             <img
               src={SettingsActiveIcon}
               alt="설정"
@@ -155,7 +158,11 @@ export default function Setting() {
             </span>
           </button>
         </div>
-        <div className={styles.navFab}>
+        <div
+          className={styles.navFab}
+          onClick={() => navigate("/step1")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={ForkKnifeIcon} alt="" className={styles.navFabIcon} />
         </div>
       </nav>

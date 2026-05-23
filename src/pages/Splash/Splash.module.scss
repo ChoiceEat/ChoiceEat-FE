@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 .container {
   height: 100dvh;
@@ -53,5 +53,7 @@
   -webkit-tap-highlight-color: transparent;
   margin-top: 172px;
 
-  &:active { opacity: 0.85; }
+  &:active {
+    opacity: 0.85;
+  }
 }

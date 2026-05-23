@@ -54,9 +54,6 @@ export default function SelectCardPage() {
     };
   }, []);
 
-  const selectedType = TYPES[idx];
-  const selectedRestaurant = RESTAURANTS[selectedType];
-
   const centerOffset = (containerW - CARD_W) / 2;
   const translateX = -(idx * CARD_W) + centerOffset + offset;
   const animated = offset === 0 && ready;

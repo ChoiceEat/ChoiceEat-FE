@@ -1,0 +1,523 @@
+@use "../../styles/variables" as *;
+
+// ── 전체 컨테이너 ──────────────────────────────────────────
+.mh-container {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  background: $white;
+  font-family: $font-content;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+
+  @media (min-width: 768px) {
+    max-width: 100%;
+    flex-direction: row;
+  }
+}
+
+// ── 헤더 ──────────────────────────────────────────────────
+.mh-header {
+  flex-shrink: 0;
+  padding: 20px 24px 0;
+  background: $white;
+
+  @media (min-width: 768px) {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 24px 32px 0;
+    box-shadow: 0 1px 0 #e4f0ec;
+  }
+}
+
+.mh-logo {
+  font-family: $font-logo;
+  font-size: 20px;
+  font-weight: 400;
+  color: $green;
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+}
+
+.mh-header-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 16px;
+}
+
+.mh-greeting {
+  font-family: $font-content;
+  font-size: 16px;
+  color: $text-black;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: -0.4px;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.mh-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.mh-location-icon {
+  width: 21px;
+  height: 27px;
+  scale: 70%;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.mh-location-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: $font-content;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+
+  &:hover {
+    transform: scale(1.01);
+    .mh-chevron {
+      transform: translateX(2px) scale(1.05);
+    }
+  }
+
+  .mh-chevron {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    opacity: 0.6;
+  }
+}
+
+.mh-location-text {
+  font-family: $font-content;
+  font-size: 20px;
+  font-weight: 700;
+  color: $text-black;
+  letter-spacing: -0.5px;
+}
+
+// ── 배너 ──────────────────────────────────────────────────
+.mh-banner {
+  flex-shrink: 0;
+  background: $green;
+  position: relative;
+  overflow: hidden;
+  height: 187px;
+  display: flex;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    width: 320px;
+    min-width: 280px;
+    height: 100dvh;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 40px 0;
+    border-radius: 0 24px 24px 0;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 1280px) {
+    width: 380px;
+  }
+}
+
+.mh-banner-content {
+  position: absolute;
+  left: 30px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  z-index: 2;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    left: 28px;
+    bottom: 100px;
+  }
+}
+
+.mh-banner-text {
+  font-family: $font-content;
+  font-size: 36px;
+  line-height: 42px;
+  color: $white;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+
+  strong {
+    font-weight: 700;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 42px;
+    line-height: 50px;
+  }
+}
+
+.mh-banner-text-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mh-banner-arrow {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 34px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateX(3px);
+  }
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+.mh-banner-mascot {
+  position: absolute;
+  scale: 105%;
+  right: 30px;
+  top: -10px;
+  height: 100%;
+  width: 150px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  z-index: 1;
+
+  @media (min-width: 768px) {
+    scale: 130%;
+    bottom: 130px;
+    right: 30px;
+    width: 160px;
+    height: 180px;
+    top: 480px;
+  }
+}
+
+.mh-mascot-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+// ── 메인 스크롤 영역 ────────────────────────────────────────
+.mh-main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 0 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    height: 100dvh;
+    padding-bottom: 100px;
+  }
+}
+
+// ── 섹션 ──────────────────────────────────────────────────
+.mh-section {
+  padding: 0 16px;
+  margin-top: 12px;
+
+  @media (min-width: 768px) {
+    padding: 0 32px;
+  }
+}
+
+.mh-section-title {
+  font-family: $font-content;
+  font-size: 20px;
+  font-weight: 600;
+  color: $text-black;
+  margin: 0 0 16px;
+  letter-spacing: -0.3px;
+}
+
+.mh-highlight {
+  color: $green;
+}
+
+// ── 맛집 카드 그리드 ────────────────────────────────────────
+.mh-restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+
+  @media (min-width: 768px) {
+    gap: 16px;
+  }
+}
+
+.mh-restaurant-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 2.5px rgba(158, 177, 170, 0.62);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  background: #fff;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(158, 177, 170, 0.45);
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.mh-card-image-wrap {
+  width: 100%;
+  height: 102px;
+  overflow: hidden;
+  background: #e4f0ec;
+  border-radius: 10px 10px 0 0;
+}
+
+.mh-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mh-card-info {
+  padding: 4.5px 10px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #dfe3e2;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  text-align: center;
+}
+
+.mh-card-name {
+  font-family: $font-content;
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-black;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mh-card-tag {
+  font-family: $font-content;
+  font-size: 10px;
+  font-weight: 400;
+  color: #5c736b;
+  margin: 0;
+  letter-spacing: -0.25px;
+}
+
+// ── 히스토리 빈 상태 ────────────────────────────────────────
+.mh-empty-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px 8px;
+  text-align: center;
+  gap: 20px;
+
+  p {
+    font-family: $font-content;
+    font-size: 15px;
+    font-weight: 600;
+    color: $text-black;
+    margin: 0;
+    letter-spacing: -0.3px;
+    line-height: 1.5;
+  }
+}
+
+.mh-empty-icon {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.mh-empty-sub {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #5c736b !important;
+  letter-spacing: -0.3px;
+}
+
+// ── 안내 문구 칩 ────────────────────────────────────────────
+.mh-info-bar {
+  margin: 20px 24px 8px;
+  background: #e4f0ec;
+  border-radius: 100px;
+  padding: 8px 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    margin: 16px 32px 8px;
+  }
+}
+
+.mh-info-text {
+  font-family: $font-content;
+  font-size: 12px;
+  font-weight: 600;
+  color: #00754e;
+  letter-spacing: -0.3px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+
+  @media (max-width: 360px) {
+    font-size: 10px;
+    white-space: normal;
+  }
+}
+
+// ── 하단 탭바 ──────────────────────────────────────────────
+.mh-tab-bar {
+  flex-shrink: 0;
+  position: relative;
+  background: $white;
+  border: 1px solid #e4f0ec;
+  border-radius: 30px 30px 0 0;
+  height: 82px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 0 env(safe-area-inset-bottom, 0);
+  gap: 162px;
+
+  @media (min-width: 768px) {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 321px;
+    border-radius: 0;
+    border-top: 1px solid #e4f0ec;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    height: 70px;
+    padding: 12px 0 0;
+    gap: 200px;
+  }
+
+  @media (min-width: 1280px) {
+    left: 0;
+    gap: 300px;
+  }
+}
+
+.mh-tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 39px;
+
+  span {
+    font-family: $font-content;
+    font-size: 10px;
+    font-weight: 600;
+    color: #91a69f;
+    letter-spacing: -0.25px;
+    line-height: 1;
+  }
+}
+
+.mh-tab-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(67%) sepia(8%) saturate(547%)
+    hue-rotate(115deg) brightness(89%);
+  transition: filter 0.2s ease;
+}
+
+.mh-tab-active {
+  .mh-tab-icon {
+    filter: brightness(0) saturate(100%) invert(58%) sepia(97%) saturate(347%)
+      hue-rotate(118deg) brightness(92%);
+  }
+
+  span {
+    color: $green;
+  }
+}
+
+// ── 중앙 FAB ──────────────────────────────────────────────
+.mh-tab-fab {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 100px;
+  background: $green;
+  box-shadow: 0 8px 4px rgba(24, 150, 108, 0.15);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateX(-50%) scale(1.06);
+    box-shadow: 0 12px 16px rgba(24, 150, 108, 0.25);
+  }
+  &:active {
+    transform: translateX(-50%) scale(0.94);
+  }
+}
