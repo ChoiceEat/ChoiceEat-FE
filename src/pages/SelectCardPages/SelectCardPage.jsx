@@ -1,9 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RESTAURANTS } from "../../data/restaurants";
-import BalanceCard from "./BalanceCard";
-import ValueCard from "./ValueCard";
-import QualityCard from "./QualityCard";
+import PickCard from "./PickCard";
 import "./SelectCardPage.scss";
 import "./cards.scss";
 
@@ -200,24 +198,11 @@ export default function SelectCardPage() {
                 className={`scp-slide${isActive ? " scp-slide--active" : " scp-slide--inactive"}`}
                 style={{ width: CARD_W, ...(isActive ? activeCardStyle : {}) }}
               >
-                {i === 0 && (
-                  <ValueCard
-                    activeTags={activeTags.value}
-                    onTagClick={(tag) => handleTagClick("value", tag)}
-                  />
-                )}
-                {i === 1 && (
-                  <BalanceCard
-                    activeTags={activeTags.balance}
-                    onTagClick={(tag) => handleTagClick("balance", tag)}
-                  />
-                )}
-                {i === 2 && (
-                  <QualityCard
-                    activeTags={activeTags.quality}
-                    onTagClick={(tag) => handleTagClick("quality", tag)}
-                  />
-                )}
+                <PickCard
+                  type={type}
+                  activeTags={activeTags[type]}
+                  onTagClick={(tag) => handleTagClick(type, tag)}
+                />
               </div>
             );
           })}
