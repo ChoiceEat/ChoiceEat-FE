@@ -5,13 +5,17 @@ import styles from "../Settings/Settings.module.scss";
 import ForkKnifeIcon from "../../assets/icons/fork-knife.png";
 import HomeActiveIcon from "../../assets/icons/home-active.svg";
 import SettingsInactiveIcon from "../../assets/icons/settings-inactive.svg";
-import { RESTAURANTS } from "../../data/restaurants";
+import { useAuth } from "../../hooks/useAuth";
+import { useHistory } from "../../hooks/useHistory";
 
 export default function MainHome() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const nickname = user?.nickname ?? "멋사";
   const [savedAddress] = useState(() =>
     JSON.parse(localStorage.getItem("savedAddress") || "null"),
   );
+  const { list: historyList } = useHistory();
 
   return (
     <div className="mh-container">
@@ -20,7 +24,7 @@ export default function MainHome() {
         <h1 className="mh-logo">Choice Eat</h1>
         <div className="mh-header-bottom">
           <p className="mh-greeting">
-            어서오세요, <strong>멋사</strong>님 !
+            어서오세요, <strong>{nickname}</strong>님 !
           </p>
           <div className="mh-location">
             <img
@@ -54,7 +58,7 @@ export default function MainHome() {
               찾으러 <strong>바로가기</strong>
               <button
                 className="mh-banner-arrow"
-                onClick={() => navigate("/step1")}
+                onClick={() => navigate("/welcome")}
                 aria-label="맛집 찾기"
               >
                 <img src="/icons/next.svg" />
@@ -85,7 +89,7 @@ export default function MainHome() {
             
           </h2>
 
-          {Object.values(RESTAURANTS).length === 0 ? (
+          {historyList.length === 0 ? (
             <div className="mh-empty-history">
               <p>초이스잇과 함께 첫 맛집을 찾아볼까요? 🍚</p>
               <img
@@ -96,7 +100,7 @@ export default function MainHome() {
             </div>
           ) : (
             <div className="mh-restaurant-grid">
-              {Object.values(RESTAURANTS).slice(0, 4).map((restaurant) => (
+              {historyList.map((restaurant) => (
                 <div
                   key={restaurant.name}
                   className="mh-restaurant-card"
@@ -158,7 +162,7 @@ export default function MainHome() {
         </div>
         <div
           className={styles.navFab}
-          onClick={() => navigate("/step1")}
+          onClick={() => navigate("/welcome")}
           style={{ cursor: "pointer" }}
         >
           <img src={ForkKnifeIcon} alt="" className={styles.navFabIcon} />

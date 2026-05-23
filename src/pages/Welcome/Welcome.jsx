@@ -19,7 +19,7 @@ export default function Welcome() {
           몇가지 질문할게요!
         </p>
       </div>
-      <button className={styles.btn} onClick={() => navigate("/home")}>
+      <button className={styles.btn} onClick={() => navigate("/step1")}>
         답변하러 가기
       </button>
     </div>

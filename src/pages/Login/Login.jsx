@@ -37,7 +37,7 @@ export default function Login() {
     }
 
     login({ email: user.email, nickname: user.nickname });
-    navigate("/welcome");
+    navigate("/home");
   };
 
   return (

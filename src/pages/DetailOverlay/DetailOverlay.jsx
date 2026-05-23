@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./DetailOverlay.scss";
+import { useAuth } from "../../hooks/useAuth";
 
 const BADGE_KR = {
   "QUALITY PICK": "퀄리티 픽",
@@ -13,6 +14,8 @@ export default function DetailOverlay() {
   const { state } = useLocation();
   const restaurant = state?.restaurant;
   const scrollRef = useRef(null);
+  const { user } = useAuth();
+  const nickname = user?.nickname ?? "00";
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
@@ -36,7 +39,7 @@ export default function DetailOverlay() {
         <button className="do-back-btn" onClick={onClose}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
-        <p className="do-title">oo님 {koreanBadge}을 선택하신 것 맞나요?</p>
+        <p className="do-title">{nickname}님 {koreanBadge}을 선택하신 것 맞나요?</p>
       </div>
 
       <div className="do-scroll" ref={scrollRef}>

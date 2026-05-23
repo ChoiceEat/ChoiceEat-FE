@@ -103,6 +103,12 @@
   scrollbar-width: none;
 }
 
+.mhist-item-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
 .mhist-item {
   display: flex;
   align-items: center;
@@ -110,10 +116,29 @@
   padding: 24px 24px;
   cursor: pointer;
   transition: background 0.15s ease;
+  flex: 1;
 
   &:active {
     background: #f0f7f4;
   }
+}
+
+.mhist-delete-btn {
+  flex-shrink: 0;
+  margin-right: 16px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .mhist-thumb {
