@@ -8,7 +8,7 @@ export default function Splash() {
 
   const handleStart = () => {
     resetAnswers(); // 이전 선택값 초기화
-    navigate("/welcome");
+    navigate("/login");
   };
 
   return (
