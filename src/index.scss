@@ -6,13 +6,15 @@
 }
 
 /* 화면 전체 꽉 채우기 */
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   width: 100%;
 }
 
 body {
-  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }

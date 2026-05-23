@@ -35,9 +35,12 @@ export default function PickList() {
               onClick={() => handleSelect(key)}
             >
               <img
-                src={restaurant.image}
+                src={restaurant.image || "/empty-store2.svg"}
                 alt={restaurant.name}
                 className={styles.cardImg}
+                onError={(e) => {
+                  e.currentTarget.src = "/empty-store2.svg";
+                }}
               />
               <div className={styles.overlay} />
               <div className={styles.badge}>

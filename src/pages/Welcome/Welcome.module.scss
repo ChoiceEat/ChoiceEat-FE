@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 .container {
   min-height: 100dvh;
@@ -27,7 +27,7 @@
 .mainImg {
   width: 308px;
   height: 232px;
-  margin-top: 41px;    
+  margin-top: 41px;
 }
 
 .desc {
@@ -44,7 +44,7 @@
   width: 100%;
   padding: 18px;
   border: none;
-  border-radius: 99px;   
+  border-radius: 99px;
   background: $green;
   color: $white;
   font-family: $font-content;
@@ -54,5 +54,7 @@
   -webkit-tap-highlight-color: transparent;
   margin-top: 167px;
 
-  &:active { opacity: 0.85; }
+  &:active {
+    opacity: 0.85;
+  }
 }

@@ -1,4 +1,4 @@
-import { useContext } from 'react'
-import { SurveyContext } from '../context/SurveyContext'
+import { useContext } from "react";
+import { SurveyContext } from "../context/SurveyContext";
 
-export const useSurvey = () => useContext(SurveyContext)
+export const useSurvey = () => useContext(SurveyContext);

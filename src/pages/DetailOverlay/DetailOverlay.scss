@@ -20,7 +20,7 @@
 .do-header {
   flex-shrink: 0;
   position: relative;
-  height: 130px;
+  height: 100px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -29,7 +29,7 @@
 
 .do-back-btn {
   position: absolute;
-  top: 50px;
+  top: 45px;
   left: 24px;
   width: 24px;
   height: 24px;
@@ -57,9 +57,10 @@
 /* ===== SCROLL AREA ===== */
 .do-scroll {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 0 35px 100px;
+  padding: 0 35px 180px;
 }
 
 /* ===== CARD ===== */
@@ -91,7 +92,11 @@
 .do-img-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(72, 72, 72, 0) 37%, rgb(26, 26, 26) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(72, 72, 72, 0) 37%,
+    rgb(26, 26, 26) 100%
+  );
   border-radius: 20px;
 }
 
@@ -257,6 +262,7 @@
 .do-btns {
   display: flex;
   gap: 7px;
+  margin-bottom: 8px;
 }
 
 .do-btn {
@@ -271,7 +277,35 @@
   letter-spacing: -0.35px;
   cursor: pointer;
   box-shadow: 0 8px 4px rgba(24, 150, 108, 0.1);
-  transition: transform 0.14s ease, opacity 0.14s ease;
+  transition:
+    transform 0.14s ease,
+    opacity 0.14s ease;
+
+  &:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+
+  &--confirm {
+    width: 100%;
+    background: #fafafa;
+  }
+}
+
+.do-btn-green {
+  flex: 1;
+  height: 46px;
+  border: none;
+  border-radius: 100px;
+  color: #5c736b;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.35px;
+  cursor: pointer;
+  box-shadow: 0 8px 4px rgba(24, 150, 108, 0.1);
+  transition:
+    transform 0.14s ease,
+    opacity 0.14s ease;
 
   &:active {
     transform: scale(0.97);

@@ -23,6 +23,8 @@ export default function DetailOverlay() {
   const onClose = () => navigate(-1);
   const onConfirm = () => navigate("/confirm", { state: { restaurant } });
   const onDirections = () => navigate("/directions", { state: { restaurant } });
+  const onMenuRecommend = () =>
+    navigate("/menu-recommend", { state: { restaurant } });
 
   const ratingValue = restaurant.rating.split(" ").pop();
   const koreanBadge = BADGE_KR[restaurant.badge] ?? restaurant.badge;
@@ -41,22 +43,22 @@ export default function DetailOverlay() {
         <div className="do-card">
           {/* 이미지 영역 */}
           <div className="do-image-wrap">
-            <img className="do-main-img" src={restaurant.image} alt={restaurant.name} />
+            <img
+              className="do-main-img"
+              src={restaurant.image || "/empty-store2.svg"}
+              alt={restaurant.name}
+              onError={(e) => {
+                e.currentTarget.src = "/empty-store2.svg";
+              }}
+            />
             <div className="do-img-gradient" />
 
             <button className="do-share-btn" aria-label="공유">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="18" cy="5" r="3" />
-                <circle cx="6" cy="12" r="3" />
-                <circle cx="18" cy="19" r="3" />
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-              </svg>
+              <img src="/icons/share-detail.svg"/>
             </button>
 
             <div className="do-name-price">
               <h2 className="do-name">{restaurant.name}</h2>
-              <p className="do-price">{restaurant.price} 평균</p>
             </div>
 
             <div className="do-rating-badge">
@@ -71,7 +73,8 @@ export default function DetailOverlay() {
               {restaurant.rating} (리뷰 {restaurant.reviews}개)
             </p>
             <p className="do-meta">
-              {restaurant.category} • {restaurant.address} • {restaurant.distance}
+              {restaurant.category} • {restaurant.address} •{" "}
+              {restaurant.distance}
             </p>
             <p className="do-hours">영업시간: {restaurant.hours}</p>
             <p className="do-phone">전화: {restaurant.phone}</p>
@@ -81,16 +84,40 @@ export default function DetailOverlay() {
           {/* 사진 썸네일 */}
           <div className="do-photos">
             <div className="do-photo">
-              <img src={restaurant.image} alt="" />
+              <img
+                src={restaurant.image || "/empty-store2.svg"}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = "/empty-store2.svg";
+                }}
+              />
             </div>
             <div className="do-photo">
-              <img src={restaurant.image} alt="" />
+              <img
+                src={restaurant.image || "/empty-store2.svg"}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = "/empty-store2.svg";
+                }}
+              />
             </div>
             <div className="do-photo">
-              <img src={restaurant.image} alt="" />
+              <img
+                src={restaurant.image || "/empty-store2.svg"}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = "/empty-store2.svg";
+                }}
+              />
             </div>
             <div className="do-photo do-photo--more">
-              <img src={restaurant.image} alt="" />
+              <img
+                src={restaurant.image || "/empty-store2.svg"}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = "/empty-store2.svg";
+                }}
+              />
               <span>+{moreCount}</span>
             </div>
           </div>
@@ -100,9 +127,16 @@ export default function DetailOverlay() {
       {/* 고정 하단 버튼 영역 */}
       <div className="do-footer">
         <div className="do-btns">
-          <button className="do-btn" onClick={onConfirm}>선택 확정</button>
-          <button className="do-btn" onClick={onDirections}>길찾기</button>
+          <button className="do-btn" onClick={onMenuRecommend}>
+            메뉴 추천
+          </button>
+          <button className="do-btn" onClick={onDirections}>
+            길찾기
+          </button>
         </div>
+        <button className="do-btn-green do-btn--confirm" onClick={onConfirm}>
+          선택 확정
+        </button>
       </div>
     </div>
   );

@@ -6,24 +6,24 @@ $error: #ff0000;      /* 에러 빨간색 */
 
 // Fonts
 
-// Regular 
+// Regular
 @font-face {
-  font-family: 'Ria Sans'; 
-  src: url('../assets/fonts/RiaSans-Regular.woff2') format('woff2');
-  font-weight: 400; 
+  font-family: "Ria Sans";
+  src: url("../assets/fonts/RiaSans-Regular.woff2") format("woff2");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
-// Bold 
+// Bold
 @font-face {
-  font-family: 'Ria Sans'; 
-  src: url('../assets/fonts/RiaSans-Bold.woff2') format('woff2'); 
+  font-family: "Ria Sans";
+  src: url("../assets/fonts/RiaSans-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-$font-logo: 'Alfa Slab One', serif;
-$font-title: 'Ria Sans', sans-serif;
-$font-content: 'Pretendard Variable', Pretendard, sans-serif;
+$font-logo: "Alfa Slab One", serif;
+$font-title: "Ria Sans", sans-serif;
+$font-content: "Pretendard Variable", Pretendard, sans-serif;

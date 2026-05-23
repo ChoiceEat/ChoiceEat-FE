@@ -2,9 +2,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./ConfirmComplete.scss";
 
 const BADGE_LABELS = {
-  'QUALITY PICK': '퀄리티 높은 음식점',
-  'BALANCE PICK': '균형잡힌 음식점',
-  'VALUE PICK':   '가성비 좋은 음식점',
+  "QUALITY PICK": "퀄리티 높은 음식점",
+  "BALANCE PICK": "균형잡힌 음식점",
+  "VALUE PICK": "가성비 좋은 음식점",
 };
 
 export default function ConfirmComplete() {
@@ -23,8 +23,7 @@ export default function ConfirmComplete() {
           <img src="/icons/back.svg" alt="뒤로" />
         </button>
         <span className="cc-logo">Choice Eat</span>
-        <div className="cc-header-right">
-        </div>
+        <div className="cc-header-right"></div>
       </header>
 
       <div className="cc-body">
@@ -51,10 +50,6 @@ export default function ConfirmComplete() {
           <div className="cc-card__actions">
             <button className="cc-card__action-btn" aria-label="공유">
               <img src="/icons/share.svg" alt="공유" />
-            </button>
-
-            <button className="cc-card__action-btn" aria-label="복사">
-              <img src="/icons/copy.svg" alt="복사" />
             </button>
           </div>
         </div>
