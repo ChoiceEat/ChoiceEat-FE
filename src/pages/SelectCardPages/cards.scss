@@ -1,10 +1,11 @@
+@use "../../styles/variables" as *;
+
 /* ===== RESULT CARD ===== */
 .result-card {
   width: 275px;
   background: #fff;
   border-radius: 20px;
   overflow: hidden;
-  /* 아래쪽 그림자를 강하게 → 띄워진 느낌 */
   box-shadow:
     0 20px 48px rgba(0, 0, 0, 0.14),
     0 6px 16px rgba(0, 0, 0, 0.07);
@@ -42,6 +43,7 @@
   }
 
   &__image-name {
+    font-family: $font-content;
     font-size: 19px;
     font-weight: 800;
     color: #fff;
@@ -50,6 +52,7 @@
   }
 
   &__image-price {
+    font-family: $font-content;
     font-size: 13px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
@@ -65,6 +68,7 @@
   }
 
   &__label {
+    font-family: $font-content;
     font-size: 11px;
     color: rgba(0, 0, 0, 0.38);
     font-weight: 500;
@@ -72,6 +76,7 @@
   }
 
   &__desc {
+    font-family: $font-content;
     font-size: 14px;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
@@ -91,6 +96,7 @@
   }
 
   &__tag {
+    font-family: $font-content;
     padding: 4px 11px;
     border-radius: 999px;
     font-size: 11px;
@@ -110,14 +116,15 @@
     }
 
     &--active {
-      background: #10b981;
-      border-color: #10b981;
+      background: $green;
+      border-color: $green;
       color: #fff;
     }
   }
 
   /* META */
   &__meta {
+    font-family: $font-content;
     font-size: 12px;
     color: rgba(0, 0, 0, 0.48);
     text-align: center;
@@ -125,6 +132,7 @@
   }
 
   &__status {
+    font-family: $font-content;
     font-size: 11px;
     color: rgba(0, 0, 0, 0.34);
     text-align: center;

@@ -1,9 +1,11 @@
+@use "../../styles/variables" as *;
+
 .mhist-container {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  background: #fafafa;
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: $white;
+  font-family: $font-content;
   max-width: 480px;
   margin: 0 auto;
   position: relative;
@@ -43,16 +45,17 @@
 }
 
 .mhist-title {
+  font-family: $font-content;
   font-size: 20px;
   font-weight: 600;
-  color: #17110e;
+  color: $text-black;
   letter-spacing: -0.5px;
   margin: 0;
   white-space: nowrap;
 }
 
 .mhist-title-green {
-  color: #10b981;
+  color: $green;
 }
 
 .mhist-edit-row {
@@ -62,7 +65,7 @@
 }
 
 .mhist-edit-btn {
-  background: #10b981;
+  background: $green;
   border: none;
   border-radius: 100px;
   padding: 7px 16px;
@@ -70,10 +73,10 @@
   align-items: center;
   gap: 5px;
   cursor: pointer;
-  color: #fafafa;
+  color: $white;
+  font-family: $font-content;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Pretendard", sans-serif;
   letter-spacing: -0.3px;
 
   svg {
@@ -137,14 +140,16 @@
 }
 
 .mhist-name {
+  font-family: $font-content;
   font-size: 16px;
   font-weight: 600;
-  color: #17110e;
+  color: $text-black;
   margin: 0;
   letter-spacing: -0.3px;
 }
 
 .mhist-meta {
+  font-family: $font-content;
   font-size: 14px;
   font-weight: 400;
   color: #5c736b;
@@ -153,6 +158,7 @@
 }
 
 .mhist-date {
+  font-family: $font-content;
   font-size: 12px;
   font-weight: 400;
   color: #0f9065;
