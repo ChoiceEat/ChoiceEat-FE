@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import styles from "./Settings.module.scss";
 import BackIcon from "../../assets/icons/backB.svg";
 import HomeInactiveIcon from "../../assets/icons/home-inactive.svg";
@@ -11,6 +12,7 @@ const RADIUS_OPTIONS = ["1km", "2km", "3km"];
 
 export default function Setting() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const [locationPermission, setLocationPermission] = useState("허용");
   const [locationService, setLocationService] = useState("꺼짐");
@@ -21,6 +23,7 @@ export default function Setting() {
   const [showRadiusPicker, setShowRadiusPicker] = useState(false);
 
   const handleLogout = () => {
+    logout();
     navigate("/login");
   };
 
