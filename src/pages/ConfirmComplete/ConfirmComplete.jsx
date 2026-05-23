@@ -51,10 +51,6 @@ export default function ConfirmComplete() {
             <button className="cc-card__action-btn" aria-label="공유">
               <img src="/icons/share.svg" alt="공유" />
             </button>
-
-            <button className="cc-card__action-btn" aria-label="복사">
-              <img src="/icons/copy.svg" alt="복사" />
-            </button>
           </div>
         </div>
       </div>

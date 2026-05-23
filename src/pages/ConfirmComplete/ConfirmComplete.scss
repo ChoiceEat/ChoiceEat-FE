@@ -180,7 +180,6 @@
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background: #eef2f0;
   border: none;
   cursor: pointer;
   display: flex;
@@ -189,8 +188,8 @@
   transition: background 0.15s ease;
 
   img {
-    width: 18px;
-    height: 18px;
+    width: 35px;
+    height: 35px;
     object-fit: contain;
   }
 
