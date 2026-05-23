@@ -24,7 +24,11 @@ export function useHistory() {
   };
 
   const deleteItem = (name) => {
-    setList((prev) => prev.filter((r) => r.name !== name));
+    setList((prev) => {
+      const updated = prev.filter((r) => r.name !== name);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const save = (currentList) => {
