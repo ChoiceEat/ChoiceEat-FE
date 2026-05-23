@@ -12,6 +12,7 @@ export default function Step1Budget() {
   return (
     <SelectionStep
       stepNumber={3}
+      headerTitle="예산을 알려주세요."
       title="예산을 선택해주세요"
       options={OPTIONS}
       selected={answers.budget} // 저장된 선택값 표시
