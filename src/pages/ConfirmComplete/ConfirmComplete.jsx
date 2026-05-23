@@ -28,7 +28,11 @@ export default function ConfirmComplete() {
 
       <div className="cc-body">
         <div className="cc-check-wrap">
-          <div className="cc-check-circle">✓</div>
+          <img
+            src="/icons/check-default.svg"
+            alt="완료"
+            className="cc-check-icon"
+          />
         </div>
 
         <div className="cc-char">

@@ -80,17 +80,10 @@
   margin-bottom: 4px;
 }
 
-.cc-check-circle {
-  width: 44px;
-  height: 44px;
-  background: $green;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 22px;
-  font-weight: 700;
+.cc-check-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 /* Character */
@@ -106,7 +99,7 @@
 
 /* Title */
 .cc-title {
-  font-family: $font-content;
+  font-family: $font-title;
   font-size: 20px;
   font-weight: 700;
   color: #0f9065;
