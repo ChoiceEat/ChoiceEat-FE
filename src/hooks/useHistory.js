@@ -1,32 +1,35 @@
 import { useState } from "react";
-import { RESTAURANTS } from "../data/restaurants";
-import { MOCK_HISTORY_DATES } from "../data/history";
 
-const STORAGE_KEY = "choiceeat_history_deleted";
-
-const ALL_ITEMS = Object.values(RESTAURANTS)
-  .slice(0, 4)
-  .map((r, i) => ({ ...r, _histDate: MOCK_HISTORY_DATES[i] }));
-
-function loadList() {
-  const deleted = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  return ALL_ITEMS.filter((r) => !deleted.includes(r.name));
-}
+const STORAGE_KEY = "choiceeat_history";
 
 export function useHistory() {
-  const [list, setList] = useState(loadList);
+  const [list, setList] = useState(() =>
+    JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")
+  );
+
+  const addItem = (restaurant) => {
+    const date = new Date().toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    setList((prev) => {
+      const updated = [
+        { ...restaurant, _histDate: date },
+        ...prev.filter((r) => r.name !== restaurant.name),
+      ];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   const deleteItem = (name) => {
     setList((prev) => prev.filter((r) => r.name !== name));
   };
 
   const save = (currentList) => {
-    const remaining = new Set(currentList.map((r) => r.name));
-    const deleted = ALL_ITEMS.map((r) => r.name).filter(
-      (n) => !remaining.has(n)
-    );
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(deleted));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentList));
   };
 
-  return { list, deleteItem, save };
+  return { list, addItem, deleteItem, save };
 }
