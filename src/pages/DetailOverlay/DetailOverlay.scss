@@ -1,3 +1,5 @@
+@use "../../styles/variables" as *;
+
 /* ===== OVERLAY ===== */
 .do-overlay {
   position: fixed;
@@ -65,7 +67,7 @@
 
 /* ===== CARD ===== */
 .do-card {
-  background: #fafafa;
+  background: $white;
   border: 1px solid #e7f1f0;
   border-radius: 20px;
   box-shadow: 0 8px 8px 0 rgba(24, 150, 108, 0.1);
@@ -238,7 +240,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fafafa;
+    color: $white;
     font-size: 14px;
     font-weight: 600;
   }
@@ -268,10 +270,10 @@
 .do-btn {
   flex: 1;
   height: 46px;
-  background: #10b981;
+  background: $green;
   border: none;
   border-radius: 100px;
-  color: #fafafa;
+  color: $white;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: -0.35px;
@@ -288,7 +290,7 @@
 
   &--confirm {
     width: 100%;
-    background: #fafafa;
+    background: $white;
   }
 }
 
