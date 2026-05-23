@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSwipe } from "../../hooks/useSwipe";
 import { useSurvey } from "../../hooks/useSurvey";
@@ -19,6 +19,11 @@ export default function SelectionStep({
 }) {
   const navigate = useNavigate();
   const { isSearchable } = useSurvey();
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => clearTimeout(timerRef.current);
+  }, []);
 
   const location = useLocation();
 
@@ -59,11 +64,10 @@ export default function SelectionStep({
   useSwipe(goNext, goPrev);
 
   const handleSelect = (value) => {
-    // 이미 선택된 값을 다시 클릭하면 null로 취소
     const newValue = selected === value ? null : value;
     onSelect(newValue);
     if (!manualNext && newValue !== null) {
-      setTimeout(() => navigate(nextPath), 500);
+      timerRef.current = setTimeout(() => navigate(nextPath), 500);
     }
   };
 
