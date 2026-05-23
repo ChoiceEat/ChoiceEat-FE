@@ -17,6 +17,7 @@ import NetworkError from "../pages/NetworkError/NetworkError";
 import SearchError from "../pages/SearchError/SearchError";
 import Settings from "../pages/Settings/Settings";
 import MenuRecommend from "../pages/MenuRecommend/MenuRecommend";
+import MenuHistory from "../pages/MenuHistory/MenuHistory";
 
 export default function AppRouter() {
   return (
@@ -39,6 +40,7 @@ export default function AppRouter() {
       <Route path="/search-error" element={<SearchError />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/menu-recommend" element={<MenuRecommend />} />
+      <Route path="/menu-history" element={<MenuHistory />}/>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

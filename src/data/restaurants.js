@@ -2,10 +2,10 @@ import balanceImg from "../assets/balance.png";
 import valueImg from "../assets/value.png";
 import qualityImg from "../assets/quality.png";
 import example1 from "../assets/example1.png";
-// import example2 from '../assets/example2.png';
 
 export const RESTAURANTS = {
   quality: {
+    tag: "퀄리티 픽",
     image: qualityImg,
     badge: "QUALITY PICK",
     name: "야르 레스토랑",
@@ -38,12 +38,13 @@ export const RESTAURANTS = {
     menus: [
       { name: "립아이 스테이크", price: "42,000원", image: qualityImg },
       { name: "트러플 파스타", price: "28,000원", image: example1 },
-      { name: "하우스 와인", price: "15,000원", image: "" }, //빈 이미지 테스트용
+      { name: "하우스 와인", price: "15,000원", image: "" },
     ],
     features: ["예약 권장", "주차 가능", "단체석 보유", "와인 페어링"],
   },
 
   balance: {
+    tag: "밸런스 픽",
     image: balanceImg,
     badge: "BALANCE PICK",
     name: "이토우야",
@@ -82,6 +83,7 @@ export const RESTAURANTS = {
   },
 
   value: {
+    tag: "가성비 픽",
     image: "",
     badge: "VALUE PICK",
     name: "이순신 소국밥",
@@ -119,29 +121,32 @@ export const RESTAURANTS = {
     ],
     features: ["주차 가능", "예상 웨이팅 10분", "포장 가능", "매일 운영"],
   },
-};
 
-export const RECOMMENDED_RESTAURANTS = [
-  {
-    id: 1,
-    type: "value",
-    name: "이순신 소국밥",
-    tag: "가성비 픽",
-    image: valueImg,
-  },
-  {
-    id: 2,
-    type: "balance",
-    name: "이토우야",
+  extra: {
     tag: "밸런스 픽",
-    image: balanceImg,
+    image: "",
+    badge: "BALANCE PICK",
+    name: "우왕굿",
+    price: "15,000원",
+    rating: "★★★★☆ 4.0",
+    reviews: 45,
+    category: "한식",
+    distance: "600m",
+    walkingMinutes: 8,
+    distanceKm: 0.6,
+    carMinutes: 3,
+    status: "영업중",
+    hours: "10:00–21:00 (매일 운영)",
+    address: "서울시 종로구 창신동 1-1",
+    phone: "02-9999-8888",
+    desc: "지역 주민이 즐겨 찾는 가성비 좋은 맛집입니다.",
+    tags: ["한식", "혼밥", "가성비", "포장가능", "연중무휴"],
+    selectedTags: ["가성비", "포장가능"],
+    menus: [
+      { name: "제육볶음 정식", price: "12,000원", image: "" },
+      { name: "된장찌개", price: "9,000원", image: "" },
+      { name: "공기밥 추가", price: "1,000원", image: "" },
+    ],
+    features: ["포장 가능", "매일 운영"],
   },
-  {
-    id: 3,
-    type: "quality",
-    name: "야르 레스토랑",
-    tag: "퀄리티 픽",
-    image: qualityImg,
-  },
-  { id: 4, name: "우왕굿", tag: "밸런스 픽", image: "/empty-store/store4.jpg" },
-];
+};

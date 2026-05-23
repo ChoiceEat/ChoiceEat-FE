@@ -5,7 +5,7 @@ import styles from "../Settings/Settings.module.scss";
 import ForkKnifeIcon from "../../assets/icons/fork-knife.png";
 import HomeActiveIcon from "../../assets/icons/home-active.svg";
 import SettingsInactiveIcon from "../../assets/icons/settings-inactive.svg";
-import { RECOMMENDED_RESTAURANTS, RESTAURANTS } from "../../data/restaurants";
+import { RESTAURANTS } from "../../data/restaurants";
 
 export default function MainHome() {
   const navigate = useNavigate();
@@ -75,10 +75,17 @@ export default function MainHome() {
       <main className="mh-main">
         <section className="mh-section">
           <h2 className="mh-section-title">
-            <span className="mh-highlight">초이스잇</span> 히스토리
+             <button
+              className="mh-location-btn"
+              onClick={() => navigate("/menu-history")}
+              >
+              <span className="mh-highlight">초이스잇</span> 히스토리
+              <img src="/icons/arrow-right.svg" className="mh-chevron" />
+            </button>
+            
           </h2>
 
-          {RECOMMENDED_RESTAURANTS.length === 0 ? (
+          {Object.values(RESTAURANTS).length === 0 ? (
             <div className="mh-empty-history">
               <p>초이스잇과 함께 첫 맛집을 찾아볼까요? 🍚</p>
               <img
@@ -89,20 +96,18 @@ export default function MainHome() {
             </div>
           ) : (
             <div className="mh-restaurant-grid">
-              {RECOMMENDED_RESTAURANTS.map((item) => (
+              {Object.values(RESTAURANTS).slice(0, 4).map((restaurant) => (
                 <div
-                  key={item.id}
+                  key={restaurant.name}
                   className="mh-restaurant-card"
                   onClick={() =>
-                    navigate("/detail", {
-                      state: { restaurant: RESTAURANTS[item.type] },
-                    })
+                    navigate("/detail", { state: { restaurant } })
                   }
                 >
                   <div className="mh-card-image-wrap">
                     <img
-                      src={item.image}
-                      alt={item.name}
+                      src={restaurant.image || "/empty-store.png"}
+                      alt={restaurant.name}
                       className="mh-card-image"
                       onError={(e) => {
                         e.target.onerror = null;
@@ -111,8 +116,8 @@ export default function MainHome() {
                     />
                   </div>
                   <div className="mh-card-info">
-                    <p className="mh-card-name">{item.name}</p>
-                    <p className="mh-card-tag">{item.tag}</p>
+                    <p className="mh-card-name">{restaurant.name}</p>
+                    <p className="mh-card-tag">{restaurant.tag}</p>
                   </div>
                 </div>
               ))}
