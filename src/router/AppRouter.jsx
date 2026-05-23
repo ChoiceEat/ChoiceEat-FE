@@ -14,6 +14,8 @@ import LocationError from "../pages/LocationError/LocationError";
 import NetworkError from "../pages/NetworkError/NetworkError";
 import SearchError from "../pages/SearchError/SearchError";
 import Settings from "../pages/Settings/Settings";
+import Login from "../pages/Login/Login";
+import Signup from "../pages/Signup/Signup";
 
 export default function AppRouter() {
   return (
@@ -33,6 +35,8 @@ export default function AppRouter() {
       <Route path="/network-error" element={<NetworkError />} />
       <Route path="/search-error" element={<SearchError />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
