@@ -29,13 +29,15 @@
 
 // ── 제목 ──────────────────────────────────────────────────
 .addr-title {
-  font-family: $font-content;
+  font-family: $font-title;
   color: $green;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.38;
   letter-spacing: -0.5px;
   margin: 52px 0 0;
+  height: 58px;
+  width: 194px;
 }
 
 // ── 검색 입력 (초기 화면 – underline 스타일) ───────────────
