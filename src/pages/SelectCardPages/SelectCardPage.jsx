@@ -4,7 +4,7 @@ import { RESTAURANTS } from "../../data/restaurants";
 import BalanceCard from "./BalanceCard";
 import ValueCard from "./ValueCard";
 import QualityCard from "./QualityCard";
-import "./selectCardPage.scss";
+import "./SelectCardPage.scss";
 import "./cards.scss";
 
 const TYPES = ["value", "balance", "quality"];
