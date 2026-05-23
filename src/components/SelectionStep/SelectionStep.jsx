@@ -6,6 +6,7 @@ import styles from "./SelectionStep.module.scss";
 
 export default function SelectionStep({
   stepNumber, // 스텝 번호 (1, 2, 3)
+  headerTitle, // 최상단 제목 텍스트
   title, // 상단 제목 텍스트
   options, // 선택지 배열 ['한식', '중식', ...]
   selected, // 현재 선택된 값
@@ -77,7 +78,7 @@ export default function SelectionStep({
           </button>
         )}
 
-        <h2 className={styles.topTitle}>{title}</h2>
+        <h2 className={styles.topTitle}>{headerTitle}</h2>
 
         <img src={charImg} alt="캐릭터" className={styles.charImg} />
 

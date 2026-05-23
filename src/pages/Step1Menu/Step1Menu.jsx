@@ -12,6 +12,7 @@ export default function Step3Menu() {
   return (
     <SelectionStep
       stepNumber={1}
+      headerTitle="메뉴를 알려주세요."
       title="먹고싶은 메뉴를 선택해주세요"
       options={OPTIONS}
       selected={answers.menu}
