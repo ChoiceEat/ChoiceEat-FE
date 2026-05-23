@@ -70,7 +70,7 @@ export default function Address() {
             onClick={handleBack}
             aria-label="뒤로가기"
           >
-            <img src="/icons/back.svg" alt="뒤로가기" />
+            <img className="back-icon" src="/icons/backToaddress.svg" alt="뒤로가기" />
           </button>
           <input
             className="addr-pill-input"
@@ -125,7 +125,7 @@ export default function Address() {
   return (
     <div className="addr-container">
       <button className="addr-back" onClick={handleBack} aria-label="뒤로가기">
-        <img src="/icons/back.svg" alt="뒤로가기" />
+        <img src="/icons/backG.svg" alt="뒤로가기" />
       </button>
 
       <h1 className="addr-title">
