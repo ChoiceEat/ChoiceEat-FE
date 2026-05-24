@@ -1,6 +1,6 @@
 @use "../../styles/variables" as *;
 
-.addr-container {
+.container {
   min-height: 100dvh;
   background: #fff;
   padding: 0 24px;
@@ -10,8 +10,7 @@
   box-sizing: border-box;
 }
 
-// ── 뒤로가기 (초기 화면) ──────────────────────────────────
-.addr-back {
+.back {
   display: flex;
   align-items: center;
   background: none;
@@ -27,8 +26,7 @@
   }
 }
 
-// ── 제목 ──────────────────────────────────────────────────
-.addr-title {
+.title {
   font-family: $font-title;
   color: $green;
   font-size: 20px;
@@ -40,19 +38,18 @@
   width: 194px;
 }
 
-// ── 검색 입력 (초기 화면 – underline 스타일) ───────────────
-.addr-search-wrap {
+.searchWrap {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: 80px;
 }
 
-.addr-input-area {
+.inputArea {
   flex: 1;
 }
 
-.addr-input {
+.input {
   width: 100%;
   border: none;
   outline: none;
@@ -68,13 +65,13 @@
   }
 }
 
-.addr-search-line {
+.searchLine {
   height: 1px;
   background: #c8d8d3;
   margin-top: 4px;
 }
 
-.addr-search-btn {
+.searchBtn {
   background: none;
   border: none;
   padding: 4px;
@@ -85,7 +82,7 @@
   flex-shrink: 0;
 }
 
-.addr-search-icon {
+.searchIcon {
   width: 27px;
   height: 27px;
   object-fit: contain;
@@ -93,15 +90,14 @@
     hue-rotate(118deg) brightness(92%);
 }
 
-// ── 입력 가이드 ────────────────────────────────────────────
-.addr-guide {
+.guide {
   margin-top: 40px;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.addr-guide-row {
+.guideRow {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -110,29 +106,27 @@
   letter-spacing: -0.25px;
 }
 
-.addr-guide-label {
+.guideLabel {
   font-weight: 700;
   color: $text-black;
   width: 39px;
   flex-shrink: 0;
 }
 
-.addr-guide-ex {
+.guideEx {
   color: #9eada9;
   flex-shrink: 0;
 }
 
-.addr-guide-text {
+.guideText {
   color: #9eada9;
 }
 
-// ── 검색 결과 화면 ─────────────────────────────────────────
-.addr-results-view {
+.resultsView {
   padding-top: 0;
 }
 
-// pill 형태 검색 바
-.addr-pill-wrap {
+.pillWrap {
   display: flex;
   align-items: center;
   margin: 71px 0 0;
@@ -144,7 +138,7 @@
   background: #fff;
 }
 
-.addr-pill-back {
+.pillBack {
   background: none;
   border: none;
   padding: 0;
@@ -160,7 +154,7 @@
   }
 }
 
-.addr-pill-input {
+.pillInput {
   flex: 1;
   border: none;
   outline: none;
@@ -174,7 +168,7 @@
   }
 }
 
-.addr-pill-search {
+.pillSearch {
   background: none;
   border: none;
   padding: 0;
@@ -185,14 +179,13 @@
   flex-shrink: 0;
 }
 
-// ── 결과 리스트 ────────────────────────────────────────────
-.addr-results {
+.results {
   list-style: none;
   margin: 23px 0 0;
   padding: 0;
 }
 
-.addr-result-item {
+.resultItem {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -210,20 +203,20 @@
   }
 }
 
-.addr-result-pin {
+.resultPin {
   width: 21px;
   height: 27px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
-.addr-result-text {
+.resultText {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.addr-result-name {
+.resultName {
   font-family: $font-content;
   font-size: 14px;
   font-weight: 700;
@@ -232,7 +225,7 @@
   letter-spacing: -0.3px;
 }
 
-.addr-result-address {
+.resultAddress {
   font-family: $font-content;
   font-size: 12px;
   font-weight: 400;
@@ -241,12 +234,11 @@
   letter-spacing: -0.25px;
 }
 
-// ── 저장된 주소 섹션 ────────────────────────────────────────
-.addr-saved-section {
+.savedSection {
   margin-top: 36px;
 }
 
-.addr-saved-title {
+.savedTitle {
   font-family: $font-content;
   font-size: 13px;
   font-weight: 700;
@@ -255,17 +247,17 @@
   letter-spacing: -0.25px;
 }
 
-.back-icon{
+.backIcon {
   height: 14px;
-  width: 7px; 
+  width: 7px;
   opacity: 0.5;
 }
 
-.addr-result-active {
+.resultActive {
   background: #f5faf8;
 }
 
-.addr-result-active-badge {
+.resultActiveBadge {
   margin-left: auto;
   font-family: $font-content;
   font-size: 11px;
@@ -277,8 +269,7 @@
   flex-shrink: 0;
 }
 
-// ── 검색 결과 없음 ──────────────────────────────────────────
-.addr-no-results {
+.noResults {
   list-style: none;
   font-family: $font-content;
   text-align: center;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./MenuHistory.scss";
+import styles from "./MenuHistory.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "../../hooks/useHistory";
@@ -19,20 +19,20 @@ export default function MenuHistory() {
   };
 
   return (
-    <div className="mhist-container">
-      <div className="mhist-header">
-        <div className="mhist-header-row">
-          <button className="mhist-back-btn" onClick={() => navigate(-1)}>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.headerRow}>
+          <button className={styles.backBtn} onClick={() => navigate(-1)}>
             <img src="/icons/back.png" alt="뒤로" />
           </button>
-          <h1 className="mhist-title">
-            <span className="mhist-title-green">{nickname}</span>님이 살펴본
+          <h1 className={styles.title}>
+            <span className={styles.titleGreen}>{nickname}</span>님이 살펴본
             식당
           </h1>
         </div>
-        <div className="mhist-edit-row">
+        <div className={styles.editRow}>
           <button
-            className="mhist-edit-btn"
+            className={styles.editBtn}
             onClick={() => (isEditing ? handleDone() : setIsEditing(true))}
           >
             <img src="/icons/edit.svg" />
@@ -41,20 +41,26 @@ export default function MenuHistory() {
         </div>
       </div>
 
-      <div className="mhist-header-divider" />
+      <div className={styles.headerDivider} />
 
-      <main className="mhist-main">
+      <main className={styles.main}>
         {list.map((restaurant, index) => (
           <div key={restaurant.name}>
-            <div className="mhist-item-wrap">
+            <div className={styles.itemWrap}>
               <div
-                className="mhist-item"
+                className={styles.item}
+                role="button"
+                tabIndex={0}
                 onClick={() => {
                   if (!isEditing)
                     navigate("/detail", { state: { restaurant } });
                 }}
+                onKeyDown={(e) => {
+                  if ((e.key === "Enter" || e.key === " ") && !isEditing)
+                    navigate("/detail", { state: { restaurant } });
+                }}
               >
-                <div className="mhist-thumb">
+                <div className={styles.thumb}>
                   <img
                     src={restaurant.image || "/empty-store.png"}
                     alt={restaurant.name}
@@ -64,18 +70,18 @@ export default function MenuHistory() {
                     }}
                   />
                 </div>
-                <div className="mhist-info">
-                  <p className="mhist-name">{restaurant.name}</p>
-                  <p className="mhist-meta">
+                <div className={styles.info}>
+                  <p className={styles.name}>{restaurant.name}</p>
+                  <p className={styles.meta}>
                     {restaurant.category}
                     {restaurant.distance ? ` • ${restaurant.distance}` : ""}
                   </p>
-                  <p className="mhist-date">{restaurant._histDate}</p>
+                  <p className={styles.date}>{restaurant._histDate}</p>
                 </div>
               </div>
               {isEditing && (
                 <button
-                  className="mhist-delete-btn"
+                  className={styles.deleteBtn}
                   onClick={() => deleteItem(restaurant.name)}
                   aria-label="삭제"
                 >
@@ -83,7 +89,7 @@ export default function MenuHistory() {
                 </button>
               )}
             </div>
-            {index < list.length - 1 && <div className="mhist-row-divider" />}
+            {index < list.length - 1 && <div className={styles.rowDivider} />}
           </div>
         ))}
       </main>

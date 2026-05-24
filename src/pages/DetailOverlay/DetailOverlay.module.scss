@@ -1,7 +1,6 @@
 @use "../../styles/variables" as *;
 
-/* ===== OVERLAY ===== */
-.do-overlay {
+.overlay {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -9,17 +8,15 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-
   transform: translateY(100%);
   transition: transform 0.44s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.do-overlay--open {
+.overlayOpen {
   transform: translateY(0);
 }
 
-/* ===== HEADER ===== */
-.do-header {
+.header {
   flex-shrink: 0;
   position: relative;
   height: 100px;
@@ -29,7 +26,7 @@
   padding-bottom: 16px;
 }
 
-.do-back-btn {
+.backBtn {
   position: absolute;
   top: 45px;
   left: 24px;
@@ -47,7 +44,7 @@
   }
 }
 
-.do-title {
+.title {
   font-size: 14px;
   font-weight: 700;
   color: #0f9065;
@@ -56,8 +53,7 @@
   margin: 0;
 }
 
-/* ===== SCROLL AREA ===== */
-.do-scroll {
+.scroll {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -65,8 +61,7 @@
   padding: 0 35px 180px;
 }
 
-/* ===== CARD ===== */
-.do-card {
+.card {
   background: $white;
   border: 1px solid #e7f1f0;
   border-radius: 20px;
@@ -75,8 +70,7 @@
   padding-bottom: 24px;
 }
 
-/* ===== IMAGE AREA ===== */
-.do-image-wrap {
+.imageWrap {
   position: relative;
   margin: 18px 18px 0;
   height: 296px;
@@ -84,14 +78,14 @@
   overflow: hidden;
 }
 
-.do-main-img {
+.mainImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.do-img-gradient {
+.imgGradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -102,7 +96,7 @@
   border-radius: 20px;
 }
 
-.do-share-btn {
+.shareBtn {
   position: absolute;
   top: 17px;
   right: 15px;
@@ -121,8 +115,7 @@
   padding: 0;
 }
 
-/* ===== NAME + PRICE OVERLAY ===== */
-.do-name-price {
+.namePrice {
   position: absolute;
   bottom: 25px;
   left: 20px;
@@ -131,7 +124,7 @@
   gap: 16px;
 }
 
-.do-name {
+.name {
   font-size: 24px;
   font-weight: 700;
   color: #e4f0ec;
@@ -139,7 +132,7 @@
   margin: 0;
 }
 
-.do-price {
+.price {
   font-size: 14px;
   font-weight: 500;
   color: #e4f0ec;
@@ -147,8 +140,7 @@
   margin: 0;
 }
 
-/* ===== RATING BADGE (bottom-right of image) ===== */
-.do-rating-badge {
+.ratingBadge {
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -163,26 +155,25 @@
   color: #5fb095;
 }
 
-.do-rating-star {
+.ratingStar {
   font-size: 20px;
   line-height: 1;
 }
 
-.do-rating-num {
+.ratingNum {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.375px;
 }
 
-/* ===== INFO SECTION ===== */
-.do-info {
+.info {
   padding: 20px 24px 0;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.do-rating-full {
+.ratingFull {
   font-size: 16px;
   font-weight: 500;
   color: #0f9065;
@@ -190,9 +181,9 @@
   margin: 0;
 }
 
-.do-meta,
-.do-hours,
-.do-phone {
+.meta,
+.hours,
+.phone {
   font-size: 12px;
   font-weight: 500;
   color: #0b2c21;
@@ -200,21 +191,20 @@
   margin: 0;
 }
 
-.do-features {
+.features {
   font-size: 10px;
   color: #5c736b;
   letter-spacing: -0.25px;
   margin: 0;
 }
 
-/* ===== PHOTO THUMBNAILS ===== */
-.do-photos {
+.photos {
   display: flex;
   gap: 11px;
   padding: 18px 29px 0;
 }
 
-.do-photo {
+.photo {
   width: 58px;
   height: 58px;
   border-radius: 10px;
@@ -229,8 +219,10 @@
     object-position: bottom;
     display: block;
   }
+}
 
-  &--more span {
+.photoMore {
+  span {
     position: absolute;
     inset: 0;
     background: rgba(92, 115, 107, 0.6);
@@ -246,8 +238,7 @@
   }
 }
 
-/* ===== FIXED FOOTER ===== */
-.do-footer {
+.footer {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -260,14 +251,13 @@
   box-shadow: 0 -12px 32px rgba(228, 240, 236, 0.7);
 }
 
-/* ===== BUTTONS ===== */
-.do-btns {
+.btns {
   display: flex;
   gap: 7px;
   margin-bottom: 8px;
 }
 
-.do-btn {
+.btn {
   flex: 1;
   height: 46px;
   background: $green;
@@ -287,16 +277,13 @@
     transform: scale(0.97);
     opacity: 0.85;
   }
-
-  &--confirm {
-    width: 100%;
-    background: $white;
-  }
 }
 
-.do-btn-green {
-  flex: 1;
+.btnConfirm {
+  width: 100%;
+  flex: unset;
   height: 46px;
+  background: $white;
   border: none;
   border-radius: 100px;
   color: #5c736b;

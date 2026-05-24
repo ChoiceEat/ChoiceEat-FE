@@ -1,6 +1,6 @@
 @use "../../styles/variables" as *;
 
-.cc-page {
+.page {
   width: 100vw;
   height: 100dvh;
   background: $white;
@@ -10,8 +10,7 @@
   touch-action: pan-y;
 }
 
-/* ===== HEADER ===== */
-.cc-header {
+.header {
   width: 100%;
   height: 108px;
   background: $green;
@@ -23,7 +22,7 @@
   position: relative;
 }
 
-.cc-back-btn {
+.backBtn {
   width: 24px;
   height: 24px;
   background: none;
@@ -40,7 +39,7 @@
   }
 }
 
-.cc-logo {
+.logo {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -52,7 +51,7 @@
   white-space: nowrap;
 }
 
-.cc-header-right {
+.headerRight {
   display: flex;
   gap: 16px;
   align-items: center;
@@ -63,8 +62,7 @@
   }
 }
 
-/* ===== BODY ===== */
-.cc-body {
+.body {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -74,20 +72,18 @@
   overflow-x: hidden;
 }
 
-/* Check */
-.cc-check-wrap {
+.checkWrap {
   margin-top: 60px;
   margin-bottom: 12px;
 }
 
-.cc-check-icon {
+.checkIcon {
   width: 49px;
   height: 49px;
   object-fit: contain;
 }
 
-/* Character */
-.cc-char {
+.char {
   margin-bottom: 16px;
 
   img {
@@ -97,8 +93,7 @@
   }
 }
 
-/* Title */
-.cc-title {
+.title {
   font-family: $font-title;
   font-size: 20px;
   font-weight: 700;
@@ -108,8 +103,7 @@
   letter-spacing: -0.3px;
 }
 
-/* Info Card */
-.cc-card {
+.card {
   width: 100%;
   max-width: 345px;
   background: #fff;
@@ -126,7 +120,7 @@
   gap: 8px;
 }
 
-.cc-card__badge {
+.cardBadge {
   font-family: $font-content;
   font-size: 16px;
   font-weight: 600;
@@ -135,7 +129,7 @@
   margin: 0;
 }
 
-.cc-card__name {
+.cardName {
   font-family: $font-content;
   font-size: 24px;
   font-weight: 700;
@@ -145,7 +139,7 @@
   margin: 0;
 }
 
-.cc-card__info {
+.cardInfo {
   display: flex;
   flex-direction: column;
   gap: 9px;
@@ -153,7 +147,7 @@
   margin-top: 4px;
 }
 
-.cc-card__meta {
+.cardMeta {
   font-family: $font-content;
   font-size: 16px;
   color: #5c736b;
@@ -162,7 +156,7 @@
   margin: 0;
 }
 
-.cc-card__sub {
+.cardSub {
   font-family: $font-content;
   font-size: 12px;
   color: #91a69f;
@@ -170,13 +164,13 @@
   margin: 0;
 }
 
-.cc-card__actions {
+.cardActions {
   display: flex;
   gap: 16px;
   margin-top: 12px;
 }
 
-.cc-card__action-btn {
+.cardActionBtn {
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -198,15 +192,14 @@
   }
 }
 
-/* ===== FOOTER ===== */
-.cc-footer {
+.footer {
   flex-shrink: 0;
   padding: 20px 24px 40px;
   display: flex;
   justify-content: center;
 }
 
-.cc-home-btn {
+.homeBtn {
   width: 100%;
   max-width: 345px;
   height: 59px;

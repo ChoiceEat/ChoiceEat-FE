@@ -1,4 +1,3 @@
-import "./cards.scss";
 import Card from "../../components/Cards/cards";
 import { RESTAURANTS } from "../../data/restaurants";
 
@@ -8,7 +7,7 @@ const CARD_LABELS = {
   value: "가성비 맛집",
 };
 
-export default function PickCard({ type, activeTags, onTagClick }) {
+export default function PickCard({ type, activeTags, onTagClick, isActive }) {
   const {
     image,
     name,
@@ -32,6 +31,7 @@ export default function PickCard({ type, activeTags, onTagClick }) {
       tags={tags}
       activeTags={activeTags}
       onTagClick={onTagClick}
+      isActive={isActive}
     />
   );
 }

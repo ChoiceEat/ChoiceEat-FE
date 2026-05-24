@@ -1,6 +1,6 @@
 @use "../../styles/variables" as *;
 
-.mr-page {
+.page {
   position: relative;
   width: 100%;
   min-height: 100dvh;
@@ -10,8 +10,7 @@
   overflow: hidden;
 }
 
-/* ===== HEADER ===== */
-.mr-header {
+.header {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -19,7 +18,7 @@
   flex-shrink: 0;
 }
 
-.mr-back-btn {
+.backBtn {
   width: 24px;
   height: 24px;
   background: none;
@@ -36,7 +35,7 @@
   }
 }
 
-.mr-logo {
+.logo {
   font-family: $font-logo;
   font-size: 28px;
   font-weight: 400;
@@ -45,8 +44,7 @@
   letter-spacing: 0;
 }
 
-/* ===== INTRO (BADGE + MASCOT) ===== */
-.mr-intro {
+.intro {
   position: relative;
   display: flex;
   align-items: flex-end;
@@ -54,12 +52,12 @@
   flex-shrink: 0;
 }
 
-.mr-badge-wrap {
+.badgeWrap {
   flex: 1;
   min-width: 0;
 }
 
-.mr-badge {
+.badge {
   display: inline-flex;
   align-items: center;
   background: $green;
@@ -80,7 +78,7 @@
   }
 }
 
-.mr-mascot {
+.mascot {
   width: 88px;
   height: 76px;
   object-fit: contain;
@@ -88,8 +86,7 @@
   margin-left: -8px;
 }
 
-/* ===== MENU LIST ===== */
-.mr-list {
+.list {
   flex: 1;
   overflow-y: auto;
   padding: 20px 24px 130px;
@@ -104,8 +101,7 @@
   scrollbar-width: none;
 }
 
-/* ===== MENU CARD ===== */
-.mr-card {
+.card {
   display: flex;
   align-items: stretch;
   border: 1px solid #dfe3e2;
@@ -115,20 +111,20 @@
   background: $white;
 }
 
-.mr-card-img-wrap {
+.cardImgWrap {
   width: 175px;
   flex-shrink: 0;
   overflow: hidden;
 }
 
-.mr-card-img {
+.cardImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.mr-card-info {
+.cardInfo {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -137,7 +133,7 @@
   min-width: 0;
 }
 
-.mr-card-name {
+.cardName {
   font-family: $font-content;
   font-size: 18px;
   font-weight: 600;
@@ -148,7 +144,7 @@
   word-break: keep-all;
 }
 
-.mr-card-price {
+.cardPrice {
   font-family: $font-content;
   font-size: 22px;
   font-weight: 700;
