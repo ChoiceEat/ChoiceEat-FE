@@ -125,7 +125,7 @@ export default function DirectionsView() {
 
         <div className={styles.btns}>
           <button className={styles.navBtn}>
-            <img src="/icons/direction.png" alt="" />
+            <img src="/icons/direction.svg" alt="" />
             길찾기
           </button>
         </div>
