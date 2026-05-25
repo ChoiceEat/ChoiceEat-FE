@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
-import mapImg from "../../assets/map.png";
+import KakaoMap from "../../components/KakaoMap/KakaoMap";
+//import mapImg from "../../assets/map.png";
 import "./DirectionsView.scss";
 
 // 스냅 포지션 (translateY 값, 0 = 완전히 열림)
@@ -13,6 +13,7 @@ export default function DirectionsView() {
   const { state } = useLocation();
   const restaurant = state?.restaurant;
 
+  
   const sheetRef = useRef(null);
   // ref로만 관리 → 클로저 캡처 문제 없음
   const isDraggingRef = useRef(false);
@@ -31,7 +32,7 @@ export default function DirectionsView() {
   }, []);
 
   if (!restaurant) return null;
-  const { name, image, walkingMinutes, distanceKm, carMinutes } = restaurant;
+  const { name, image, walkingMinutes, distanceKm, carMinutes, lat, lng } = restaurant;
 
   /** sheet에 translateY 직접 적용 (애니메이션 없이) */
   const setTranslate = (y) => {
@@ -95,7 +96,7 @@ export default function DirectionsView() {
   return (
     <div className="dv-page">
       <div className="dv-map">
-        <img src={mapImg} alt="지도" />
+        <KakaoMap lat={lat} lng={lng} />
         <button className="dv-back-btn" onClick={() => navigate(-1)}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
