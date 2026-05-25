@@ -2,7 +2,7 @@ import { useRef, useState, useCallback, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import KakaoMap from "../../components/KakaoMap/KakaoMap";
 //import mapImg from "../../assets/map.png";
-import "./DirectionsView.scss";
+import "./DirectionsView.module.scss";
 import styles from "./DirectionsView.module.scss";
 
 const SNAP_OPEN = 0;
