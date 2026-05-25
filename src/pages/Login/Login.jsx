@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import { useAuth } from "../../hooks/useAuth";
-import CharacterImg from "../../../public/char-login.svg";
 import PersonIcon from "../../assets/icons/person.svg";
 import LockIcon from "../../assets/icons/lock.svg";
 import EyeOffIcon from "../../assets/icons/eye-off.svg";
@@ -44,7 +43,7 @@ export default function Login() {
     <div className={styles.page}>
       <h1 className={styles.logo}>Choice Eat</h1>
 
-      <img src={CharacterImg} alt="" className={styles.character} />
+      <img src="/char-login.svg" alt="" className={styles.character} />
 
       <div className={styles.form}>
         {/* 아이디 */}

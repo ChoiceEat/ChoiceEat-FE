@@ -1,8 +1,7 @@
 import { useRef, useState, useCallback, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import KakaoMap from "../../components/KakaoMap/KakaoMap";
-//import mapImg from "../../assets/map.png";
-import "./DirectionsView.module.scss";
+
 import styles from "./DirectionsView.module.scss";
 
 const SNAP_OPEN = 0;
@@ -77,10 +76,10 @@ export default function DirectionsView() {
   };
 
   return (
-    <div className="dv-page">
-      <div className="dv-map">
+    <div className={styles.page}>
+      <div className={styles.map}>
         <KakaoMap lat={lat} lng={lng} />
-        <button className="dv-back-btn" onClick={() => navigate(-1)}>
+        <button className={styles.backBtn} onClick={() => navigate(-1)}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
       </div>
