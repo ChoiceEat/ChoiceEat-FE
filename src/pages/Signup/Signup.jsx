@@ -131,6 +131,7 @@ export default function Signup() {
                 className={`${styles.underlineInput} ${email ? styles.inputFilled : ""}`}
                 type="text"
                 placeholder="아이디 (이메일)"
+                aria-label="아이디 (이메일)"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -163,6 +164,7 @@ export default function Signup() {
               className={`${styles.underlineInput} ${password ? styles.inputFilled : ""}`}
               type={showPassword ? "text" : "password"}
               placeholder="비밀번호"
+              aria-label="비밀번호"
               value={password}
               onChange={(e) => handlePasswordChange(e.target.value)}
             />
@@ -193,6 +195,7 @@ export default function Signup() {
               className={`${styles.underlineInput} ${confirmPw ? styles.inputFilled : ""}`}
               type={showConfirm ? "text" : "password"}
               placeholder="비밀번호 확인"
+              aria-label="비밀번호 확인"
               value={confirmPw}
               onChange={(e) => handleConfirmChange(e.target.value)}
             />
@@ -223,6 +226,7 @@ export default function Signup() {
               className={`${styles.underlineInput} ${nickname ? styles.inputFilled : ""}`}
               type="text"
               placeholder="닉네임"
+              aria-label="닉네임"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
             />

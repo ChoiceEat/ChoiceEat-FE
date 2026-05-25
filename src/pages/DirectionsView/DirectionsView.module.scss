@@ -1,14 +1,13 @@
 @use "../../styles/variables" as *;
 
-.dv-page {
+.page {
   width: 100vw;
   height: 100dvh;
   position: relative;
   overflow: hidden;
 }
 
-/* ===== MAP (full background) ===== */
-.dv-map {
+.map {
   position: absolute;
   inset: 0;
 
@@ -19,7 +18,7 @@
   }
 }
 
-.dv-back-btn {
+.backBtn {
   position: absolute;
   top: 48px;
   left: 20px;
@@ -42,27 +41,23 @@
   }
 }
 
-/* ===== BOTTOM SHEET ===== */
-.dv-sheet {
+.sheet {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 60dvh;
-
   background: #fff;
   border-radius: 24px 24px 0 0;
   padding: 12px 24px 0;
-
   display: flex;
   flex-direction: column;
-
   overflow: hidden;
   touch-action: none;
   will-change: transform;
 }
 
-.dv-sheet-handle {
+.sheetHandle {
   width: 40px;
   height: 4px;
   background: #d1d5db;
@@ -71,8 +66,7 @@
   flex-shrink: 0;
 }
 
-/* ===== RESTAURANT IMAGE ===== */
-.dv-restaurant-img {
+.restaurantImg {
   width: 100%;
   height: 160px;
   border-radius: 16px;
@@ -87,19 +81,18 @@
   }
 }
 
-/* ===== INFO ===== */
-.dv-info {
+.info {
   flex-shrink: 0;
 }
 
-.dv-name-row {
+.nameRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 6px;
 }
 
-.dv-name {
+.name {
   font-family: $font-content;
   font-size: 24px;
   font-weight: 700;
@@ -108,7 +101,7 @@
   margin: 0;
 }
 
-.dv-more-btn {
+.moreBtn {
   background: #f3f4f6;
   border: none;
   border-radius: 50%;
@@ -123,28 +116,28 @@
   letter-spacing: -1px;
 }
 
-.dv-dots {
+.dots {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-bottom: 12px;
 }
 
-.dv-dot {
+.dot {
   display: inline-block;
   width: 8px;
   height: 4px;
   border-radius: 100px;
   background: #d1d5db;
   transition: all 0.2s;
-
-  &.active {
-    width: 20px;
-    background: $green;
-  }
 }
 
-.dv-walk {
+.dotActive {
+  width: 20px;
+  background: $green;
+}
+
+.walk {
   font-family: $font-content;
   font-size: 15px;
   font-weight: 500;
@@ -153,7 +146,7 @@
   letter-spacing: -0.2px;
 }
 
-.dv-car {
+.car {
   font-family: $font-content;
   font-size: 13px;
   color: #9ca3af;
@@ -161,8 +154,7 @@
   letter-spacing: -0.2px;
 }
 
-/* ===== BUTTONS ===== */
-.dv-btns {
+.btns {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -170,7 +162,7 @@
   padding-bottom: 36px;
 }
 
-.dv-nav-btn {
+.navBtn {
   width: 100%;
   height: 56px;
   background: $green;
@@ -204,7 +196,7 @@
   }
 }
 
-.dv-home-btn {
+.homeBtn {
   width: 100%;
   height: 48px;
   background: none;

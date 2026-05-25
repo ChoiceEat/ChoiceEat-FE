@@ -1,9 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import styles from "../Settings/Settings.module.scss";
-import ForkKnifeIcon from "../../assets/icons/fork-knife.png";
-import HomeInactiveIcon from "../../assets/icons/home-inactive.svg";
-import SettingsInactiveIcon from "../../assets/icons/settings-inactive.svg";
-import "./MenuRecommend.scss";
+import styles from "./MenuRecommend.module.scss";
+import BottomNav from "../../components/BottomNav/BottomNav";
 
 export default function MenuRecommend() {
   const navigate = useNavigate();
@@ -13,29 +10,29 @@ export default function MenuRecommend() {
   if (!restaurant) return null;
 
   return (
-    <div className="mr-page">
-      <div className="mr-header">
-        <button className="mr-back-btn" onClick={() => navigate(-1)}>
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <button className={styles.backBtn} onClick={() => navigate(-1)}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
-        <h1 className="mr-logo">Choice Eat</h1>
+        <h1 className={styles.logo}>Choice Eat</h1>
       </div>
 
-      <div className="mr-intro">
-        <div className="mr-badge-wrap">
-          <div className="mr-badge">
+      <div className={styles.intro}>
+        <div className={styles.badgeWrap}>
+          <div className={styles.badge}>
             <span>{restaurant.name}의 인기 메뉴들이에요!</span>
           </div>
         </div>
-        <img className="mr-mascot" src="/char-vibe.svg" alt="" />
+        <img className={styles.mascot} src="/char-vibe.svg" alt="" />
       </div>
 
-      <div className="mr-list">
+      <div className={styles.list}>
         {restaurant.menus.map((menu, i) => (
-          <div className="mr-card" key={i}>
-            <div className="mr-card-img-wrap">
+          <div className={styles.card} key={i}>
+            <div className={styles.cardImgWrap}>
               <img
-                className="mr-card-img"
+                className={styles.cardImg}
                 src={menu.image || "/empty-food.svg"}
                 alt={menu.name}
                 onError={(e) => {
@@ -43,44 +40,15 @@ export default function MenuRecommend() {
                 }}
               />
             </div>
-            <div className="mr-card-info">
-              <p className="mr-card-name">{menu.name}</p>
-              <p className="mr-card-price">{menu.price}</p>
+            <div className={styles.cardInfo}>
+              <p className={styles.cardName}>{menu.name}</p>
+              <p className={styles.cardPrice}>{menu.price}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <nav className={styles.nav}>
-        <div className={styles.navBar}>
-          <button className={styles.navTab} onClick={() => navigate("/home")}>
-            <img
-              src={HomeInactiveIcon}
-              alt="홈"
-              className={styles.navTabIcon}
-            />
-            <span className={styles.navTabLabel}>홈</span>
-          </button>
-          <button
-            className={styles.navTab}
-            onClick={() => navigate("/settings")}
-          >
-            <img
-              src={SettingsInactiveIcon}
-              alt="설정"
-              className={styles.navTabIcon}
-            />
-            <span className={styles.navTabLabel}>설정</span>
-          </button>
-        </div>
-        <div
-          className={styles.navFab}
-          onClick={() => navigate("/step1")}
-          style={{ cursor: "pointer" }}
-        >
-          <img src={ForkKnifeIcon} alt="" className={styles.navFabIcon} />
-        </div>
-      </nav>
+      <BottomNav />
     </div>
   );
 }

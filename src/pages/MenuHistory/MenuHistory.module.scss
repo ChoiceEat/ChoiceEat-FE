@@ -1,6 +1,6 @@
 @use "../../styles/variables" as *;
 
-.mhist-container {
+.container {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
@@ -11,21 +11,20 @@
   position: relative;
 }
 
-// ── 헤더 ──────────────────────────────────────────────────
-.mhist-header {
+.header {
   padding: 67px 24px 0;
   display: flex;
   flex-direction: column;
 }
 
-.mhist-header-row {
+.headerRow {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-bottom: 40px;
 }
 
-.mhist-back-btn {
+.backBtn {
   background: none;
   border: none;
   padding: 0;
@@ -44,7 +43,7 @@
   }
 }
 
-.mhist-title {
+.title {
   font-family: $font-content;
   font-size: 20px;
   font-weight: 600;
@@ -54,17 +53,17 @@
   white-space: nowrap;
 }
 
-.mhist-title-green {
+.titleGreen {
   color: $green;
 }
 
-.mhist-edit-row {
+.editRow {
   display: flex;
   justify-content: flex-end;
   padding-bottom: 12px;
 }
 
-.mhist-edit-btn {
+.editBtn {
   background: $green;
   border: none;
   border-radius: 100px;
@@ -84,15 +83,13 @@
   }
 }
 
-// ── 헤더 구분선 ────────────────────────────────────────────
-.mhist-header-divider {
+.headerDivider {
   height: 1px;
   background: #dfe3e2;
   width: 100%;
 }
 
-// ── 리스트 영역 ────────────────────────────────────────────
-.mhist-main {
+.main {
   flex: 1;
   overflow-y: auto;
   padding-bottom: 130px;
@@ -103,13 +100,13 @@
   scrollbar-width: none;
 }
 
-.mhist-item-wrap {
+.itemWrap {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-.mhist-item {
+.item {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -123,7 +120,7 @@
   }
 }
 
-.mhist-delete-btn {
+.deleteBtn {
   flex-shrink: 0;
   margin-right: 16px;
   width: 28px;
@@ -141,7 +138,7 @@
   line-height: 1;
 }
 
-.mhist-thumb {
+.thumb {
   width: 160px;
   height: 92px;
   border-radius: 5px;
@@ -157,14 +154,14 @@
   }
 }
 
-.mhist-info {
+.info {
   display: flex;
   flex-direction: column;
   gap: 3px;
   flex: 1;
 }
 
-.mhist-name {
+.name {
   font-family: $font-content;
   font-size: 16px;
   font-weight: 600;
@@ -173,7 +170,7 @@
   letter-spacing: -0.3px;
 }
 
-.mhist-meta {
+.meta {
   font-family: $font-content;
   font-size: 14px;
   font-weight: 400;
@@ -182,7 +179,7 @@
   letter-spacing: -0.35px;
 }
 
-.mhist-date {
+.date {
   font-family: $font-content;
   font-size: 12px;
   font-weight: 400;
@@ -192,8 +189,7 @@
   margin-top: 8px;
 }
 
-// ── 아이템 구분선 ──────────────────────────────────────────
-.mhist-row-divider {
+.rowDivider {
   height: 1px;
   background: #dfe3e2;
   margin: 0 24px;

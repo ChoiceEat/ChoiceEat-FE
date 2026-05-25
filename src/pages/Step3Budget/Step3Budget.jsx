@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 const OPTIONS = ["1만원 미만", "1만원 ~ 2만원", "2만원 ~ 3만원", "3만원 초과"];
 
-export default function Step1Budget() {
+export default function Step3Budget() {
   const { answers, setAnswer } = useSurvey();
   const { user } = useAuth();
   const nickname = user?.nickname ?? "";

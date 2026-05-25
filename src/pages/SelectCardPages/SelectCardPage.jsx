@@ -1,11 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RESTAURANTS } from "../../data/restaurants";
-import BalanceCard from "./BalanceCard";
-import ValueCard from "./ValueCard";
-import QualityCard from "./QualityCard";
-import "./selectCardPage.scss";
-import "../../styles/cards.scss";
+import PickCard from "./PickCard";
+import styles from "./SelectCardPage.module.scss";
 
 const TYPES = ["value", "balance", "quality"];
 const LABELS = ["가성비 픽", "밸런스 픽", "퀄리티 픽"];
@@ -150,18 +147,17 @@ export default function SelectCardPage() {
   };
 
   return (
-    <div className="scp-page" {...dragProps}>
-      {/* ── TOP: 헤더·탭·캐릭터 (max 393px 중앙) ── */}
-      <div className="scp-top">
-        <header className="scp-header">
-          <span className="scp-logo">Choice Eat</span>
+    <div className={styles.page} {...dragProps}>
+      <div className={styles.top}>
+        <header className={styles.header}>
+          <span className={styles.logo}>Choice Eat</span>
         </header>
 
-        <nav className="scp-nav">
+        <nav className={styles.nav}>
           {LABELS.map((label, i) => (
             <button
               key={i}
-              className={`scp-nav__item${i === idx ? " scp-nav__item--active" : ""}`}
+              className={`${styles.navItem}${i === idx ? ` ${styles.navItemActive}` : ""}`}
               onClick={() => setIdx(i)}
             >
               {label}
@@ -169,18 +165,17 @@ export default function SelectCardPage() {
           ))}
         </nav>
 
-        <div className="scp-char">
+        <div className={styles.char}>
           <img src="/char-vibe.svg" alt="" draggable={false} />
         </div>
       </div>
 
-      {/* ── CAROUSEL: full viewport width ── */}
       <div
-        className={`scp-carousel${verticalDrag < 0 || launching ? " scp-carousel--lifting" : ""}`}
+        className={`${styles.carousel}${verticalDrag < 0 || launching ? ` ${styles.carouselLifting}` : ""}`}
         ref={carouselRef}
       >
         <button
-          className="scp-arrow scp-arrow--left"
+          className={`${styles.arrow} ${styles.arrowLeft}`}
           onClick={() => idx > 0 && setIdx((i) => i - 1)}
           disabled={idx === 0}
           aria-label="이전"
@@ -189,7 +184,7 @@ export default function SelectCardPage() {
         </button>
 
         <div
-          className={`scp-track${animated ? " scp-track--anim" : ""}`}
+          className={`${styles.track}${animated ? ` ${styles.trackAnim}` : ""}`}
           style={{ transform: `translateX(${translateX}px)` }}
         >
           {TYPES.map((type, i) => {
@@ -197,34 +192,22 @@ export default function SelectCardPage() {
             return (
               <div
                 key={type}
-                className={`scp-slide${isActive ? " scp-slide--active" : " scp-slide--inactive"}`}
+                className={`${styles.slide}${isActive ? ` ${styles.slideActive}` : ` ${styles.slideInactive}`}`}
                 style={{ width: CARD_W, ...(isActive ? activeCardStyle : {}) }}
               >
-                {i === 0 && (
-                  <ValueCard
-                    activeTags={activeTags.value}
-                    onTagClick={(tag) => handleTagClick("value", tag)}
-                  />
-                )}
-                {i === 1 && (
-                  <BalanceCard
-                    activeTags={activeTags.balance}
-                    onTagClick={(tag) => handleTagClick("balance", tag)}
-                  />
-                )}
-                {i === 2 && (
-                  <QualityCard
-                    activeTags={activeTags.quality}
-                    onTagClick={(tag) => handleTagClick("quality", tag)}
-                  />
-                )}
+                <PickCard
+                  type={type}
+                  activeTags={activeTags[type]}
+                  onTagClick={(tag) => handleTagClick(type, tag)}
+                  isActive={isActive}
+                />
               </div>
             );
           })}
         </div>
 
         <button
-          className="scp-arrow scp-arrow--right"
+          className={`${styles.arrow} ${styles.arrowRight}`}
           onClick={() => idx < 2 && setIdx((i) => i + 1)}
           disabled={idx === 2}
           aria-label="다음"
@@ -233,15 +216,14 @@ export default function SelectCardPage() {
         </button>
       </div>
 
-      {/* ── FOOTER: 스와이프 힌트·광고버튼 (max 393px 중앙) ── */}
-      <div className="scp-footer">
-        <div className="scp-swipe-hint">
-          <div className="scp-swipe-hint__arrow">↑</div>
-          <div className="scp-swipe-hint__text">위로 밀어서 선택</div>
+      <div className={styles.footer}>
+        <div className={styles.swipeHint}>
+          <div className={styles.swipeHintArrow}>↑</div>
+          <div className={styles.swipeHintText}>위로 밀어서 선택</div>
         </div>
-        <div className="scp-bottom">
-          <p className="scp-bottom__hint">마음에 들지 않는다면?</p>
-          <button className="scp-bottom__ad" onClick={handleAdClick}>
+        <div className={styles.bottom}>
+          <p className={styles.bottomHint}>마음에 들지 않는다면?</p>
+          <button className={styles.bottomAd} onClick={handleAdClick}>
             광고 시청 후 다시 뽑기
           </button>
         </div>

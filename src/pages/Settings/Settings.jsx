@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import styles from "./Settings.module.scss";
 import BackIcon from "../../assets/icons/backB.svg";
-import HomeInactiveIcon from "../../assets/icons/home-inactive.svg";
-import SettingsActiveIcon from "../../assets/icons/settings-active.svg";
-import ForkKnifeIcon from "../../assets/icons/fork-knife.png";
+import BottomNav from "../../components/BottomNav/BottomNav";
 import ChevronRightIcon from "../../assets/icons/chevron-right.svg";
 
 const RADIUS_OPTIONS = ["1km", "2km", "3km"];
 
 export default function Setting() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const [locationPermission, setLocationPermission] = useState("허용");
   const [locationService, setLocationService] = useState("꺼짐");
@@ -21,6 +21,7 @@ export default function Setting() {
   const [showRadiusPicker, setShowRadiusPicker] = useState(false);
 
   const handleLogout = () => {
+    logout();
     navigate("/login");
   };
 
@@ -131,41 +132,7 @@ export default function Setting() {
         </section>
       </div>
 
-      {/* ── 하단 내비게이션 ── */}
-      <nav className={styles.nav}>
-        <div className={styles.navBar}>
-          <button className={styles.navTab} onClick={() => navigate("/home")}>
-            <img
-              src={HomeInactiveIcon}
-              alt="홈"
-              className={styles.navTabIcon}
-            />
-            <span className={styles.navTabLabel}>홈</span>
-          </button>
-          <button
-            className={styles.navTab}
-            onClick={() => navigate("/settings")}
-          >
-            <img
-              src={SettingsActiveIcon}
-              alt="설정"
-              className={styles.navTabIcon}
-            />
-            <span
-              className={`${styles.navTabLabel} ${styles.navTabLabelActive}`}
-            >
-              설정
-            </span>
-          </button>
-        </div>
-        <div
-          className={styles.navFab}
-          onClick={() => navigate("/step1")}
-          style={{ cursor: "pointer" }}
-        >
-          <img src={ForkKnifeIcon} alt="" className={styles.navFabIcon} />
-        </div>
-      </nav>
+      <BottomNav activePage="settings" />
 
       {/* 검색 반경 시트 */}
       {showRadiusPicker && (

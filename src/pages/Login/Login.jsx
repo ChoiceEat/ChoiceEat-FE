@@ -49,12 +49,15 @@ export default function Login() {
       <div className={styles.form}>
         {/* 아이디 */}
         <div className={styles.fieldGroup}>
-          <p className={styles.label}>아이디</p>
+          <label htmlFor="login-email" className={styles.label}>
+            아이디
+          </label>
           <div
             className={`${styles.inputWrap} ${idError ? styles.inputError : ""}`}
           >
             <img src={PersonIcon} alt="" className={styles.inputIcon} />
             <input
+              id="login-email"
               className={styles.input}
               type="text"
               placeholder="아이디를 입력해주세요"
@@ -70,7 +73,9 @@ export default function Login() {
 
         {/* 비밀번호 */}
         <div className={styles.fieldGroup}>
-          <p className={styles.label}>비밀번호</p>
+          <label htmlFor="login-password" className={styles.label}>
+            비밀번호
+          </label>
           <div
             className={`${styles.inputWrap} ${passwordError ? styles.inputError : ""}`}
           >
@@ -80,6 +85,7 @@ export default function Login() {
               className={`${styles.inputIcon} ${styles.lockIcon}`}
             />
             <input
+              id="login-password"
               className={styles.input}
               type={showPassword ? "text" : "password"}
               placeholder="비밀번호를 입력해주세요"
