@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSurvey } from "../../hooks/useSurvey";
+import { useAuth } from "../../hooks/useAuth";
 import styles from "./Loading.module.scss";
 
 export default function Loading() {
   const navigate = useNavigate();
   const { answers } = useSurvey();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchResult = async () => {
@@ -35,7 +37,7 @@ export default function Loading() {
         <div className={styles.spinner} />
         <p className={styles.subText}>잠시만 기다려 주세요...</p>
         <p className={styles.mainText}>
-          OO님께 꼭 맞는 메뉴를
+          {user?.nickname ?? "OO"}님께 꼭 맞는 메뉴를
           <br />
           초이스 하고 있어요!
         </p>

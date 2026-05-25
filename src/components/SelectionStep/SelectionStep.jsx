@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSwipe } from "../../hooks/useSwipe";
 import { useSurvey } from "../../hooks/useSurvey";
@@ -6,6 +6,7 @@ import styles from "./SelectionStep.module.scss";
 
 export default function SelectionStep({
   stepNumber, // 스텝 번호 (1, 2, 3)
+  headerTitle, // 최상단 제목 텍스트
   title, // 상단 제목 텍스트
   options, // 선택지 배열 ['한식', '중식', ...]
   selected, // 현재 선택된 값
@@ -18,6 +19,11 @@ export default function SelectionStep({
 }) {
   const navigate = useNavigate();
   const { isSearchable } = useSurvey();
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => clearTimeout(timerRef.current);
+  }, []);
 
   const location = useLocation();
 
@@ -58,11 +64,10 @@ export default function SelectionStep({
   useSwipe(goNext, goPrev);
 
   const handleSelect = (value) => {
-    // 이미 선택된 값을 다시 클릭하면 null로 취소
     const newValue = selected === value ? null : value;
     onSelect(newValue);
     if (!manualNext && newValue !== null) {
-      setTimeout(() => navigate(nextPath), 500);
+      timerRef.current = setTimeout(() => navigate(nextPath), 500);
     }
   };
 
@@ -77,7 +82,7 @@ export default function SelectionStep({
           </button>
         )}
 
-        <h2 className={styles.topTitle}>{title}</h2>
+        <h2 className={styles.topTitle}>{headerTitle}</h2>
 
         <img src={charImg} alt="캐릭터" className={styles.charImg} />
 

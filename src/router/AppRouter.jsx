@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 import Splash from "../pages/Splash/Splash";
 import Welcome from "../pages/Welcome/Welcome";
 import Step1Menu from "../pages/Step1Menu/Step1Menu";
@@ -21,30 +22,162 @@ import Signup from "../pages/Signup/Signup";
 import MenuRecommend from "../pages/MenuRecommend/MenuRecommend";
 import MenuHistory from "../pages/MenuHistory/MenuHistory";
 
+const P = ({ children }) => <PrivateRoute>{children}</PrivateRoute>;
+
 export default function AppRouter() {
   return (
     <Routes>
+      {/* 공개 라우트 */}
       <Route path="/" element={<Splash />} />
-      <Route path="/welcome" element={<Welcome />} />
-      <Route path="/step1" element={<Step1Menu />} />
-      <Route path="/step2" element={<Step2Vibe />} />
-      <Route path="/step3" element={<Step3Budget />} />
-      <Route path="/loading" element={<Loading />} />
-      <Route path="/pick" element={<PickList />} />
-      <Route path="/result" element={<SelectCardPage />} />
-      <Route path="/directions" element={<DirectionsView />} />
-      <Route path="/confirm" element={<ConfirmComplete />} />
-      <Route path="/detail" element={<DetailOverlay />} />
-      <Route path="/home" element={<MainHome />} />
-      <Route path="/address" element={<Address />} />
-      <Route path="/location-error" element={<LocationError />} />
-      <Route path="/network-error" element={<NetworkError />} />
-      <Route path="/search-error" element={<SearchError />} />
-      <Route path="/settings" element={<Settings />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/menu-recommend" element={<MenuRecommend />} />
-      <Route path="/menu-history" element={<MenuHistory />}/>
+
+      {/* 보호 라우트 (로그인 필요) */}
+      <Route
+        path="/home"
+        element={
+          <P>
+            <MainHome />
+          </P>
+        }
+      />
+      <Route
+        path="/welcome"
+        element={
+          <P>
+            <Welcome />
+          </P>
+        }
+      />
+      <Route
+        path="/step1"
+        element={
+          <P>
+            <Step1Menu />
+          </P>
+        }
+      />
+      <Route
+        path="/step2"
+        element={
+          <P>
+            <Step2Vibe />
+          </P>
+        }
+      />
+      <Route
+        path="/step3"
+        element={
+          <P>
+            <Step3Budget />
+          </P>
+        }
+      />
+      <Route
+        path="/loading"
+        element={
+          <P>
+            <Loading />
+          </P>
+        }
+      />
+      <Route
+        path="/pick"
+        element={
+          <P>
+            <PickList />
+          </P>
+        }
+      />
+      <Route
+        path="/result"
+        element={
+          <P>
+            <SelectCardPage />
+          </P>
+        }
+      />
+      <Route
+        path="/directions"
+        element={
+          <P>
+            <DirectionsView />
+          </P>
+        }
+      />
+      <Route
+        path="/confirm"
+        element={
+          <P>
+            <ConfirmComplete />
+          </P>
+        }
+      />
+      <Route
+        path="/detail"
+        element={
+          <P>
+            <DetailOverlay />
+          </P>
+        }
+      />
+      <Route
+        path="/address"
+        element={
+          <P>
+            <Address />
+          </P>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <P>
+            <Settings />
+          </P>
+        }
+      />
+      <Route
+        path="/menu-recommend"
+        element={
+          <P>
+            <MenuRecommend />
+          </P>
+        }
+      />
+      <Route
+        path="/menu-history"
+        element={
+          <P>
+            <MenuHistory />
+          </P>
+        }
+      />
+      <Route
+        path="/location-error"
+        element={
+          <P>
+            <LocationError />
+          </P>
+        }
+      />
+      <Route
+        path="/network-error"
+        element={
+          <P>
+            <NetworkError />
+          </P>
+        }
+      />
+      <Route
+        path="/search-error"
+        element={
+          <P>
+            <SearchError />
+          </P>
+        }
+      />
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

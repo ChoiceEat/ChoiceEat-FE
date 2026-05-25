@@ -12,6 +12,7 @@ export default function Step2Vibe() {
   return (
     <SelectionStep
       stepNumber={2}
+      headerTitle="원하는 분위기를 알려주세요."
       title="원하는 분위기를 선택해주세요"
       options={OPTIONS}
       selected={answers.vibe}

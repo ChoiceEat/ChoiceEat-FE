@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Address.scss";
+import styles from "./Address.module.scss";
 import { MOCK_LOCATIONS, SAMPLE_ADDRESSES } from "../../data/locations";
 
 export default function Address() {
@@ -9,19 +9,23 @@ export default function Address() {
   const [hasSearched, setHasSearched] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
 
-  if (!localStorage.getItem("savedAddresses")) {
-    localStorage.setItem("savedAddresses", JSON.stringify(SAMPLE_ADDRESSES));
-  }
-  if (!localStorage.getItem("savedAddress")) {
-    localStorage.setItem("savedAddress", JSON.stringify(SAMPLE_ADDRESSES[0]));
-  }
+  const [savedAddresses] = useState(() => {
+    const stored = localStorage.getItem("savedAddresses");
+    if (!stored) {
+      localStorage.setItem("savedAddresses", JSON.stringify(SAMPLE_ADDRESSES));
+      return SAMPLE_ADDRESSES;
+    }
+    return JSON.parse(stored);
+  });
 
-  const savedAddresses = JSON.parse(
-    localStorage.getItem("savedAddresses") || "[]",
-  );
-  const activeAddress = JSON.parse(
-    localStorage.getItem("savedAddress") || "null",
-  );
+  const [activeAddress] = useState(() => {
+    const stored = localStorage.getItem("savedAddress");
+    if (!stored) {
+      localStorage.setItem("savedAddress", JSON.stringify(SAMPLE_ADDRESSES[0]));
+      return SAMPLE_ADDRESSES[0];
+    }
+    return JSON.parse(stored);
+  });
 
   const handleSearch = () => {
     const q = query.trim();
@@ -60,20 +64,23 @@ export default function Address() {
     }
   };
 
-  // ── 검색 결과 화면 ──
   if (hasSearched) {
     return (
-      <div className="addr-container addr-results-view">
-        <div className="addr-pill-wrap">
+      <div className={`${styles.container} ${styles.resultsView}`}>
+        <div className={styles.pillWrap}>
           <button
-            className="addr-pill-back"
+            className={styles.pillBack}
             onClick={handleBack}
             aria-label="뒤로가기"
           >
-            <img className="back-icon" src="/icons/backToaddress.svg" alt="뒤로가기" />
+            <img
+              className={styles.backIcon}
+              src="/icons/backToaddress.svg"
+              alt="뒤로가기"
+            />
           </button>
           <input
-            className="addr-pill-input"
+            className={styles.pillInput}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -82,122 +89,137 @@ export default function Address() {
             autoFocus
           />
           <button
-            className="addr-pill-search"
+            className={styles.pillSearch}
             onClick={handleSearch}
             aria-label="검색"
           >
             <img
               src="/icons/address-search.svg"
               alt="검색"
-              className="addr-search-icon"
+              className={styles.searchIcon}
             />
           </button>
         </div>
 
-        <ul className="addr-results">
+        <ul className={styles.results}>
           {filteredResults.length > 0 ? (
             filteredResults.map((item) => (
               <li
                 key={item.id}
-                className="addr-result-item"
+                className={styles.resultItem}
+                role="button"
+                tabIndex={0}
                 onClick={() => handleSelectAddress(item)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    handleSelectAddress(item);
+                }}
               >
                 <img
                   src="/icons/location.svg"
                   alt="위치"
-                  className="addr-result-pin"
+                  className={styles.resultPin}
                 />
-                <div className="addr-result-text">
-                  <p className="addr-result-name">{item.name}</p>
-                  <p className="addr-result-address">{item.address}</p>
+                <div className={styles.resultText}>
+                  <p className={styles.resultName}>{item.name}</p>
+                  <p className={styles.resultAddress}>{item.address}</p>
                 </div>
               </li>
             ))
           ) : (
-            <li className="addr-no-results">검색 결과가 없습니다.</li>
+            <li className={styles.noResults}>검색 결과가 없습니다.</li>
           )}
         </ul>
       </div>
     );
   }
 
-  // ── 초기 입력 화면 ──
   return (
-    <div className="addr-container">
-      <button className="addr-back" onClick={handleBack} aria-label="뒤로가기">
+    <div className={styles.container}>
+      <button
+        className={styles.back}
+        onClick={handleBack}
+        aria-label="뒤로가기"
+      >
         <img src="/icons/backG.svg" alt="뒤로가기" />
       </button>
 
-      <h1 className="addr-title">
+      <h1 className={styles.title}>
         초이스잇에 저장할
         <br />
         주소를 입력해주세요.
       </h1>
 
-      <div className="addr-search-wrap">
-        <div className="addr-input-area">
+      <div className={styles.searchWrap}>
+        <div className={styles.inputArea}>
           <input
-            className="addr-input"
+            className={styles.input}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="예) 부기동 123, 부기대로 33"
           />
-          <div className="addr-search-line" />
+          <div className={styles.searchLine} />
         </div>
         <button
-          className="addr-search-btn"
+          className={styles.searchBtn}
           onClick={handleSearch}
           aria-label="검색"
         >
           <img
             src="/icons/address-search.svg"
             alt="검색"
-            className="addr-search-icon"
+            className={styles.searchIcon}
           />
         </button>
       </div>
 
-      <div className="addr-guide">
-        <div className="addr-guide-row">
-          <span className="addr-guide-label">도로명</span>
-          <span className="addr-guide-ex">예)</span>
-          <span className="addr-guide-text">무학로 33, 도산대로 8길 23</span>
+      <div className={styles.guide}>
+        <div className={styles.guideRow}>
+          <span className={styles.guideLabel}>도로명</span>
+          <span className={styles.guideEx}>예)</span>
+          <span className={styles.guideText}>무학로 33, 도산대로 8길 23</span>
         </div>
-        <div className="addr-guide-row">
-          <span className="addr-guide-label">동주소</span>
-          <span className="addr-guide-ex">예)</span>
-          <span className="addr-guide-text">연희동 42-18</span>
+        <div className={styles.guideRow}>
+          <span className={styles.guideLabel}>동주소</span>
+          <span className={styles.guideEx}>예)</span>
+          <span className={styles.guideText}>연희동 42-18</span>
         </div>
-        <div className="addr-guide-row">
-          <span className="addr-guide-label">건물명</span>
-          <span className="addr-guide-ex">예)</span>
-          <span className="addr-guide-text">역삼동 푸르지오, 텐즈힐</span>
+        <div className={styles.guideRow}>
+          <span className={styles.guideLabel}>건물명</span>
+          <span className={styles.guideEx}>예)</span>
+          <span className={styles.guideText}>역삼동 푸르지오, 텐즈힐</span>
         </div>
       </div>
 
       {savedAddresses.length > 0 && (
-        <div className="addr-saved-section">
-          <p className="addr-saved-title">저장된 주소</p>
-          <ul className="addr-results">
+        <div className={styles.savedSection}>
+          <p className={styles.savedTitle}>저장된 주소</p>
+          <ul className={styles.results}>
             {savedAddresses.map((item, index) => (
               <li
                 key={index}
-                className={`addr-result-item${activeAddress?.address === item.address ? " addr-result-active" : ""}`}
+                className={`${styles.resultItem}${activeAddress?.address === item.address ? ` ${styles.resultActive}` : ""}`}
+                role="button"
+                tabIndex={0}
                 onClick={() => handleSelectAddress(item)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    handleSelectAddress(item);
+                }}
               >
                 <img
                   src="/icons/location.svg"
                   alt="위치"
-                  className="addr-result-pin"
+                  className={styles.resultPin}
                 />
-                <div className="addr-result-text">
-                  <p className="addr-result-name">{item.name}</p>
-                  <p className="addr-result-address">{item.address}</p>
+                <div className={styles.resultText}>
+                  <p className={styles.resultName}>{item.name}</p>
+                  <p className={styles.resultAddress}>{item.address}</p>
                 </div>
                 {activeAddress?.address === item.address && (
-                  <span className="addr-result-active-badge">현재</span>
+                  <span className={styles.resultActiveBadge}>현재</span>
                 )}
               </li>
             ))}
