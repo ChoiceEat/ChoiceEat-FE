@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { getSettings, updateSettings } from "../../apis/settings";
 import styles from "./Settings.module.scss";
 import BackIcon from "../../assets/icons/backB.svg";
 import BottomNav from "../../components/BottomNav/BottomNav";
@@ -10,7 +11,7 @@ const RADIUS_OPTIONS = ["1km", "2km", "3km"];
 
 export default function Setting() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const [locationPermission, setLocationPermission] = useState("허용");
   const [locationService, setLocationService] = useState("꺼짐");
@@ -19,6 +20,35 @@ export default function Setting() {
   const [marketing, setMarketing] = useState(true);
   const [searchRadius, setSearchRadius] = useState("3km");
   const [showRadiusPicker, setShowRadiusPicker] = useState(false);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      if (!user?.userId) return;
+      try {
+        const { status, data } = await getSettings(user.userId);
+        if (status === 200) {
+          setLocationService(data.data.locationEnabled ? "켜짐" : "꺼짐");
+          setNotification(data.data.notificationEnabled);
+          setMarketing(data.data.marketingEnabled);
+          setSearchRadius(`${data.data.searchRadiusKm}km`);
+        }
+      } catch {
+        // 네트워크 오류 등
+      }
+    };
+    fetchSettings();
+  }, [user?.userId]);
+
+  const saveSettings = (overrides = {}) => {
+    if (!user?.userId) return;
+    updateSettings(user.userId, {
+      locationEnabled: locationService === "켜짐",
+      notificationEnabled: notification,
+      marketingEnabled: marketing,
+      searchRadiusKm: parseInt(searchRadius),
+      ...overrides,
+    });
+  };
 
   const handleLogout = () => {
     logout();
@@ -58,9 +88,11 @@ export default function Setting() {
 
           <button
             className={styles.rowBtn}
-            onClick={() =>
-              setLocationService((v) => (v === "켜짐" ? "꺼짐" : "켜짐"))
-            }
+            onClick={() => {
+              const next = locationService === "켜짐" ? "꺼짐" : "켜짐";
+              setLocationService(next);
+              saveSettings({ locationEnabled: next === "켜짐" });
+            }}
           >
             <span className={styles.rowLabel}>위치 서비스</span>
             <span
@@ -80,7 +112,11 @@ export default function Setting() {
             <span className={styles.rowLabel}>알림</span>
             <button
               className={`${styles.toggle} ${notification ? styles.toggleOn : ""}`}
-              onClick={() => setNotification((v) => !v)}
+              onClick={() => {
+                const next = !notification;
+                setNotification(next);
+                saveSettings({ notificationEnabled: next });
+              }}
               aria-label="알림 토글"
             />
           </div>
@@ -90,7 +126,11 @@ export default function Setting() {
             <span className={styles.rowLabel}>마케팅 수신 동의</span>
             <button
               className={`${styles.toggle} ${marketing ? styles.toggleOn : ""}`}
-              onClick={() => setMarketing((v) => !v)}
+              onClick={() => {
+                const next = !marketing;
+                setMarketing(next);
+                saveSettings({ marketingEnabled: next });
+              }}
               aria-label="마케팅 수신 동의 토글"
             />
           </div>
@@ -150,6 +190,7 @@ export default function Setting() {
                 onClick={() => {
                   setSearchRadius(option);
                   setShowRadiusPicker(false);
+                  saveSettings({ searchRadiusKm: parseInt(option) });
                 }}
               >
                 {option}
