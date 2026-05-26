@@ -4,6 +4,7 @@ import styles from "./Signup.module.scss";
 import BackIcon from "../../assets/icons/backB.svg";
 import EyeOffIcon from "../../assets/icons/eye-off.svg";
 import EyeIcon from "../../assets/icons/eye.svg";
+import { checkEmail, signup } from "../../apis/auth";
 
 const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 const isValidPassword = (v) => /^(?=.*[a-zA-Z])(?=.*\d).{8,12}$/.test(v);
@@ -31,23 +32,34 @@ export default function Signup() {
   // 닉네임
   const [nickname, setNickname] = useState("");
 
-  const canCheckDuplicate = isValidEmail(email);
+  // 로딩
+  const [isLoading, setIsLoading] = useState(false);
+
+  const canCheckDuplicate = isValidEmail(email) && !isLoading;
   const canSubmit =
     emailStatus === "ok" &&
     passwordStatus === "ok" &&
     confirmStatus === "ok" &&
-    nickname.trim() !== "";
+    nickname.trim() !== "" &&
+    !isLoading;
 
   // 중복 확인
-  const handleDuplicateCheck = () => {
+  const handleDuplicateCheck = async () => {
     if (!canCheckDuplicate) return;
-    const users = JSON.parse(localStorage.getItem("choiceeat_users") || "[]");
-    if (users.some((u) => u.email === email)) {
-      setEmailMsg("사용중인 아이디입니다.");
-      setEmailStatus("error");
-    } else {
-      setEmailMsg("사용 가능한 아이디 입니다.");
-      setEmailStatus("ok");
+    setIsLoading(true);
+    try {
+      const result = await checkEmail(email);
+      if (result.data.available) {
+        setEmailMsg(result.data.message);
+        setEmailStatus("ok");
+      } else {
+        setEmailMsg(result.data.message);
+        setEmailStatus("error");
+      }
+    } catch {
+      // 네트워크 오류 등
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -92,12 +104,22 @@ export default function Signup() {
   };
 
   // 가입하기
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (!canSubmit) return;
-    const users = JSON.parse(localStorage.getItem("choiceeat_users") || "[]");
-    users.push({ email, password, nickname });
-    localStorage.setItem("choiceeat_users", JSON.stringify(users));
-    navigate("/login");
+    setIsLoading(true);
+    try {
+      const { status, data } = await signup({ email, password, nickname });
+      if (status === 409) {
+        setEmailMsg(data.message || "이미 사용 중인 이메일입니다.");
+        setEmailStatus("error");
+      } else if (status === 200 || status === 201) {
+        navigate("/login");
+      }
+    } catch {
+      // 네트워크 오류 등
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const fieldBorderClass = (status) =>
@@ -227,6 +249,7 @@ export default function Signup() {
               type="text"
               placeholder="닉네임"
               aria-label="닉네임"
+              maxLength={7}
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
             />
@@ -239,7 +262,7 @@ export default function Signup() {
           onClick={handleSignup}
           disabled={!canSubmit}
         >
-          가입하기
+          {isLoading ? "가입 중..." : "가입하기"}
         </button>
       </div>
     </div>
