@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { getSettings } from "../../apis/settings";
+import { getSettings, updateSettings } from "../../apis/settings";
 import styles from "./Settings.module.scss";
 import BackIcon from "../../assets/icons/backB.svg";
 import BottomNav from "../../components/BottomNav/BottomNav";
@@ -38,6 +38,17 @@ export default function Setting() {
     };
     fetchSettings();
   }, [user?.userId]);
+
+  const saveSettings = (overrides = {}) => {
+    if (!user?.userId) return;
+    updateSettings(user.userId, {
+      locationEnabled: locationService === "켜짐",
+      notificationEnabled: notification,
+      marketingEnabled: marketing,
+      searchRadiusKm: parseInt(searchRadius),
+      ...overrides,
+    });
+  };
 
   const handleLogout = () => {
     logout();
@@ -77,9 +88,11 @@ export default function Setting() {
 
           <button
             className={styles.rowBtn}
-            onClick={() =>
-              setLocationService((v) => (v === "켜짐" ? "꺼짐" : "켜짐"))
-            }
+            onClick={() => {
+              const next = locationService === "켜짐" ? "꺼짐" : "켜짐";
+              setLocationService(next);
+              saveSettings({ locationEnabled: next === "켜짐" });
+            }}
           >
             <span className={styles.rowLabel}>위치 서비스</span>
             <span
@@ -99,7 +112,11 @@ export default function Setting() {
             <span className={styles.rowLabel}>알림</span>
             <button
               className={`${styles.toggle} ${notification ? styles.toggleOn : ""}`}
-              onClick={() => setNotification((v) => !v)}
+              onClick={() => {
+                const next = !notification;
+                setNotification(next);
+                saveSettings({ notificationEnabled: next });
+              }}
               aria-label="알림 토글"
             />
           </div>
@@ -109,7 +126,11 @@ export default function Setting() {
             <span className={styles.rowLabel}>마케팅 수신 동의</span>
             <button
               className={`${styles.toggle} ${marketing ? styles.toggleOn : ""}`}
-              onClick={() => setMarketing((v) => !v)}
+              onClick={() => {
+                const next = !marketing;
+                setMarketing(next);
+                saveSettings({ marketingEnabled: next });
+              }}
               aria-label="마케팅 수신 동의 토글"
             />
           </div>
@@ -169,6 +190,7 @@ export default function Setting() {
                 onClick={() => {
                   setSearchRadius(option);
                   setShowRadiusPicker(false);
+                  saveSettings({ searchRadiusKm: parseInt(option) });
                 }}
               >
                 {option}
