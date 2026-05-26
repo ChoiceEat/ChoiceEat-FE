@@ -9,11 +9,16 @@ export function AuthProvider({ children }) {
 
   const login = (userData) => {
     localStorage.setItem("choiceeat_current_user", JSON.stringify(userData));
+    // api.js 인터셉터가 읽는 키에도 토큰 저장
+    if (userData.accessToken) {
+      localStorage.setItem("accessToken", userData.accessToken);
+    }
     setUser(userData);
   };
 
   const logout = () => {
     localStorage.removeItem("choiceeat_current_user");
+    localStorage.removeItem("accessToken");
     setUser(null);
   };
 
