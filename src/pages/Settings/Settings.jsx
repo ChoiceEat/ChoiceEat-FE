@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { getSettings } from "../../apis/settings";
 import styles from "./Settings.module.scss";
 import BackIcon from "../../assets/icons/backB.svg";
 import BottomNav from "../../components/BottomNav/BottomNav";
@@ -10,7 +11,7 @@ const RADIUS_OPTIONS = ["1km", "2km", "3km"];
 
 export default function Setting() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const [locationPermission, setLocationPermission] = useState("허용");
   const [locationService, setLocationService] = useState("꺼짐");
@@ -19,6 +20,24 @@ export default function Setting() {
   const [marketing, setMarketing] = useState(true);
   const [searchRadius, setSearchRadius] = useState("3km");
   const [showRadiusPicker, setShowRadiusPicker] = useState(false);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      if (!user?.userId) return;
+      try {
+        const { status, data } = await getSettings(user.userId);
+        if (status === 200) {
+          setLocationService(data.data.locationEnabled ? "켜짐" : "꺼짐");
+          setNotification(data.data.notificationEnabled);
+          setMarketing(data.data.marketingEnabled);
+          setSearchRadius(`${data.data.searchRadiusKm}km`);
+        }
+      } catch {
+        // 네트워크 오류 등
+      }
+    };
+    fetchSettings();
+  }, [user?.userId]);
 
   const handleLogout = () => {
     logout();
