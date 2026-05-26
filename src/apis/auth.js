@@ -1,19 +1,36 @@
-const BASE_URL = import.meta.env.VITE_API_URL;
+import api from "./api";
 
 export async function checkEmail(email) {
-  const response = await fetch(
-    `${BASE_URL}/api/users/check-email?email=${encodeURIComponent(email)}`
-  );
-  const data = await response.json();
-  return data;
+  const response = await api.get("/api/users/check-email", {
+    params: { email },
+  });
+  return response.data;
+}
+
+export async function loginApi({ email, password }) {
+  try {
+    const response = await api.post("/api/users/login", { email, password });
+    return { status: response.status, data: response.data };
+  } catch (error) {
+    if (error.response) {
+      return { status: error.response.status, data: error.response.data };
+    }
+    throw error;
+  }
 }
 
 export async function signup({ email, password, nickname }) {
-  const response = await fetch(`${BASE_URL}/api/users/signup`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password, nickname }),
-  });
-  const data = await response.json();
-  return { status: response.status, data };
+  try {
+    const response = await api.post("/api/users/signup", {
+      email,
+      password,
+      nickname,
+    });
+    return { status: response.status, data: response.data };
+  } catch (error) {
+    if (error.response) {
+      return { status: error.response.status, data: error.response.data };
+    }
+    throw error;
+  }
 }
