@@ -1,11 +1,14 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./MenuRecommend.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function MenuRecommend() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const restaurant = state?.restaurant;
+  const { user } = useAuth();
+  const nickname = user?.nickname ?? "멋사";
 
   if (!restaurant) return null;
 
@@ -21,7 +24,9 @@ export default function MenuRecommend() {
       <div className={styles.intro}>
         <div className={styles.badgeWrap}>
           <div className={styles.badge}>
-            <span>{restaurant.name}의 인기 메뉴들이에요!</span>
+            <span>
+              {nickname}님, {restaurant.name}의 인기 메뉴들이에요!
+            </span>
           </div>
         </div>
         <img className={styles.mascot} src="/char-vibe.png" alt="" />
