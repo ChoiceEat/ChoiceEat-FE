@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RESTAURANTS } from "../../data/restaurants";
 import PickCard from "./PickCard";
+import AdInterstitial from "../../components/Aditerstitial/Aditerstitial";
 import styles from "./SelectCardPage.module.scss";
 
 const TYPES = ["value", "balance", "quality"];
@@ -22,6 +23,7 @@ export default function SelectCardPage() {
   const [launching, setLaunching] = useState(false);
   const [containerW, setContainerW] = useState(window.innerWidth);
   const [ready, setReady] = useState(false);
+  const [showAd, setShowAd] = useState(false); // 광고 표시 상태
 
   const [activeTags, setActiveTags] = useState({
     value: [...(RESTAURANTS.value.selectedTags ?? [])],
@@ -131,8 +133,22 @@ export default function SelectCardPage() {
     [idx, navigate],
   );
 
+  // 광고 버튼 클릭 → 광고 노출
   const handleAdClick = () => {
-    alert("광고 기능은 준비 중입니다.");
+    setShowAd(true);
+  };
+
+  // 광고 닫힘 → 다시 뽑기 실행
+  const handleAdClose = () => {
+    setShowAd(false);
+    // 다시 뽑기 로직: 원하는 동작 여기에 추가
+    //사용자가 각 카드(가성비/밸런스/퀄리티)에서 선택한 태그 목록, 현재 보고있던 카드 타입 전달
+    navigate("/pick",{
+      state: {
+        activeTags,
+        selectedType: TYPES[idx],
+      },
+    });
   };
 
   const dragProps = {
@@ -148,6 +164,9 @@ export default function SelectCardPage() {
 
   return (
     <div className={styles.page} {...dragProps}>
+      {/* 광고 전면 노출 */}
+      {showAd && <AdInterstitial onClose={handleAdClose} />}
+
       <div className={styles.top}>
         <header className={styles.header}>
           <span className={styles.logo}>Choice Eat</span>

@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import mapImg from "../../assets/map.png";
+import KakaoMap from "../../components/KakaoMap/KakaoMap";
+
 import styles from "./DirectionsView.module.scss";
 
 const SNAP_OPEN = 0;
@@ -11,6 +12,7 @@ export default function DirectionsView() {
   const restaurant = state?.restaurant;
   const SNAP_CLOSED = useMemo(() => window.innerHeight * 0.6 - 80, []);
 
+  
   const sheetRef = useRef(null);
   const isDraggingRef = useRef(false);
   const startYRef = useRef(0);
@@ -27,7 +29,7 @@ export default function DirectionsView() {
   }, []);
 
   if (!restaurant) return null;
-  const { name, image, walkingMinutes, distanceKm, carMinutes } = restaurant;
+  const { name, image, walkingMinutes, distanceKm, carMinutes, lat, lng } = restaurant;
 
   const setTranslate = (y) => {
     if (sheetRef.current) {
@@ -76,7 +78,7 @@ export default function DirectionsView() {
   return (
     <div className={styles.page}>
       <div className={styles.map}>
-        <img src={mapImg} alt="지도" />
+        <KakaoMap lat={lat} lng={lng} />
         <button className={styles.backBtn} onClick={() => navigate(-1)}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
@@ -123,7 +125,7 @@ export default function DirectionsView() {
 
         <div className={styles.btns}>
           <button className={styles.navBtn}>
-            <img src="/icons/direction.png" alt="" />
+            <img src="/icons/direction.svg" alt="" />
             길찾기
           </button>
         </div>
