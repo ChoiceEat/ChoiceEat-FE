@@ -7,16 +7,19 @@ const CARD_LABELS = {
 };
 
 export default function PickCard({ type, restaurant, activeTags, onTagClick, isActive }) {
-  const { 
+  if (!restaurant) return null;
+
+  const {
     image,
-     name, 
-     desc, 
-     rating, 
-     reviews, 
-     category, 
-     distance, 
-     status,
-     tags } = restaurant;
+    name,
+    desc,
+    rating,
+    reviews,
+    category,
+    distance,
+    status,
+    tags = [],
+  } = restaurant;
 
   return (
     <Card
@@ -24,7 +27,7 @@ export default function PickCard({ type, restaurant, activeTags, onTagClick, isA
       name={name}
       label={CARD_LABELS[type]}
       desc={desc}
-      meta={`${rating} (${reviews}) · ${category} · ${distance}`}
+      meta={`${rating} (${reviews}명) · ${category} · ${distance}`}
       status={status}
       tags={tags}
       activeTags={activeTags}
