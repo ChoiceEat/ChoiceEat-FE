@@ -2,34 +2,38 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSurvey } from "../../hooks/useSurvey";
 import { useAuth } from "../../hooks/useAuth";
+import { useRecommendations } from "../../hooks/useRecommendations";
 import styles from "./Loading.module.scss";
 
 export default function Loading() {
   const navigate = useNavigate();
   const { answers } = useSurvey();
   const { user } = useAuth();
+  const { fetch, restaurants, error } = useRecommendations();
 
   useEffect(() => {
-    const fetchResult = async () => {
-      try {
-        // TODO: 나중에 실제 API 호출로 교체
-        // const res = await fetch('/api/recommend', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(answers),
-        // })
-        // const data = await res.json()
-        // navigate('/result', { state: { result: data } })
-
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        navigate("/pick", { state: { answers } });
-      } catch (err) {
-        console.error("API 호출 실패:", err);
-      }
-    };
-
-    fetchResult();
+    console.log("answers 확인:", answers); // ✅ 추가
+    fetch(answers);
   }, []);
+
+  useEffect(() => {
+    if (restaurants) {
+      navigate("/pick", { state: { restaurants } });
+    }
+  }, [restaurants]);
+
+  useEffect(() => {
+    if (error) {
+      console.error("API 호출 실패:", error);
+      if (error.response?.status === 404) {
+        alert("목적지를 먼저 설정해주세요.");
+        navigate("/address", { state: { next: "/welcome" } });
+      } else {
+        alert("추천을 불러오지 못했어요. 다시 시도해주세요.");
+        navigate(-1);
+      }
+    }
+  }, [error]);
 
   return (
     <div className={styles.container}>

@@ -1,5 +1,4 @@
 import Card from "../../components/Cards/cards";
-import { RESTAURANTS } from "../../data/restaurants";
 
 const CARD_LABELS = {
   balance: "밸런스 맛집",
@@ -7,18 +6,17 @@ const CARD_LABELS = {
   value: "가성비 맛집",
 };
 
-export default function PickCard({ type, activeTags, onTagClick, isActive }) {
-  const {
+export default function PickCard({ type, restaurant, activeTags, onTagClick, isActive }) {
+  const { 
     image,
-    name,
-    desc,
-    rating,
-    reviews,
-    category,
-    distance,
-    status,
-    tags,
-  } = RESTAURANTS[type];
+     name, 
+     desc, 
+     rating, 
+     reviews, 
+     category, 
+     distance, 
+     status,
+     tags } = restaurant;
 
   return (
     <Card

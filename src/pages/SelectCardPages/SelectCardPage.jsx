@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RESTAURANTS } from "../../data/restaurants";
 import PickCard from "./PickCard";
 import AdInterstitial from "../../components/Aditerstitial/Aditerstitial";
 import styles from "./SelectCardPage.module.scss";
@@ -14,6 +13,7 @@ const typeToIdx = { value: 0, balance: 1, quality: 2 };
 export default function SelectCardPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const restaurants = state?.restaurants ?? {};         // ✅
   const initialType = state?.selectedType ?? "balance";
   const initialIdx = typeToIdx[initialType] ?? 1;
 
@@ -23,13 +23,15 @@ export default function SelectCardPage() {
   const [launching, setLaunching] = useState(false);
   const [containerW, setContainerW] = useState(window.innerWidth);
   const [ready, setReady] = useState(false);
-  const [showAd, setShowAd] = useState(false); // 광고 표시 상태
+  const [showAd, setShowAd] = useState(false);
 
   const [activeTags, setActiveTags] = useState({
-    value: [...(RESTAURANTS.value.selectedTags ?? [])],
-    balance: [...(RESTAURANTS.balance.selectedTags ?? [])],
-    quality: [...(RESTAURANTS.quality.selectedTags ?? [])],
+    value:   [...(restaurants?.value?.selectedTags   ?? [])],
+    balance: [...(restaurants?.balance?.selectedTags ?? [])],
+    quality: [...(restaurants?.quality?.selectedTags ?? [])],
   });
+
+  // ❌ 여기 있던 navigate() 두 개 제거 — 아래 각 핸들러 안에만 있어야 함
 
   const carouselRef = useRef(null);
   const dragging = useRef(false);
@@ -65,8 +67,7 @@ export default function SelectCardPage() {
     ? {
         transform: "translateY(-110vh) scale(0.84)",
         opacity: 0,
-        transition:
-          "transform 0.38s cubic-bezier(0.4,0,0.8,0.5), opacity 0.28s ease-in",
+        transition: "transform 0.38s cubic-bezier(0.4,0,0.8,0.5), opacity 0.28s ease-in",
         pointerEvents: "none",
       }
     : verticalDrag < 0
@@ -118,8 +119,8 @@ export default function SelectCardPage() {
         setTimeout(() => {
           setLaunching(false);
           setVerticalDrag(0);
-          navigate("/detail", {
-            state: { restaurant: RESTAURANTS[TYPES[idx]], fromRecommend: true },
+          navigate("/detail", {                                        // ✅ 여기만 navigate
+            state: { restaurant: restaurants[TYPES[idx]], fromRecommend: true },
           });
         }, 380);
         return;
@@ -130,48 +131,36 @@ export default function SelectCardPage() {
       if (dx < 0 && idx < 2) setIdx((i) => i + 1);
       if (dx > 0 && idx > 0) setIdx((i) => i - 1);
     },
-    [idx, navigate],
+    [idx, navigate, restaurants],
   );
 
-  // 광고 버튼 클릭 → 광고 노출
-  const handleAdClick = () => {
-    setShowAd(true);
-  };
+  const handleAdClick = () => setShowAd(true);
 
-  // 광고 닫힘 → 다시 뽑기 실행
   const handleAdClose = () => {
     setShowAd(false);
-    // 다시 뽑기 로직: 원하는 동작 여기에 추가
-    //사용자가 각 카드(가성비/밸런스/퀄리티)에서 선택한 태그 목록, 현재 보고있던 카드 타입 전달
-    navigate("/pick",{
-      state: {
-        activeTags,
-        selectedType: TYPES[idx],
-      },
+    navigate("/pick", {                                                // ✅ 여기만 navigate
+      state: { activeTags, selectedType: TYPES[idx], restaurants },
     });
   };
 
   const dragProps = {
-    onMouseDown: (e) => startDrag(e.clientX, e.clientY),
-    onMouseMove: (e) => moveDrag(e.clientX, e.clientY),
-    onMouseUp: (e) => endDrag(e.clientX, e.clientY),
+    onMouseDown:  (e) => startDrag(e.clientX, e.clientY),
+    onMouseMove:  (e) => moveDrag(e.clientX, e.clientY),
+    onMouseUp:    (e) => endDrag(e.clientX, e.clientY),
     onMouseLeave: (e) => endDrag(e.clientX, e.clientY),
     onTouchStart: (e) => startDrag(e.touches[0].clientX, e.touches[0].clientY),
-    onTouchMove: (e) => moveDrag(e.touches[0].clientX, e.touches[0].clientY),
-    onTouchEnd: (e) =>
-      endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY),
+    onTouchMove:  (e) => moveDrag(e.touches[0].clientX, e.touches[0].clientY),
+    onTouchEnd:   (e) => endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY),
   };
 
   return (
     <div className={styles.page} {...dragProps}>
-      {/* 광고 전면 노출 */}
       {showAd && <AdInterstitial onClose={handleAdClose} />}
 
       <div className={styles.top}>
         <header className={styles.header}>
           <span className={styles.logo}>Choice Eat</span>
         </header>
-
         <nav className={styles.nav}>
           {LABELS.map((label, i) => (
             <button
@@ -183,7 +172,6 @@ export default function SelectCardPage() {
             </button>
           ))}
         </nav>
-
         <div className={styles.char}>
           <img src="/char-vibe.svg" alt="" draggable={false} />
         </div>
@@ -216,6 +204,7 @@ export default function SelectCardPage() {
               >
                 <PickCard
                   type={type}
+                  restaurant={restaurants[type]}              // ✅ 추가
                   activeTags={activeTags[type]}
                   onTagClick={(tag) => handleTagClick(type, tag)}
                   isActive={isActive}
