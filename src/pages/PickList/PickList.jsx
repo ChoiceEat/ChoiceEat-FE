@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { RESTAURANTS } from "../../data/restaurants";
 import styles from "./PickList.module.scss";
@@ -11,10 +11,11 @@ const PICKS = [
 
 export default function PickList() {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const { user } = useAuth();
 
   const handleSelect = (key) => {
-    navigate("/result", { state: { selectedType: key } });
+    navigate("/result", { state: { selectedType: key, adWatched: state?.adWatched ?? false } });
   };
 
   return (

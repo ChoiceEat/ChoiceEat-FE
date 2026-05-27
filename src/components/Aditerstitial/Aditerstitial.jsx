@@ -1,32 +1,22 @@
-// src/components/AdInterstitial.jsx
 import { useEffect, useRef, useState } from "react";
-import { postAdView } from "../../apis/adApi";
+import { getRandomAd, postAdView } from "../../apis/adApi";
 import styles from "./Aditerstitial.module.scss";
 
-const AD_DURATION_MS = 10000; // 10초 후 닫기 버튼 활성화
-const AD_VIDEOS = [
-  "/dummy/dummy-ad-1.mp4",
-  "/dummy/dummy-ad-2.mp4",
-  "/dummy/dummy-ad-3.mp4",
-  "/dummy/dummy-ad-4.mp4",
-];
-
-const getRandomVideo = () => AD_VIDEOS[Math.floor(Math.random() * AD_VIDEOS.length)];
+const AD_DURATION_MS = 10000;
 
 export default function AdInterstitial({ onClose }) {
   const timerRef = useRef(null);
   const intervalRef = useRef(null);
   const [canClose, setCanClose] = useState(false);
   const [remaining, setRemaining] = useState(AD_DURATION_MS / 1000);
-  const [videoSrc] = useState(getRandomVideo); // 마운트 시 1번만 랜덤 선택
-  const videoRef = useRef(null);
-  
+  const [adData, setAdData] = useState(null);
+  const [error, setError] = useState(false);
+
   useEffect(() => {
-    if (videoRef.current) {
-        videoRef.current.muted = true;
-        videoRef.current.play().catch((e) => console.warn("자동재생 실패:", e));
-    }
-    // 카운트다운
+    getRandomAd()
+      .then((res) => setAdData(res.data))
+      .catch(() => setError(true));
+
     intervalRef.current = setInterval(() => {
       setRemaining((prev) => {
         if (prev <= 1) {
@@ -37,7 +27,6 @@ export default function AdInterstitial({ onClose }) {
       });
     }, 1000);
 
-    // 10초 후 닫기 버튼 활성화
     timerRef.current = setTimeout(() => {
       setCanClose(true);
     }, AD_DURATION_MS);
@@ -48,12 +37,13 @@ export default function AdInterstitial({ onClose }) {
     };
   }, []);
 
-  // 10초 후 닫기 클릭 시 API 호출
   const handleClose = async () => {
-    try {
-      await postAdView({ advertisementId: 3, completed: true });
-    } catch (err) {
-      console.error("광고 시청 기록 실패:", err);
+    if (adData) {
+      try {
+        await postAdView({ advertisementId: 3, completed: true });
+      } catch (err) {
+        console.error("광고 시청 기록 실패:", err);
+      }
     }
     onClose?.();
   };
@@ -61,23 +51,42 @@ export default function AdInterstitial({ onClose }) {
   return (
     <div className={styles.overlay}>
       <div className={styles.adBox}>
-        {/* 더미 광고 영상 - AdSense 연동 시 아래 video를 <ins> 태그로 교체 */}
-        <video
-        ref={videoRef}
-        src={videoSrc}
-        autoPlay
-        muted
-        playsInline
-        controls
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
-        {/* <ins
-          className="adsbygoogle"
-          style={{ display: "block", width: "100%", height: "100%" }}
-          data-ad-client="ca-pub-3940256099942544"
-          data-ad-slot="1176984568"
-          data-ad-format="interstitial"
-        /> */}
+        {error ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              color: "#888",
+            }}
+          >
+            광고를 불러올 수 없습니다.
+          </div>
+        ) : adData ? (
+          <video
+            src={adData.videoUrl.startsWith("http") ? adData.videoUrl : `${import.meta.env.VITE_API_URL}${adData.videoUrl}`}
+            autoPlay
+            muted
+            playsInline
+            controls
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              color: "#888",
+            }}
+          >
+            로딩 중...
+          </div>
+        )}
         <button
           className={`${styles.closeBtn} ${canClose ? styles.active : styles.disabled}`}
           onClick={canClose ? handleClose : undefined}

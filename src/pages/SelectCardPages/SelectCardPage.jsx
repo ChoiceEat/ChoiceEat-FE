@@ -23,7 +23,8 @@ export default function SelectCardPage() {
   const [launching, setLaunching] = useState(false);
   const [containerW, setContainerW] = useState(window.innerWidth);
   const [ready, setReady] = useState(false);
-  const [showAd, setShowAd] = useState(false); // 광고 표시 상태
+  const [showAd, setShowAd] = useState(false);
+  const [adWatched, setAdWatched] = useState(state?.adWatched ?? false);
 
   const [activeTags, setActiveTags] = useState({
     value: [...(RESTAURANTS.value.selectedTags ?? [])],
@@ -143,10 +144,12 @@ export default function SelectCardPage() {
     setShowAd(false);
     // 다시 뽑기 로직: 원하는 동작 여기에 추가
     //사용자가 각 카드(가성비/밸런스/퀄리티)에서 선택한 태그 목록, 현재 보고있던 카드 타입 전달
+    setAdWatched(true);
     navigate("/pick", {
       state: {
         activeTags,
         selectedType: TYPES[idx],
+        adWatched: true,
       },
     });
   };
@@ -242,9 +245,11 @@ export default function SelectCardPage() {
         </div>
         <div className={styles.bottom}>
           <p className={styles.bottomHint}>마음에 들지 않는다면?</p>
-          <button className={styles.bottomAd} onClick={handleAdClick}>
-            광고 시청 후 다시 뽑기
-          </button>
+          {!adWatched && (
+            <button className={styles.bottomAd} onClick={handleAdClick}>
+              광고 시청 후 다시 뽑기
+            </button>
+          )}
         </div>
       </div>
     </div>
