@@ -50,10 +50,10 @@ export default function DetailOverlay() {
           <div className={styles.imageWrap}>
             <img
               className={styles.mainImg}
-              src={restaurant.image || "/empty-store2.svg"}
+              src={restaurant.image || "/empty-store2.png"}
               alt={restaurant.name}
               onError={(e) => {
-                e.currentTarget.src = "/empty-store2.svg";
+                e.currentTarget.src = "/empty-store2.png";
               }}
             />
             <div className={styles.imgGradient} />
@@ -88,37 +88,37 @@ export default function DetailOverlay() {
           <div className={styles.photos}>
             <div className={styles.photo}>
               <img
-                src={restaurant.image || "/empty-store2.svg"}
+                src={restaurant.image || "/empty-store2.png"}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.svg";
+                  e.currentTarget.src = "/empty-store2.png";
                 }}
               />
             </div>
             <div className={styles.photo}>
               <img
-                src={restaurant.image || "/empty-store2.svg"}
+                src={restaurant.image || "/empty-store2.png"}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.svg";
+                  e.currentTarget.src = "/empty-store2.png";
                 }}
               />
             </div>
             <div className={styles.photo}>
               <img
-                src={restaurant.image || "/empty-store2.svg"}
+                src={restaurant.image || "/empty-store2.png"}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.svg";
+                  e.currentTarget.src = "/empty-store2.png";
                 }}
               />
             </div>
             <div className={`${styles.photo} ${styles.photoMore}`}>
               <img
-                src={restaurant.image || "/empty-store2.svg"}
+                src={restaurant.image || "/empty-store2.png"}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.svg";
+                  e.currentTarget.src = "/empty-store2.png";
                 }}
               />
               <span>+{moreCount}</span>

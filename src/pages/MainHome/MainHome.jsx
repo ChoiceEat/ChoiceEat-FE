@@ -64,7 +64,7 @@ export default function MainHome() {
         </div>
         <div className={styles.bannerMascot}>
           <img
-            src="char-main.svg"
+            src="/char-main.png"
             alt="초이스잇 마스코트"
             className={styles.mascotImg}
           />
@@ -109,12 +109,13 @@ export default function MainHome() {
                   >
                     <div className={styles.cardImageWrap}>
                       <img
-                        src={restaurant.image || "/empty-store.png"}
+                        src={restaurant.image || "/char-main.png"}
                         alt={restaurant.name}
-                        className={styles.cardImage}
+                        className={restaurant.image ? styles.cardImage : styles.cardImageFallback}
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = "/empty-store.png";
+                          e.target.src = "/char-main.png";
+                          e.target.className = styles.cardImageFallback;
                         }}
                       />
                     </div>

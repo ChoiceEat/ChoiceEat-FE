@@ -12,7 +12,6 @@ export default function DirectionsView() {
   const restaurant = state?.restaurant;
   const SNAP_CLOSED = useMemo(() => window.innerHeight * 0.6 - 80, []);
 
-  
   const sheetRef = useRef(null);
   const isDraggingRef = useRef(false);
   const startYRef = useRef(0);
@@ -29,7 +28,8 @@ export default function DirectionsView() {
   }, []);
 
   if (!restaurant) return null;
-  const { name, image, walkingMinutes, distanceKm, carMinutes, lat, lng } = restaurant;
+  const { name, image, walkingMinutes, distanceKm, carMinutes, lat, lng } =
+    restaurant;
 
   const setTranslate = (y) => {
     if (sheetRef.current) {
@@ -97,10 +97,10 @@ export default function DirectionsView() {
 
         <div className={styles.restaurantImg}>
           <img
-            src={image || "/empty-store2.svg"}
+            src={image || "/empty-store2.png"}
             alt={name}
             onError={(e) => {
-              e.currentTarget.src = "/empty-store2.svg";
+              e.currentTarget.src = "/empty-store2.png";
             }}
           />
         </div>

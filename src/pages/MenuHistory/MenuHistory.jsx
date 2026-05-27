@@ -44,11 +44,11 @@ export default function MenuHistory() {
               >
                 <div className={styles.thumb}>
                   <img
-                    src={restaurant.image || "/empty-store.png"}
+                    src={restaurant.image || "/empty-store2.png"}
                     alt={restaurant.name}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = "/empty-store.png";
+                      e.target.src = "/empty-store2.png";
                     }}
                   />
                 </div>

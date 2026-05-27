@@ -24,7 +24,7 @@ export default function MenuRecommend() {
             <span>{restaurant.name}의 인기 메뉴들이에요!</span>
           </div>
         </div>
-        <img className={styles.mascot} src="/char-vibe.svg" alt="" />
+        <img className={styles.mascot} src="/char-vibe.png" alt="" />
       </div>
 
       <div className={styles.list}>

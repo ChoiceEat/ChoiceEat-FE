@@ -143,7 +143,7 @@ export default function SelectCardPage() {
     setShowAd(false);
     // 다시 뽑기 로직: 원하는 동작 여기에 추가
     //사용자가 각 카드(가성비/밸런스/퀄리티)에서 선택한 태그 목록, 현재 보고있던 카드 타입 전달
-    navigate("/pick",{
+    navigate("/pick", {
       state: {
         activeTags,
         selectedType: TYPES[idx],
@@ -185,7 +185,7 @@ export default function SelectCardPage() {
         </nav>
 
         <div className={styles.char}>
-          <img src="/char-vibe.svg" alt="" draggable={false} />
+          <img src="/char-vibe.png" alt="" draggable={false} />
         </div>
       </div>
 

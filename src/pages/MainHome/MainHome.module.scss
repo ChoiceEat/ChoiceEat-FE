@@ -254,6 +254,14 @@
   display: block;
 }
 
+.cardImageFallback {
+  width: 98%;
+  height: 98%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
+
 .cardInfo {
   padding: 4.5px 10px;
   height: 50px;

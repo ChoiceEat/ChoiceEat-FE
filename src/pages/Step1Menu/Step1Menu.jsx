@@ -19,7 +19,7 @@ export default function Step1Menu() {
       onSelect={(value) => setAnswer("menu", value)}
       prevPath="/welcome"
       nextPath="/step2"
-      charImg="/char-main.svg"
+      charImg="/char-main.png"
       speechText={`${nickname}님이 먹고싶은 메뉴를 알려주세요!`}
     />
   );
