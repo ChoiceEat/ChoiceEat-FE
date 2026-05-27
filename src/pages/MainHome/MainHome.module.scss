@@ -36,7 +36,7 @@
   font-size: 20px;
   font-weight: 400;
   color: $green;
-  margin: 0 0 8px;
+  margin: 0 0 38px;
   letter-spacing: -0.3px;
 }
 
@@ -51,13 +51,18 @@
   font-family: $font-content;
   font-size: 16px;
   color: $text-black;
-  margin: 0;
+  margin: 0 0 9;
   font-weight: 400;
   letter-spacing: -0.4px;
 
   strong {
     font-weight: 600;
   }
+}
+
+.nicknameHighlight {
+  font-weight: 600;
+  color: $green;
 }
 
 .location {
@@ -230,7 +235,7 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 0 8px;
+  padding: 0 0 130px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 
@@ -246,7 +251,7 @@
 
 .section {
   padding: 0 16px;
-  margin-top: 12px;
+  margin-top: 20px;
 
   @media (min-width: 768px) {
     padding: 0 32px;
@@ -363,7 +368,8 @@
 }
 
 .emptyIcon {
-  width: 160px;
+  filter: grayscale(100%);
+  width: 75px;
   height: auto;
   object-fit: contain;
   margin-bottom: 8px;

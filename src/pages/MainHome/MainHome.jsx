@@ -20,7 +20,8 @@ export default function MainHome() {
         <h1 className={styles.logo}>Choice Eat</h1>
         <div className={styles.headerBottom}>
           <p className={styles.greeting}>
-            어서오세요, <strong>{nickname}</strong>님 !
+            어서오세요,{" "}
+            <span className={styles.nicknameHighlight}>{nickname}</span>님 !
           </p>
           <div className={styles.location}>
             <img
@@ -84,12 +85,12 @@ export default function MainHome() {
 
           {historyList.length === 0 ? (
             <div className={styles.emptyHistory}>
-              <p>초이스잇과 함께 첫 맛집을 찾아볼까요? 🍚</p>
               <img
                 src="/char-smile.png"
                 alt="empty"
                 className={styles.emptyIcon}
               />
+              <p>초이스잇과 함께 첫 맛집을 찾아볼까요?✨</p>
             </div>
           ) : (
             <div className={styles.restaurantGrid}>
@@ -127,11 +128,13 @@ export default function MainHome() {
           )}
         </section>
 
-        <div className={styles.infoBar}>
-          <p className={styles.infoText}>
-            초이스잇이 초이스 한 추천 맛집!&nbsp; 마음에 드시는 곳이 있나요?
-          </p>
-        </div>
+        {historyList.length > 0 && (
+          <div className={styles.infoBar}>
+            <p className={styles.infoText}>
+              초이스잇이 초이스 한 추천 맛집!&nbsp; 마음에 드시는 곳이 있나요?
+            </p>
+          </div>
+        )}
       </main>
 
       <BottomNav activePage="home" />
