@@ -34,7 +34,10 @@ export default function Loading() {
   useEffect(() => {
     if (error) {
       console.error("API 호출 실패:", error);
-      if (error.response?.status === 404) {
+      const code = error.response?.data?.code;
+      if (code === "RECOMMENDATION_404_1") {
+        navigate("/search-error");
+      } else if (error.response?.status === 404) {
         alert("목적지를 먼저 설정해주세요.");
         navigate("/address", { state: { next: "/welcome" } });
       } else {
