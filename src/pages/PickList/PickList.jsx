@@ -15,7 +15,13 @@ export default function PickList() {
   const restaurants = state?.restaurants ?? {};
 
   const handleSelect = (key) => {
-    navigate("/result", { state: { selectedType: key, adWatched: state?.adWatched ?? false } });
+    navigate("/result", {
+      state: {
+        restaurants,
+        selectedType: key,
+        adWatched: state?.adWatched ?? false,
+      },
+    });
   };
 
   return (
@@ -36,7 +42,7 @@ export default function PickList() {
       <div className={styles.list}>
         {PICKS.map(({ key, label, icon }) => {
           const restaurant = restaurants[key];
-          if (!restaurant) return null; // ✅ undefined 방어
+          if (!restaurant) return null;
 
           return (
             <button

@@ -13,7 +13,7 @@ const typeToIdx = { value: 0, balance: 1, quality: 2 };
 export default function SelectCardPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const restaurants = state?.restaurants ?? {};         // ✅
+  const restaurants = state?.restaurants ?? {};
   const initialType = state?.selectedType ?? "balance";
   const initialIdx = typeToIdx[initialType] ?? 1;
 
@@ -24,15 +24,13 @@ export default function SelectCardPage() {
   const [containerW, setContainerW] = useState(window.innerWidth);
   const [ready, setReady] = useState(false);
   const [showAd, setShowAd] = useState(false);
-  const [adWatched, setAdWatched] = useState(state?.adWatched ?? false);
+  const [adWatched] = useState(state?.adWatched ?? false);
 
   const [activeTags, setActiveTags] = useState({
     value:   [...(restaurants?.value?.selectedTags   ?? [])],
     balance: [...(restaurants?.balance?.selectedTags ?? [])],
     quality: [...(restaurants?.quality?.selectedTags ?? [])],
   });
-
-  // ❌ 여기 있던 navigate() 두 개 제거 — 아래 각 핸들러 안에만 있어야 함
 
   const carouselRef = useRef(null);
   const dragging = useRef(false);
@@ -120,7 +118,7 @@ export default function SelectCardPage() {
         setTimeout(() => {
           setLaunching(false);
           setVerticalDrag(0);
-          navigate("/detail", {                                        // ✅ 여기만 navigate
+          navigate("/detail", {
             state: { restaurant: restaurants[TYPES[idx]], fromRecommend: true },
           });
         }, 380);
@@ -139,12 +137,16 @@ export default function SelectCardPage() {
 
   const handleAdClose = () => {
     setShowAd(false);
-    setAdWatched(true);
-    navigate("/pick", {
+
+    const excludedKakaoPlaceIds = Object.values(restaurants)
+      .map((r) => r.kakaoPlaceId)
+      .filter(Boolean);
+
+    navigate("/loading", {
       state: {
-        activeTags,
-        selectedType: TYPES[idx],
+        isReroll: true,
         adWatched: true,
+        excludedKakaoPlaceIds,
       },
     });
   };
@@ -210,7 +212,7 @@ export default function SelectCardPage() {
               >
                 <PickCard
                   type={type}
-                  restaurant={restaurants[type]}              // ✅ 추가
+                  restaurant={restaurants[type]}
                   activeTags={activeTags[type]}
                   onTagClick={(tag) => handleTagClick(type, tag)}
                   isActive={isActive}

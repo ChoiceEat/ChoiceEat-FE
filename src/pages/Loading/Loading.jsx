@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSurvey } from "../../hooks/useSurvey";
 import { useAuth } from "../../hooks/useAuth";
 import { useRecommendations } from "../../hooks/useRecommendations";
@@ -7,18 +7,27 @@ import styles from "./Loading.module.scss";
 
 export default function Loading() {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const { answers } = useSurvey();
   const { user } = useAuth();
-  const { fetch, restaurants, error } = useRecommendations();
+  const { fetch, reroll, restaurants, error } = useRecommendations();
 
   useEffect(() => {
-    console.log("answers 확인:", answers); // ✅ 추가
-    fetch(answers);
+    if (state?.isReroll) {
+      reroll(answers, state.excludedKakaoPlaceIds ?? []);
+    } else {
+      fetch(answers);
+    }
   }, []);
 
   useEffect(() => {
     if (restaurants) {
-      navigate("/pick", { state: { restaurants } });
+      navigate("/pick", {
+        state: {
+          restaurants,
+          adWatched: state?.adWatched ?? false,
+        },
+      });
     }
   }, [restaurants]);
 

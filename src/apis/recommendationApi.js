@@ -8,3 +8,13 @@ export async function fetchRecommendations(answers) {
   });
   return data.data;
 }
+
+export async function fetchRerollRecommendations(answers, excludedKakaoPlaceIds = []) {
+  const { data } = await api.post("/api/recommendations/reroll", {
+    menuType: answers.menu,
+    mood: answers.vibe,
+    budget: answers.budget,
+    excludedKakaoPlaceIds,
+  });
+  return data.data;
+}
