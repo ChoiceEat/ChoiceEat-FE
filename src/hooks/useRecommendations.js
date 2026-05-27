@@ -1,16 +1,19 @@
 import { useState, useCallback } from "react";
 import { fetchRecommendations } from "../apis/recommendationApi";
 
-// recommendationType → key 매핑
+// recommendationType → key 매핑 (백엔드 displayName 기준)
 const TYPE_MAP = {
-  QUALITY: "quality",
+  "밸런스": "balance",
+  "가성비": "value",
+  "퀄리티": "quality",
   BALANCE: "balance",
   VALUE: "value",
+  QUALITY: "quality",
 };
 
 // API 응답 1개 → 기존 restaurant 객체 구조로 변환
 function mapToRestaurant(item) {
-  const type = TYPE_MAP[item.recommendationType?.toUpperCase()] ?? "balance";
+  const type = TYPE_MAP[item.recommendationType] ?? TYPE_MAP[item.recommendationType?.toUpperCase()] ?? "balance";
 
   const BADGE_MAP = { quality: "QUALITY PICK", balance: "BALANCE PICK", value: "VALUE PICK" };
   const TAG_MAP   = { quality: "퀄리티 픽",    balance: "밸런스 픽",    value: "가성비 픽" };
