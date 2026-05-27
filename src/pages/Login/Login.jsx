@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import { useAuth } from "../../hooks/useAuth";
+import { loginApi } from "../../apis/auth";
+import CharacterImg from "../../../public/char-login.svg";
 import PersonIcon from "../../assets/icons/person.svg";
 import LockIcon from "../../assets/icons/lock.svg";
 import EyeOffIcon from "../../assets/icons/eye-off.svg";
@@ -16,27 +18,37 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [idError, setIdError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const isActive = id.trim() !== "" && password.trim() !== "";
+  const isActive = id.trim() !== "" && password.trim() !== "" && !isLoading;
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    if (!isActive) return;
     setIdError("");
     setPasswordError("");
+    setIsLoading(true);
 
-    const users = JSON.parse(localStorage.getItem("choiceeat_users") || "[]");
-    const user = users.find((u) => u.email === id);
+    try {
+      const { status, data } = await loginApi({ email: id, password });
 
-    if (!user) {
-      setIdError("존재하지 않는 아이디입니다.");
-      return;
+      if (status === 200) {
+        login({
+          accessToken: data.data.accessToken,
+          userId: data.data.userId,
+          email: data.data.email,
+          nickname: data.data.nickname,
+        });
+        navigate("/home");
+      } else if (status === 404) {
+        setIdError(data.message);
+      } else if (status === 401) {
+        setPasswordError(data.message);
+      }
+    } catch {
+      // 네트워크 오류 등
+    } finally {
+      setIsLoading(false);
     }
-    if (user.password !== password) {
-      setPasswordError("비밀번호를 잘못 입력하셨습니다.");
-      return;
-    }
-
-    login({ email: user.email, nickname: user.nickname });
-    navigate("/home");
   };
 
   return (
@@ -112,7 +124,7 @@ export default function Login() {
           onClick={handleLogin}
           disabled={!isActive}
         >
-          로그인
+          {isLoading ? "로그인 중..." : "로그인"}
         </button>
 
         {/* 회원가입 링크 */}
