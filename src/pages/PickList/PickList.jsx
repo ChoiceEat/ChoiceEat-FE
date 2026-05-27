@@ -11,11 +11,12 @@ const PICKS = [
 export default function PickList() {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const { state } = useLocation();
   const { user } = useAuth();
   const restaurants = state?.restaurants ?? {};
 
   const handleSelect = (key) => {
-    navigate("/result", { state: { selectedType: key, restaurants } });
+    navigate("/result", { state: { selectedType: key, restaurants, adWatched: state?.adWatched ?? false } });
   };
 
   return (

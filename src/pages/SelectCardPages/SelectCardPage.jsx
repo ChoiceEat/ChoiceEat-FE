@@ -24,6 +24,7 @@ export default function SelectCardPage() {
   const [containerW, setContainerW] = useState(window.innerWidth);
   const [ready, setReady] = useState(false);
   const [showAd, setShowAd] = useState(false);
+  const [adWatched, setAdWatched] = useState(state?.adWatched ?? false);
 
   const [activeTags, setActiveTags] = useState({
     value:   [...(restaurants?.value?.selectedTags   ?? [])],
@@ -138,8 +139,14 @@ export default function SelectCardPage() {
 
   const handleAdClose = () => {
     setShowAd(false);
-    navigate("/pick", {                                                // ✅ 여기만 navigate
-      state: { activeTags, selectedType: TYPES[idx], restaurants },
+    setAdWatched(true);
+    navigate("/pick", {
+      state: {
+        activeTags,
+        selectedType: TYPES[idx],
+        restaurants,
+        adWatched: true,
+      },
     });
   };
 
@@ -231,9 +238,11 @@ export default function SelectCardPage() {
         </div>
         <div className={styles.bottom}>
           <p className={styles.bottomHint}>마음에 들지 않는다면?</p>
-          <button className={styles.bottomAd} onClick={handleAdClick}>
-            광고 시청 후 다시 뽑기
-          </button>
+          {!adWatched && (
+            <button className={styles.bottomAd} onClick={handleAdClick}>
+              광고 시청 후 다시 뽑기
+            </button>
+          )}
         </div>
       </div>
     </div>
