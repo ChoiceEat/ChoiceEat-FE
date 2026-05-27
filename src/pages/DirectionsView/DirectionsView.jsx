@@ -108,7 +108,6 @@ export default function DirectionsView() {
         <div className={styles.info}>
           <div className={styles.nameRow}>
             <h2 className={styles.name}>{name}</h2>
-            <button className={styles.moreBtn}>···</button>
           </div>
 
           <div className={styles.dots}>
