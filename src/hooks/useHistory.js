@@ -16,7 +16,7 @@ export function useHistory() {
     setList((prev) => {
       const updated = [
         { ...restaurant, _histDate: date },
-        ...prev.filter((r) => r.name !== restaurant.name),
+        ...prev.filter((r) => !(r.name === restaurant.name && r._histDate === date)),
       ];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       return updated;

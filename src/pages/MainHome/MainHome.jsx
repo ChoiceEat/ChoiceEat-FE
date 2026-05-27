@@ -93,29 +93,36 @@ export default function MainHome() {
             </div>
           ) : (
             <div className={styles.restaurantGrid}>
-              {historyList.slice(0, 4).map((restaurant) => (
-                <div
-                  key={restaurant.name}
-                  className={styles.restaurantCard}
-                  onClick={() => navigate("/detail", { state: { restaurant } })}
-                >
-                  <div className={styles.cardImageWrap}>
-                    <img
-                      src={restaurant.image || "/empty-store.png"}
-                      alt={restaurant.name}
-                      className={styles.cardImage}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "/empty-store.png";
-                      }}
-                    />
+              {historyList
+                .filter(
+                  (r, i, arr) => arr.findIndex((x) => x.name === r.name) === i,
+                )
+                .slice(0, 4)
+                .map((restaurant) => (
+                  <div
+                    key={restaurant.name}
+                    className={styles.restaurantCard}
+                    onClick={() =>
+                      navigate("/detail", { state: { restaurant } })
+                    }
+                  >
+                    <div className={styles.cardImageWrap}>
+                      <img
+                        src={restaurant.image || "/empty-store.png"}
+                        alt={restaurant.name}
+                        className={styles.cardImage}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/empty-store.png";
+                        }}
+                      />
+                    </div>
+                    <div className={styles.cardInfo}>
+                      <p className={styles.cardName}>{restaurant.name}</p>
+                      <p className={styles.cardTag}>{restaurant.tag}</p>
+                    </div>
                   </div>
-                  <div className={styles.cardInfo}>
-                    <p className={styles.cardName}>{restaurant.name}</p>
-                    <p className={styles.cardTag}>{restaurant.tag}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
           )}
         </section>
