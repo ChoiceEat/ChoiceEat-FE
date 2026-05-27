@@ -1,59 +1,63 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Address.module.scss";
-import { MOCK_LOCATIONS, SAMPLE_ADDRESSES } from "../../data/locations";
+import {
+  searchDestinations,
+  saveSelectedDestination,
+} from "../../apis/destinationApi";
 
 export default function Address() {
   const navigate = useNavigate();
+  const { state: locationState } = useLocation();
   const [query, setQuery] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const [savedAddresses] = useState(() => {
-    const stored = localStorage.getItem("savedAddresses");
-    if (!stored) {
-      localStorage.setItem("savedAddresses", JSON.stringify(SAMPLE_ADDRESSES));
-      return SAMPLE_ADDRESSES;
-    }
-    return JSON.parse(stored);
-  });
-
-  const [activeAddress] = useState(() => {
-    const stored = localStorage.getItem("savedAddress");
-    if (!stored) {
-      localStorage.setItem("savedAddress", JSON.stringify(SAMPLE_ADDRESSES[0]));
-      return SAMPLE_ADDRESSES[0];
-    }
-    return JSON.parse(stored);
-  });
-
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const q = query.trim();
-    const results = q
-      ? MOCK_LOCATIONS.filter(
-          (item) => item.name.includes(q) || item.address.includes(q),
-        )
-      : MOCK_LOCATIONS;
-    setFilteredResults(results);
-    setHasSearched(true);
+    if (!q) return;
+    setLoading(true);
+    try {
+      const results = await searchDestinations(q);
+      setFilteredResults(results);
+      setHasSearched(true);
+    } catch (err) {
+      console.error("목적지 검색 실패:", err);
+      alert("검색에 실패했어요. 다시 시도해주세요.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSearch();
   };
 
-  const handleSelectAddress = (item) => {
-    const selected = { name: item.name, address: item.address };
-    localStorage.setItem("savedAddress", JSON.stringify(selected));
+  const handleSelectAddress = async (item) => {
+    try {
+      const result = await saveSelectedDestination({
+        kakaoPlaceId: item.kakaoPlaceId,
+        placeName:    item.placeName,
+        address:      item.address,
+        roadAddress:  item.roadAddress,
+        latitude:     item.latitude,
+        longitude:    item.longitude,
+        placeUrl:     item.placeUrl ?? "",
+      });
+      console.log("목적지 저장 성공:", result);
 
-    const existing = JSON.parse(localStorage.getItem("savedAddresses") || "[]");
-    const deduped = existing.filter((a) => a.address !== item.address);
-    localStorage.setItem(
-      "savedAddresses",
-      JSON.stringify([selected, ...deduped]),
-    );
+      // 로컬에도 저장 (MainHome에서 표시용)
+      localStorage.setItem(
+        "savedAddress",
+        JSON.stringify({ name: item.placeName, address: item.address }),
+      );
 
-    navigate("/home");
+      navigate(locationState?.next ?? "/home");
+    } catch (err) {
+      console.error("목적지 저장 실패:", err);
+      alert("목적지 저장에 실패했어요. 다시 시도해주세요.");
+    }
   };
 
   const handleBack = () => {
@@ -68,16 +72,8 @@ export default function Address() {
     return (
       <div className={`${styles.container} ${styles.resultsView}`}>
         <div className={styles.pillWrap}>
-          <button
-            className={styles.pillBack}
-            onClick={handleBack}
-            aria-label="뒤로가기"
-          >
-            <img
-              className={styles.backIcon}
-              src="/icons/backToaddress.svg"
-              alt="뒤로가기"
-            />
+          <button className={styles.pillBack} onClick={handleBack} aria-label="뒤로가기">
+            <img className={styles.backIcon} src="/icons/backToaddress.svg" alt="뒤로가기" />
           </button>
           <input
             className={styles.pillInput}
@@ -85,43 +81,32 @@ export default function Address() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="예) 부기동 123, 부기대로 33"
+            placeholder="예) 성북구, 강남역"
             autoFocus
           />
-          <button
-            className={styles.pillSearch}
-            onClick={handleSearch}
-            aria-label="검색"
-          >
-            <img
-              src="/icons/address-search.svg"
-              alt="검색"
-              className={styles.searchIcon}
-            />
+          <button className={styles.pillSearch} onClick={handleSearch} aria-label="검색">
+            <img src="/icons/address-search.svg" alt="검색" className={styles.searchIcon} />
           </button>
         </div>
 
         <ul className={styles.results}>
-          {filteredResults.length > 0 ? (
+          {loading ? (
+            <li className={styles.noResults}>검색 중...</li>
+          ) : filteredResults.length > 0 ? (
             filteredResults.map((item) => (
               <li
-                key={item.id}
+                key={item.kakaoPlaceId}
                 className={styles.resultItem}
                 role="button"
                 tabIndex={0}
                 onClick={() => handleSelectAddress(item)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ")
-                    handleSelectAddress(item);
+                  if (e.key === "Enter" || e.key === " ") handleSelectAddress(item);
                 }}
               >
-                <img
-                  src="/icons/location.svg"
-                  alt="위치"
-                  className={styles.resultPin}
-                />
+                <img src="/icons/location.svg" alt="위치" className={styles.resultPin} />
                 <div className={styles.resultText}>
-                  <p className={styles.resultName}>{item.name}</p>
+                  <p className={styles.resultName}>{item.placeName}</p>
                   <p className={styles.resultAddress}>{item.address}</p>
                 </div>
               </li>
@@ -136,11 +121,7 @@ export default function Address() {
 
   return (
     <div className={styles.container}>
-      <button
-        className={styles.back}
-        onClick={handleBack}
-        aria-label="뒤로가기"
-      >
+      <button className={styles.back} onClick={handleBack} aria-label="뒤로가기">
         <img src="/icons/backG.svg" alt="뒤로가기" />
       </button>
 
@@ -158,20 +139,12 @@ export default function Address() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="예) 부기동 123, 부기대로 33"
+            placeholder="예) 성북구, 강남역"
           />
           <div className={styles.searchLine} />
         </div>
-        <button
-          className={styles.searchBtn}
-          onClick={handleSearch}
-          aria-label="검색"
-        >
-          <img
-            src="/icons/address-search.svg"
-            alt="검색"
-            className={styles.searchIcon}
-          />
+        <button className={styles.searchBtn} onClick={handleSearch} aria-label="검색">
+          <img src="/icons/address-search.svg" alt="검색" className={styles.searchIcon} />
         </button>
       </div>
 
@@ -192,40 +165,6 @@ export default function Address() {
           <span className={styles.guideText}>역삼동 푸르지오, 텐즈힐</span>
         </div>
       </div>
-
-      {savedAddresses.length > 0 && (
-        <div className={styles.savedSection}>
-          <p className={styles.savedTitle}>저장된 주소</p>
-          <ul className={styles.results}>
-            {savedAddresses.map((item, index) => (
-              <li
-                key={index}
-                className={`${styles.resultItem}${activeAddress?.address === item.address ? ` ${styles.resultActive}` : ""}`}
-                role="button"
-                tabIndex={0}
-                onClick={() => handleSelectAddress(item)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ")
-                    handleSelectAddress(item);
-                }}
-              >
-                <img
-                  src="/icons/location.svg"
-                  alt="위치"
-                  className={styles.resultPin}
-                />
-                <div className={styles.resultText}>
-                  <p className={styles.resultName}>{item.name}</p>
-                  <p className={styles.resultAddress}>{item.address}</p>
-                </div>
-                {activeAddress?.address === item.address && (
-                  <span className={styles.resultActiveBadge}>현재</span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }

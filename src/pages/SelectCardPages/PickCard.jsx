@@ -1,5 +1,4 @@
 import Card from "../../components/Cards/cards";
-import { RESTAURANTS } from "../../data/restaurants";
 
 const CARD_LABELS = {
   balance: "밸런스 맛집",
@@ -7,7 +6,9 @@ const CARD_LABELS = {
   value: "가성비 맛집",
 };
 
-export default function PickCard({ type, activeTags, onTagClick, isActive }) {
+export default function PickCard({ type, restaurant, activeTags, onTagClick, isActive }) {
+  if (!restaurant) return null;
+
   const {
     image,
     name,
@@ -17,8 +18,8 @@ export default function PickCard({ type, activeTags, onTagClick, isActive }) {
     category,
     distance,
     status,
-    tags,
-  } = RESTAURANTS[type];
+    tags = [],
+  } = restaurant;
 
   return (
     <Card
@@ -26,7 +27,7 @@ export default function PickCard({ type, activeTags, onTagClick, isActive }) {
       name={name}
       label={CARD_LABELS[type]}
       desc={desc}
-      meta={`${rating} (${reviews}) · ${category} · ${distance}`}
+      meta={`${rating} (${reviews}명) · ${category} · ${distance}`}
       status={status}
       tags={tags}
       activeTags={activeTags}
