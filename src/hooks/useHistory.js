@@ -1,8 +1,10 @@
 import { useState } from "react";
-
-const STORAGE_KEY = "choiceeat_history";
+import { useAuth } from "./useAuth";
 
 export function useHistory() {
+  const { user } = useAuth();
+  const STORAGE_KEY = `choiceeat_history_${user?.userId ?? "guest"}`;
+
   const [list, setList] = useState(() =>
     JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")
   );
