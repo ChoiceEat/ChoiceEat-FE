@@ -32,8 +32,6 @@ export default function DetailOverlay() {
 
   const ratingValue = restaurant.rating.split(" ").pop();
   const koreanBadge = BADGE_KR[restaurant.badge] ?? restaurant.badge;
-  const moreCount = restaurant.menus.length + 3;
-
   return (
     <div className={`${styles.overlay} ${styles.overlayOpen}`}>
       <div className={styles.header}>
@@ -85,62 +83,22 @@ export default function DetailOverlay() {
             <p className={styles.features}>{restaurant.features.join(" • ")}</p>
           </div>
 
-          <div className={styles.photos}>
-            <div className={styles.photo}>
-              <img
-                src={restaurant.image || "/empty-store2.png"}
-                alt=""
-                onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.png";
-                }}
-              />
+          <div className={styles.cardBtns}>
+            <div className={styles.btns}>
+              <button className={styles.btn} onClick={onMenuRecommend}>
+                메뉴 추천
+              </button>
+              <button className={styles.btn} onClick={onDirections}>
+                길찾기
+              </button>
             </div>
-            <div className={styles.photo}>
-              <img
-                src={restaurant.image || "/empty-store2.png"}
-                alt=""
-                onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.png";
-                }}
-              />
-            </div>
-            <div className={styles.photo}>
-              <img
-                src={restaurant.image || "/empty-store2.png"}
-                alt=""
-                onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.png";
-                }}
-              />
-            </div>
-            <div className={`${styles.photo} ${styles.photoMore}`}>
-              <img
-                src={restaurant.image || "/empty-store2.png"}
-                alt=""
-                onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.png";
-                }}
-              />
-              <span>+{moreCount}</span>
-            </div>
+            {fromRecommend && (
+              <button className={styles.btnConfirm} onClick={onConfirm}>
+                선택 확정
+              </button>
+            )}
           </div>
         </div>
-      </div>
-
-      <div className={styles.footer}>
-        <div className={styles.btns}>
-          <button className={styles.btn} onClick={onMenuRecommend}>
-            메뉴 추천
-          </button>
-          <button className={styles.btn} onClick={onDirections}>
-            길찾기
-          </button>
-        </div>
-        {fromRecommend && (
-          <button className={styles.btnConfirm} onClick={onConfirm}>
-            선택 확정
-          </button>
-        )}
       </div>
     </div>
   );
