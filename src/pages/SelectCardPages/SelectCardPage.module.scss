@@ -1,7 +1,7 @@
 @use "../../styles/variables" as *;
 
 .page {
-  width: 100vw;
+  width: 100%;
   height: 100dvh;
   overflow: hidden;
   display: flex;
@@ -198,6 +198,11 @@
   align-items: center;
   background: linear-gradient(to bottom, transparent 0%, #fff 28px);
   z-index: 20;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
 }
 
 .swipeHint {

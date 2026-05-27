@@ -2,7 +2,10 @@
 
 .overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: max(0px, calc(50% - 196.5px));
+  width: min(100%, 393px);
   z-index: 100;
   background: #e4f0ec;
   display: flex;
