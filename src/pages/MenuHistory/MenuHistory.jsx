@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MenuHistory.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
@@ -10,13 +9,7 @@ export default function MenuHistory() {
   const { user } = useAuth();
   const nickname = user?.nickname ?? "멋사";
 
-  const { list, deleteItem, save } = useHistory();
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleDone = () => {
-    save(list);
-    setIsEditing(false);
-  };
+  const { list } = useHistory();
 
   return (
     <div className={styles.container}>
@@ -30,15 +23,6 @@ export default function MenuHistory() {
             식당
           </h1>
         </div>
-        <div className={styles.editRow}>
-          <button
-            className={styles.editBtn}
-            onClick={() => (isEditing ? handleDone() : setIsEditing(true))}
-          >
-            <img src="/icons/edit.svg" />
-            {isEditing ? "완료" : "편집"}
-          </button>
-        </div>
       </div>
 
       <div className={styles.headerDivider} />
@@ -51,12 +35,9 @@ export default function MenuHistory() {
                 className={styles.item}
                 role="button"
                 tabIndex={0}
-                onClick={() => {
-                  if (!isEditing)
-                    navigate("/detail", { state: { restaurant } });
-                }}
+                onClick={() => navigate("/detail", { state: { restaurant } })}
                 onKeyDown={(e) => {
-                  if ((e.key === "Enter" || e.key === " ") && !isEditing)
+                  if (e.key === "Enter" || e.key === " ")
                     navigate("/detail", { state: { restaurant } });
                 }}
               >
@@ -79,15 +60,6 @@ export default function MenuHistory() {
                   <p className={styles.date}>{restaurant._histDate}</p>
                 </div>
               </div>
-              {isEditing && (
-                <button
-                  className={styles.deleteBtn}
-                  onClick={() => deleteItem(restaurant.name)}
-                  aria-label="삭제"
-                >
-                  ✕
-                </button>
-              )}
             </div>
             {index < list.length - 1 && <div className={styles.rowDivider} />}
           </div>
