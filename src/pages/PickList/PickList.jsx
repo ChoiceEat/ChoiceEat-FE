@@ -1,6 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { RESTAURANTS } from "../../data/restaurants";
 import styles from "./PickList.module.scss";
 
 const PICKS = [
@@ -10,12 +9,19 @@ const PICKS = [
 ];
 
 export default function PickList() {
-  const navigate = useNavigate();
   const { state } = useLocation();
+  const navigate = useNavigate();
   const { user } = useAuth();
+  const restaurants = state?.restaurants ?? {};
 
   const handleSelect = (key) => {
-    navigate("/result", { state: { selectedType: key, adWatched: state?.adWatched ?? false } });
+    navigate("/result", {
+      state: {
+        restaurants,
+        selectedType: key,
+        adWatched: state?.adWatched ?? false,
+      },
+    });
   };
 
   return (
@@ -35,7 +41,9 @@ export default function PickList() {
 
       <div className={styles.list}>
         {PICKS.map(({ key, label, icon }) => {
-          const restaurant = RESTAURANTS[key];
+          const restaurant = restaurants[key];
+          if (!restaurant) return null;
+
           return (
             <button
               key={key}

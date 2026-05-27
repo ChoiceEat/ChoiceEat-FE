@@ -4,6 +4,7 @@ import styles from "./MainHome.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "../../hooks/useHistory";
+import { getSelectedDestination } from "../../apis/destinationApi";
 
 export default function MainHome() {
   const navigate = useNavigate();
@@ -54,7 +55,18 @@ export default function MainHome() {
               찾으러 <strong>바로가기</strong>
               <button
                 className={styles.bannerArrow}
-                onClick={() => navigate("/welcome")}
+                onClick={async () => {
+                  try {
+                    await getSelectedDestination();
+                    navigate("/welcome");
+                  } catch (err) {
+                    if (err.response?.status === 404) {
+                      navigate("/address", { state: { next: "/welcome" } });
+                    } else {
+                      navigate("/welcome");
+                    }
+                  }
+                }}
                 aria-label="맛집 찾기"
               >
                 <img src="/icons/next.svg" />
