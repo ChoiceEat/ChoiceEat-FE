@@ -3,6 +3,7 @@ import styles from "./MenuHistory.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "../../hooks/useHistory";
+import { BADGE_KR } from "../../data/constants";
 
 export default function MenuHistory() {
   const navigate = useNavigate();
@@ -55,7 +56,9 @@ export default function MenuHistory() {
                   <p className={styles.name}>{restaurant.name}</p>
                   <p className={styles.meta}>
                     {restaurant.category}
-                    {restaurant.distance ? ` • ${restaurant.distance}` : ""}
+                    {restaurant.badge
+                      ? ` • ${BADGE_KR[restaurant.badge] ?? restaurant.badge}`
+                      : ""}
                   </p>
                   <p className={styles.date}>{restaurant._histDate}</p>
                 </div>
