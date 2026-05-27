@@ -93,7 +93,7 @@ export default function MainHome() {
             </div>
           ) : (
             <div className={styles.restaurantGrid}>
-              {historyList.map((restaurant) => (
+              {historyList.slice(0, 4).map((restaurant) => (
                 <div
                   key={restaurant.name}
                   className={styles.restaurantCard}
