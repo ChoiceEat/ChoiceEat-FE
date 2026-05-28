@@ -10,6 +10,7 @@ export default function DetailOverlay() {
   const { state } = useLocation();
   const restaurant = state?.restaurant;
   const fromRecommend = state?.fromRecommend ?? false;
+  const fromHistory = state?.fromHistory ?? false;
   const scrollRef = useRef(null);
   const { user } = useAuth();
   const nickname = user?.nickname ?? "00";
@@ -31,8 +32,10 @@ export default function DetailOverlay() {
   const onMenuRecommend = () =>
     navigate("/menu-recommend", { state: { restaurant } });
 
-  const ratingValue = restaurant.rating.split(" ").pop();
-  const koreanBadge = BADGE_KR[restaurant.badge] ?? restaurant.badge;
+  const ratingValue = restaurant.rating?.split(" ").pop() ?? null;
+  const koreanBadge = restaurant.badge
+    ? (BADGE_KR[restaurant.badge] ?? restaurant.badge)
+    : null;
   return (
     <div className={`${styles.overlay} ${styles.overlayOpen}`}>
       <div className={styles.header}>
@@ -40,7 +43,11 @@ export default function DetailOverlay() {
           <img src="/icons/back.png" alt="뒤로" />
         </button>
         <p className={styles.title}>
-          {nickname}님 {koreanBadge}을 선택하신 것 맞나요?
+          {fromHistory
+            ? restaurant.name
+            : koreanBadge
+              ? `${nickname}님 ${koreanBadge}을 선택하신 것 맞나요?`
+              : restaurant.name}
         </p>
       </div>
 
@@ -97,32 +104,46 @@ export default function DetailOverlay() {
 
             <div className={styles.namePrice}>
               <h2 className={styles.name}>{restaurant.name}</h2>
-            </div>
-
-            <div className={styles.ratingBadge}>
-              <span className={styles.ratingStar}>★</span>
-              <span className={styles.ratingNum}>{ratingValue}</span>
+              {ratingValue && (
+                <div className={styles.ratingBadge}>
+                  <span className={styles.ratingStar}>★</span>
+                  <span className={styles.ratingNum}>{ratingValue}</span>
+                </div>
+              )}
             </div>
           </div>
 
           <div className={styles.info}>
-            <p className={styles.ratingFull}>
-              {restaurant.rating} (리뷰 {restaurant.reviews}개)
-            </p>
-            <p className={styles.meta}>
-              {restaurant.category} • {restaurant.address} •{" "}
-              {restaurant.distance}
-            </p>
-            <p className={styles.hours}>영업시간: {restaurant.hours}</p>
-            <p className={styles.phone}>전화: {restaurant.phone}</p>
-            <p className={styles.features}>{restaurant.features.join(" • ")}</p>
+            {restaurant.rating && (
+              <p className={styles.ratingFull}>
+                {restaurant.rating}{restaurant.reviews != null ? ` (리뷰 ${restaurant.reviews}개)` : ""}
+              </p>
+            )}
+            {(restaurant.category || restaurant.address || restaurant.distance) && (
+              <p className={styles.meta}>
+                {[restaurant.category, restaurant.address, restaurant.distance]
+                  .filter(Boolean)
+                  .join(" • ")}
+              </p>
+            )}
+            {restaurant.hours && (
+              <p className={styles.hours}>영업시간: {restaurant.hours}</p>
+            )}
+            {restaurant.phone && (
+              <p className={styles.phone}>전화: {restaurant.phone}</p>
+            )}
+            {restaurant.features?.length > 0 && (
+              <p className={styles.features}>{restaurant.features.join(" • ")}</p>
+            )}
           </div>
 
           <div className={styles.cardBtns}>
             <div className={styles.btns}>
-              <button className={styles.btn} onClick={onMenuRecommend}>
-                메뉴 추천
-              </button>
+              {restaurant.kakaoPlaceId && (
+                <button className={styles.btn} onClick={onMenuRecommend}>
+                  메뉴 추천
+                </button>
+              )}
               <button className={styles.btn} onClick={onDirections}>
                 길찾기
               </button>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./MainHome.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
 import { useAuth } from "../../hooks/useAuth";
-import { useHistory } from "../../hooks/useHistory";
+import { useHomeHistoryData } from "../../hooks/useHistoryData";
 import { getSelectedDestination } from "../../apis/destinationApi";
 
 export default function MainHome() {
@@ -13,7 +13,7 @@ export default function MainHome() {
   const [savedAddress] = useState(() =>
     JSON.parse(localStorage.getItem("savedAddress") || "null"),
   );
-  const { list: historyList } = useHistory({ home: true });
+  const { list: historyList } = useHomeHistoryData();
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -115,7 +115,7 @@ export default function MainHome() {
                     key={restaurant.name}
                     className={styles.restaurantCard}
                     onClick={() =>
-                      navigate("/detail", { state: { restaurant } })
+                      navigate("/detail", { state: { restaurant, fromHistory: true } })
                     }
                   >
                     <div className={styles.cardImageWrap}>
