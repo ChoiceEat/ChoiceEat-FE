@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PickCard from "./PickCard";
 import AdInterstitial from "../../components/Aditerstitial/Aditerstitial";
 import styles from "./SelectCardPage.module.scss";
+import { useSurvey } from "../../hooks/useSurvey";
 
 const TYPES = ["value", "balance", "quality"];
 const LABELS = ["가성비 픽", "밸런스 픽", "퀄리티 픽"];
@@ -25,6 +26,8 @@ export default function SelectCardPage() {
   const [ready, setReady] = useState(false);
   const [showAd, setShowAd] = useState(false);
   const [adWatched] = useState(state?.adWatched ?? false);
+  const { answers: contextAnswers } = useSurvey();
+  const answers = state?.answers ?? contextAnswers;
 
   const [activeTags, setActiveTags] = useState({
     value:   [...(restaurants?.value?.selectedTags   ?? [])],
@@ -133,8 +136,10 @@ export default function SelectCardPage() {
     [idx, navigate, restaurants],
   );
 
-  const handleAdClick = () => setShowAd(true);
-
+  const handleAdClick = () => {
+    console.log("answers at ad click:", answers);
+    setShowAd(true);
+  };
   const handleAdClose = () => {
     setShowAd(false);
 
@@ -147,6 +152,7 @@ export default function SelectCardPage() {
         isReroll: true,
         adWatched: true,
         excludedKakaoPlaceIds,
+        answers,
       },
     });
   };

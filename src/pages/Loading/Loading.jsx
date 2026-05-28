@@ -8,11 +8,14 @@ import styles from "./Loading.module.scss";
 export default function Loading() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { answers } = useSurvey();
+  const { answers: contextAnswers } = useSurvey();
+  const isValidAnswers = (a) => a != null && Object.values(a).some((v) => v !== null);
+  const answers = isValidAnswers(state?.answers) ? state.answers : contextAnswers;
   const { user } = useAuth();
   const { fetch, reroll, restaurants, error } = useRecommendations();
 
   useEffect(() => {
+    sessionStorage.getItem("surveyAnswers");
     if (state?.isReroll) {
       reroll(answers, state.excludedKakaoPlaceIds ?? []);
     } else {
@@ -21,12 +24,12 @@ export default function Loading() {
   }, []);
 
   useEffect(() => {
-    console.log("answers:", JSON.stringify(answers)); // 추
     if (restaurants) {
       navigate("/pick", {
         state: {
           restaurants,
           adWatched: state?.adWatched ?? false,
+          answers,
         },
       });
     }
