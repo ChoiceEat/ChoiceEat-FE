@@ -1,8 +1,6 @@
 import api from "./api";
 
 export async function saveHistory(kakaoPlaceId, recommendationType) {
-  console.log("saveHistory 호출:", { kakaoPlaceId, recommendationType });
-
   const { data } = await api.post("/api/histories", {
     kakaoPlaceId,
     recommendationType,
