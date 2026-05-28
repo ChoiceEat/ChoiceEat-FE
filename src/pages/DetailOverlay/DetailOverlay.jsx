@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./DetailOverlay.module.scss";
 import { useAuth } from "../../hooks/useAuth";
@@ -14,7 +14,8 @@ export default function DetailOverlay() {
   const { user } = useAuth();
   const nickname = user?.nickname ?? "00";
   const { addItem } = useHistory();
-
+  const [shareUrl, setShareUrl] = useState(null);
+  
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   }, []);
@@ -55,10 +56,38 @@ export default function DetailOverlay() {
               }}
             />
             <div className={styles.imgGradient} />
-
-            <button className={styles.shareBtn} aria-label="공유">
+            
+            <button
+              className={styles.shareBtn}
+              aria-label="공유"
+              onClick={() => {
+                const url = restaurant.placeUrl ||
+                  `https://map.kakao.com/link/map/${encodeURIComponent(restaurant.name)},${restaurant.lat},${restaurant.lng}`;
+                setShareUrl(url);
+              }}
+            >
               <img src="/icons/share-detail.svg" />
             </button>
+
+            {shareUrl && (
+              <div className={styles.sharePopup}>
+                <p className={styles.shareLabel}>공유 링크</p>
+                <div className={styles.shareRow}>
+                  <span className={styles.shareUrlText}>{shareUrl}</span>
+                  <button
+                    className={styles.shareCopyBtn}
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareUrl);
+                      setShareUrl(null);
+                      alert("복사되었습니다!");
+                    }}
+                  >
+                    복사
+                  </button>
+                </div>
+                <button className={styles.shareClose} onClick={() => setShareUrl(null)}>✕</button>
+              </div>
+            )}
 
             <div className={styles.namePrice}>
               <h2 className={styles.name}>{restaurant.name}</h2>
