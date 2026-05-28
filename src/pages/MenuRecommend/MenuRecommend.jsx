@@ -57,6 +57,36 @@ export default function MenuRecommend() {
         <img className={styles.mascot} src="/char-vibe.png" alt="" />
       </div>
 
+      <div
+        className={styles.restaurantCard}
+        role="button"
+        tabIndex={0}
+        onClick={() => navigate("/detail", { state: { restaurant, fromHistory: true } })}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ")
+            navigate("/detail", { state: { restaurant, fromHistory: true } });
+        }}
+      >
+        <div className={styles.restaurantThumb}>
+          <img
+            src={restaurant.image || "/empty-store2.png"}
+            alt={restaurant.placeName ?? restaurant.name}
+            onError={(e) => {
+              e.currentTarget.src = "/empty-store2.png";
+            }}
+          />
+        </div>
+        <div className={styles.restaurantInfo}>
+          <p className={styles.restaurantName}>
+            {restaurant.placeName ?? restaurant.name}
+          </p>
+          {restaurant.category && (
+            <p className={styles.restaurantCategory}>{restaurant.category}</p>
+          )}
+        </div>
+        <img className={styles.restaurantArrow} src="/icons/arrow-right.svg" alt="" />
+      </div>
+
       <div className={styles.list}>
         {loading && <p className={styles.status}>불러오는 중...</p>}
         {error && <p className={styles.status}>{error}</p>}

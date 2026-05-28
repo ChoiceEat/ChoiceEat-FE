@@ -112,21 +112,29 @@ export default function DirectionsView() {
           </div>
 
           <div className={styles.dots}>
-            <span className={`${styles.dot} ${styles.dotActive}`} />
-            <span className={styles.dot} />
-            <span className={styles.dot} />
+            <span />
+            <span  />
+            <span  />
           </div>
 
-          <p className={styles.walk}>
-            도보 {walkingMinutes}분 • {distanceKm}km
-          </p>
-          <p className={styles.car}>예상 소요: 자동차 {carMinutes}분</p>
+          {walkingMinutes != null && (
+            <p className={styles.walk}>
+              도보 {walkingMinutes}분 • {distanceKm}km
+            </p>
+          )}
+          {carMinutes != null && (
+            <p className={styles.car}>예상 소요: 자동차 {carMinutes}분</p>
+          )}
         </div>
 
         <div className={styles.btns}>
           <a
             className={styles.navBtn}
-            href={`https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`}
+            href={
+              lat != null && lng != null
+                ? `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`
+                : `https://map.kakao.com/link/search/${encodeURIComponent(name)}`
+            }
             target="_blank"
             rel="noopener noreferrer"
           >

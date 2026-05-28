@@ -1,13 +1,26 @@
 import { useState, useEffect } from "react";
 import { fetchHistories, fetchHomeHistories } from "../apis/historyApi";
 
+function normalize(item) {
+  return {
+    name: item.restaurantName,
+    image: item.imageUrl ?? "",
+    category: item.category ?? "",
+    badge: item.pickType ?? "",
+    tag: item.pickType ?? "",
+    _histDate: item.selectedAt
+      ? new Date(item.selectedAt).toLocaleDateString("ko-KR")
+      : "",
+  };
+}
+
 export function useHistoryData() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchHistories()
-      .then(setList)
+      .then((data) => setList((data ?? []).map(normalize)))
       .catch(() => setList([]))
       .finally(() => setLoading(false));
   }, []);
@@ -25,7 +38,7 @@ export function useHomeHistoryData() {
 
   useEffect(() => {
     fetchHomeHistories()
-      .then(setList)
+      .then((data) => setList((data ?? []).map(normalize)))
       .catch(() => setList([]))
       .finally(() => setLoading(false));
   }, []);

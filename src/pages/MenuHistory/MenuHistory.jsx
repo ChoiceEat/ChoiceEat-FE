@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./MenuHistory.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
 import { useAuth } from "../../hooks/useAuth";
-import { useHistory } from "../../hooks/useHistory";
+import { useHistoryData } from "../../hooks/useHistoryData";
 import { BADGE_KR } from "../../data/constants";
 
 export default function MenuHistory() {
@@ -10,7 +10,7 @@ export default function MenuHistory() {
   const { user } = useAuth();
   const nickname = user?.nickname ?? "멋사";
 
-  const { list } = useHistory();
+  const { list } = useHistoryData();
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -35,10 +35,10 @@ export default function MenuHistory() {
                 className={styles.item}
                 role="button"
                 tabIndex={0}
-                onClick={() => navigate("/detail", { state: { restaurant } })}
+                onClick={() => navigate("/detail", { state: { restaurant, fromHistory: true } })}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ")
-                    navigate("/detail", { state: { restaurant } });
+                    navigate("/detail", { state: { restaurant, fromHistory: true } });
                 }}
               >
                 <div className={styles.thumb}>
