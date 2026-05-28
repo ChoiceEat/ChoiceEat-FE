@@ -8,7 +8,7 @@ export default function Splash() {
 
   const handleStart = () => {
     resetAnswers(); // 이전 선택값 초기화
-    navigate("/welcome");
+    navigate("/login");
   };
 
   return (
@@ -20,14 +20,10 @@ export default function Splash() {
           className={styles.charImg}
         />
         <h1 className={styles.appName}>Choice Eat</h1>
-        <img
-          src="/tagline.svg"
-          alt="오늘 뭐 먹지? 고민 끝!"
-          className={styles.tagline}
-        />
+        <p className={styles.tagline}>오늘 뭐 먹지? 고민 끝!</p>
       </div>
       <button className={styles.startBtn} onClick={handleStart}>
-        시작하기
+        맛집 찾으러 가기
       </button>
     </div>
   );

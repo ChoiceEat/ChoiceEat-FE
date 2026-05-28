@@ -1,33 +1,58 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSurvey } from "../../hooks/useSurvey";
+import { useAuth } from "../../hooks/useAuth";
+import { useRecommendations } from "../../hooks/useRecommendations";
 import styles from "./Loading.module.scss";
 
 export default function Loading() {
   const navigate = useNavigate();
-  const { answers } = useSurvey();
+  const { state } = useLocation();
+  const { answers: contextAnswers } = useSurvey();
+  const isValidAnswers = (a) =>
+    a != null && Object.values(a).some((v) => v !== null);
+  const answers = isValidAnswers(state?.answers)
+    ? state.answers
+    : contextAnswers;
+  const { user } = useAuth();
+  const { fetch, reroll, restaurants, error } = useRecommendations();
 
   useEffect(() => {
-    const fetchResult = async () => {
-      try {
-        // TODO: 나중에 실제 API 호출로 교체
-        // const res = await fetch('/api/recommend', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(answers),
-        // })
-        // const data = await res.json()
-        // navigate('/result', { state: { result: data } })
-
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        navigate("/pick", { state: { answers } });
-      } catch (err) {
-        console.error("API 호출 실패:", err);
-      }
-    };
-
-    fetchResult();
+    sessionStorage.getItem("surveyAnswers");
+    if (state?.isReroll) {
+      reroll(answers, state.excludedKakaoPlaceIds ?? []);
+    } else {
+      fetch(answers);
+    }
   }, []);
+
+  useEffect(() => {
+    if (restaurants) {
+      navigate("/pick", {
+        state: {
+          restaurants,
+          adWatched: state?.adWatched ?? false,
+          answers,
+        },
+      });
+    }
+  }, [restaurants]);
+
+  useEffect(() => {
+    if (error) {
+      console.error("API 호출 실패:", error);
+      const code = error.response?.data?.code;
+      if (code === "RECOMMENDATION_404_1") {
+        navigate("/search-error");
+      } else if (error.response?.status === 404) {
+        alert("목적지를 먼저 설정해주세요.");
+        navigate("/address", { state: { next: "/welcome" } });
+      } else {
+        alert("추천을 불러오지 못했어요. 다시 시도해주세요.");
+        navigate(-1);
+      }
+    }
+  }, [error]);
 
   return (
     <div className={styles.container}>
@@ -35,7 +60,7 @@ export default function Loading() {
         <div className={styles.spinner} />
         <p className={styles.subText}>잠시만 기다려 주세요...</p>
         <p className={styles.mainText}>
-          OO님께 꼭 맞는 메뉴를
+          {user?.nickname ?? "OO"}님께 꼭 맞는 메뉴를
           <br />
           초이스 하고 있어요!
         </p>

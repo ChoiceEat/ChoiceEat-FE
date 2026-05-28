@@ -1,33 +1,59 @@
-export default function Card({ image, name, price, label, desc, meta, status, tags = [], activeTags = [], onTagClick }) {
+import { useState } from "react";
+import styles from "./cards.module.scss";
+
+const FALLBACK_IMG = "/empty-store2.png";
+
+export default function Card({
+  image,
+  name,
+  label,
+  desc,
+  meta,
+  status,
+  tags = [],
+  activeTags = [],
+  onTagClick,
+  isActive = false,
+}) {
+  const [imgSrc, setImgSrc] = useState(image || FALLBACK_IMG);
+
   return (
-    <div className="result-card">
+    <div className={`${styles.card}${isActive ? ` ${styles.floating}` : ""}`}>
       <div
-        className="result-card__image"
-        style={{ backgroundImage: `url(${image})` }}
+        className={styles.image}
+        style={{ backgroundImage: `url(${imgSrc})` }}
       >
-        <div className="result-card__image-overlay" />
-        <div className="result-card__image-info">
-          <p className="result-card__image-name">{name}</p>
-          <p className="result-card__image-price">{price}</p>
+        <img
+          src={imgSrc}
+          alt=""
+          style={{ display: "none" }}
+          onError={() => setImgSrc(FALLBACK_IMG)}
+        />
+        <div className={styles.imageOverlay} />
+        <div className={styles.imageInfo}>
+          <p className={styles.imageName}>{name}</p>
         </div>
       </div>
-      <div className="result-card__body">
-        <p className="result-card__label">{label}</p>
-        <p className="result-card__desc">{desc}</p>
-        <div className="result-card__tags">
-          {tags.map(tag => (
+      <div className={styles.body}>
+        <p className={styles.label}>{label}</p>
+        <p className={styles.desc}>{desc}</p>
+        <div className={styles.tags}>
+          {tags.map((tag) => (
             <button
               key={tag}
               type="button"
-              className={`result-card__tag${activeTags.includes(tag) ? ' result-card__tag--active' : ''}`}
-              onClick={e => { e.stopPropagation(); onTagClick?.(tag); }}
+              className={`${styles.tag}${activeTags.includes(tag) ? ` ${styles.tagActive}` : ""}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onTagClick?.(tag);
+              }}
             >
               {tag}
             </button>
           ))}
         </div>
-        <p className="result-card__meta">{meta}</p>
-        <p className="result-card__status">{status}</p>
+        <p className={styles.meta}>{meta}</p>
+        <p className={styles.status}>{status}</p>
       </div>
     </div>
   );

@@ -1,14 +1,12 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { RESTAURANTS } from '../../data/restaurants';
-import BalanceCard from './BalanceCard';
-import ValueCard from './ValueCard';
-import QualityCard from './QualityCard';
-import './selectCardPage.scss';
-import '../../styles/cards.scss';
+import { useState, useRef, useCallback, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import PickCard from "./PickCard";
+import AdInterstitial from "../../components/Aditerstitial/Aditerstitial";
+import styles from "./SelectCardPage.module.scss";
+import { useSurvey } from "../../hooks/useSurvey";
 
-const TYPES = ['value', 'balance', 'quality'];
-const LABELS = ['가성비 픽', '밸런스 픽', '퀄리티 픽'];
+const TYPES = ["value", "balance", "quality"];
+const LABELS = ["가성비 픽", "밸런스 픽", "퀄리티 픽"];
 const CARD_W = 275;
 const SWIPE_THRESHOLD = 48;
 const typeToIdx = { value: 0, balance: 1, quality: 2 };
@@ -16,7 +14,8 @@ const typeToIdx = { value: 0, balance: 1, quality: 2 };
 export default function SelectCardPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const initialType = state?.selectedType ?? 'balance';
+  const restaurants = state?.restaurants ?? {};
+  const initialType = state?.selectedType ?? "balance";
   const initialIdx = typeToIdx[initialType] ?? 1;
 
   const [idx, setIdx] = useState(initialIdx);
@@ -25,11 +24,14 @@ export default function SelectCardPage() {
   const [launching, setLaunching] = useState(false);
   const [containerW, setContainerW] = useState(window.innerWidth);
   const [ready, setReady] = useState(false);
+  const [showAd, setShowAd] = useState(false);
+  const [adWatched] = useState(state?.adWatched ?? false);
+  const { answers } = useSurvey();
 
   const [activeTags, setActiveTags] = useState({
-    value:   [...(RESTAURANTS.value.selectedTags   ?? [])],
-    balance: [...(RESTAURANTS.balance.selectedTags ?? [])],
-    quality: [...(RESTAURANTS.quality.selectedTags ?? [])],
+    value: [...(restaurants?.value?.selectedTags ?? [])],
+    balance: [...(restaurants?.balance?.selectedTags ?? [])],
+    quality: [...(restaurants?.quality?.selectedTags ?? [])],
   });
 
   const carouselRef = useRef(null);
@@ -48,40 +50,44 @@ export default function SelectCardPage() {
     });
     const obs = new ResizeObserver(measure);
     if (carouselRef.current) obs.observe(carouselRef.current);
-    return () => { cancelAnimationFrame(raf); obs.disconnect(); };
+    return () => {
+      cancelAnimationFrame(raf);
+      obs.disconnect();
+    };
   }, []);
-
-  const selectedType = TYPES[idx];
-  const selectedRestaurant = RESTAURANTS[selectedType];
 
   const centerOffset = (containerW - CARD_W) / 2;
   const translateX = -(idx * CARD_W) + centerOffset + offset;
   const animated = offset === 0 && ready;
 
-  const dragProgress = verticalDrag < 0 ? Math.min(Math.abs(verticalDrag) / 280, 1) : 0;
+  const dragProgress =
+    verticalDrag < 0 ? Math.min(Math.abs(verticalDrag) / 280, 1) : 0;
   const liftScale = 1 - dragProgress * 0.08;
 
   const activeCardStyle = launching
     ? {
-        transform: 'translateY(-110vh) scale(0.84)',
+        transform: "translateY(-110vh) scale(0.84)",
         opacity: 0,
-        transition: 'transform 0.38s cubic-bezier(0.4,0,0.8,0.5), opacity 0.28s ease-in',
-        pointerEvents: 'none',
+        transition:
+          "transform 0.38s cubic-bezier(0.4,0,0.8,0.5), opacity 0.28s ease-in",
+        pointerEvents: "none",
       }
     : verticalDrag < 0
-    ? {
-        transform: `translateY(${verticalDrag * 0.75}px) scale(${liftScale})`,
-        transition: 'none',
-      }
-    : {
-        transform: 'translateY(0px) scale(1)',
-        transition: 'transform 0.52s cubic-bezier(0.34,1.56,0.64,1)',
-      };
+      ? {
+          transform: `translateY(${verticalDrag * 0.75}px) scale(${liftScale})`,
+          transition: "none",
+        }
+      : {
+          transform: "translateY(0px) scale(1)",
+          transition: "transform 0.52s cubic-bezier(0.34,1.56,0.64,1)",
+        };
 
   const handleTagClick = useCallback((type, tag) => {
-    setActiveTags(prev => {
+    setActiveTags((prev) => {
       const cur = prev[type];
-      const next = cur.includes(tag) ? cur.filter(t => t !== tag) : [...cur, tag];
+      const next = cur.includes(tag)
+        ? cur.filter((t) => t !== tag)
+        : [...cur, tag];
       return { ...prev, [type]: next };
     });
   }, []);
@@ -97,82 +103,102 @@ export default function SelectCardPage() {
     const dx = x - origin.current.x;
     const dy = y - origin.current.y;
     if (!axis.current && (Math.abs(dx) > 5 || Math.abs(dy) > 5))
-      axis.current = Math.abs(dx) >= Math.abs(dy) ? 'h' : 'v';
-    if (axis.current === 'h') setOffset(dx);
-    else if (axis.current === 'v') setVerticalDrag(dy < 0 ? dy : 0);
+      axis.current = Math.abs(dx) >= Math.abs(dy) ? "h" : "v";
+    if (axis.current === "h") setOffset(dx);
+    else if (axis.current === "v") setVerticalDrag(dy < 0 ? dy : 0);
   }, []);
 
-  const endDrag = useCallback((x, y) => {
-    if (!dragging.current) return;
-    dragging.current = false;
-    const dx = x - origin.current.x;
-    const dy = y - origin.current.y;
-    setOffset(0);
+  const endDrag = useCallback(
+    (x, y) => {
+      if (!dragging.current) return;
+      dragging.current = false;
+      const dx = x - origin.current.x;
+      const dy = y - origin.current.y;
+      setOffset(0);
 
-    if (dy < -SWIPE_THRESHOLD && Math.abs(dy) > Math.abs(dx)) {
-      setLaunching(true);
-      setTimeout(() => {
-        setLaunching(false);
-        setVerticalDrag(0);
-        navigate('/detail', { state: { restaurant: RESTAURANTS[TYPES[idx]] } });
-      }, 380);
-      return;
-    }
-    setVerticalDrag(0);
+      if (dy < -SWIPE_THRESHOLD && Math.abs(dy) > Math.abs(dx)) {
+        setLaunching(true);
+        setTimeout(() => {
+          setLaunching(false);
+          setVerticalDrag(0);
+          navigate("/detail", {
+            state: { restaurant: restaurants[TYPES[idx]], fromRecommend: true },
+          });
+        }, 380);
+        return;
+      }
+      setVerticalDrag(0);
 
-    if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dy) > Math.abs(dx)) return;
-    if (dx < 0 && idx < 2) setIdx(i => i + 1);
-    if (dx > 0 && idx > 0) setIdx(i => i - 1);
-  }, [idx, navigate]);
+      if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dy) > Math.abs(dx)) return;
+      if (dx < 0 && idx < 2) setIdx((i) => i + 1);
+      if (dx > 0 && idx > 0) setIdx((i) => i - 1);
+    },
+    [idx, navigate, restaurants],
+  );
 
   const handleAdClick = () => {
-    alert('광고 기능은 준비 중입니다.');
+    console.log("answers at ad click:", answers);
+    setShowAd(true);
+  };
+  const handleAdClose = () => {
+    setShowAd(false);
+
+    const excludedKakaoPlaceIds = Object.values(restaurants)
+      .map((r) => r.kakaoPlaceId)
+      .filter(Boolean);
+
+    navigate("/loading", {
+      state: {
+        isReroll: true,
+        adWatched: true,
+        excludedKakaoPlaceIds,
+        answers,
+      },
+    });
   };
 
   const dragProps = {
-    onMouseDown:  e => startDrag(e.clientX, e.clientY),
-    onMouseMove:  e => moveDrag(e.clientX, e.clientY),
-    onMouseUp:    e => endDrag(e.clientX, e.clientY),
-    onMouseLeave: e => endDrag(e.clientX, e.clientY),
-    onTouchStart: e => startDrag(e.touches[0].clientX, e.touches[0].clientY),
-    onTouchMove:  e => moveDrag(e.touches[0].clientX, e.touches[0].clientY),
-    onTouchEnd:   e => endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY),
+    onMouseDown: (e) => startDrag(e.clientX, e.clientY),
+    onMouseMove: (e) => moveDrag(e.clientX, e.clientY),
+    onMouseUp: (e) => endDrag(e.clientX, e.clientY),
+    onMouseLeave: (e) => endDrag(e.clientX, e.clientY),
+    onTouchStart: (e) => startDrag(e.touches[0].clientX, e.touches[0].clientY),
+    onTouchMove: (e) => moveDrag(e.touches[0].clientX, e.touches[0].clientY),
+    onTouchEnd: (e) =>
+      endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY),
   };
 
   return (
-    <div className="scp-page" {...dragProps}>
+    <div className={styles.page} {...dragProps}>
+      {showAd && <AdInterstitial onClose={handleAdClose} />}
 
-      {/* ── TOP: 헤더·탭·캐릭터 (max 393px 중앙) ── */}
-      <div className="scp-top">
-        <header className="scp-header">
-          <span className="scp-logo">Choice Eat</span>
+      <div className={styles.top}>
+        <header className={styles.header}>
+          <span className={styles.logo}>Choice Eat</span>
         </header>
-
-        <nav className="scp-nav">
+        <nav className={styles.nav}>
           {LABELS.map((label, i) => (
             <button
               key={i}
-              className={`scp-nav__item${i === idx ? ' scp-nav__item--active' : ''}`}
+              className={`${styles.navItem}${i === idx ? ` ${styles.navItemActive}` : ""}`}
               onClick={() => setIdx(i)}
             >
               {label}
             </button>
           ))}
         </nav>
-
-        <div className="scp-char">
+        <div className={styles.char}>
           <img src="/char-vibe.png" alt="" draggable={false} />
         </div>
       </div>
 
-      {/* ── CAROUSEL: full viewport width ── */}
       <div
-        className={`scp-carousel${(verticalDrag < 0 || launching) ? ' scp-carousel--lifting' : ''}`}
+        className={`${styles.carousel}${verticalDrag < 0 || launching ? ` ${styles.carouselLifting}` : ""}`}
         ref={carouselRef}
       >
         <button
-          className="scp-arrow scp-arrow--left"
-          onClick={() => idx > 0 && setIdx(i => i - 1)}
+          className={`${styles.arrow} ${styles.arrowLeft}`}
+          onClick={() => idx > 0 && setIdx((i) => i - 1)}
           disabled={idx === 0}
           aria-label="이전"
         >
@@ -180,7 +206,7 @@ export default function SelectCardPage() {
         </button>
 
         <div
-          className={`scp-track${animated ? ' scp-track--anim' : ''}`}
+          className={`${styles.track}${animated ? ` ${styles.trackAnim}` : ""}`}
           style={{ transform: `translateX(${translateX}px)` }}
         >
           {TYPES.map((type, i) => {
@@ -188,35 +214,24 @@ export default function SelectCardPage() {
             return (
               <div
                 key={type}
-                className={`scp-slide${isActive ? ' scp-slide--active' : ' scp-slide--inactive'}`}
+                className={`${styles.slide}${isActive ? ` ${styles.slideActive}` : ` ${styles.slideInactive}`}`}
                 style={{ width: CARD_W, ...(isActive ? activeCardStyle : {}) }}
               >
-                {i === 0 && (
-                  <ValueCard
-                    activeTags={activeTags.value}
-                    onTagClick={tag => handleTagClick('value', tag)}
-                  />
-                )}
-                {i === 1 && (
-                  <BalanceCard
-                    activeTags={activeTags.balance}
-                    onTagClick={tag => handleTagClick('balance', tag)}
-                  />
-                )}
-                {i === 2 && (
-                  <QualityCard
-                    activeTags={activeTags.quality}
-                    onTagClick={tag => handleTagClick('quality', tag)}
-                  />
-                )}
+                <PickCard
+                  type={type}
+                  restaurant={restaurants[type]}
+                  activeTags={activeTags[type]}
+                  onTagClick={(tag) => handleTagClick(type, tag)}
+                  isActive={isActive}
+                />
               </div>
             );
           })}
         </div>
 
         <button
-          className="scp-arrow scp-arrow--right"
-          onClick={() => idx < 2 && setIdx(i => i + 1)}
+          className={`${styles.arrow} ${styles.arrowRight}`}
+          onClick={() => idx < 2 && setIdx((i) => i + 1)}
           disabled={idx === 2}
           aria-label="다음"
         >
@@ -224,20 +239,22 @@ export default function SelectCardPage() {
         </button>
       </div>
 
-      {/* ── FOOTER: 스와이프 힌트·광고버튼 (max 393px 중앙) ── */}
-      <div className="scp-footer">
-        <div className="scp-swipe-hint">
-          <div className="scp-swipe-hint__arrow">↑</div>
-          <div className="scp-swipe-hint__text">위로 밀어서 선택</div>
+      <div className={styles.footer}>
+        <div className={styles.swipeHint}>
+          <div className={styles.swipeHintArrow}>↑</div>
+          <div className={styles.swipeHintText}>위로 밀어서 선택</div>
         </div>
-        <div className="scp-bottom">
-          <p className="scp-bottom__hint">마음에 들지 않는다면?</p>
-          <button className="scp-bottom__ad" onClick={handleAdClick}>
-            광고 시청 후 다시 뽑기
-          </button>
+        <div className={styles.bottom}>
+          {!adWatched && (
+            <p className={styles.bottomHint}>마음에 들지 않는다면?</p>
+          )}
+          {!adWatched && (
+            <button className={styles.bottomAd} onClick={handleAdClick}>
+              광고 시청 후 다시 뽑기
+            </button>
+          )}
         </div>
       </div>
-
     </div>
   );
 }

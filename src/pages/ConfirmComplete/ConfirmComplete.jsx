@@ -1,67 +1,97 @@
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./ConfirmComplete.scss";
-
-const BADGE_LABELS = {
-  'QUALITY PICK': '퀄리티 높은 음식점',
-  'BALANCE PICK': '균형잡힌 음식점',
-  'VALUE PICK':   '가성비 좋은 음식점',
-};
+import styles from "./ConfirmComplete.module.scss";
+import { BADGE_LABELS } from "../../data/constants";
 
 export default function ConfirmComplete() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const restaurant = state?.restaurant;
+  const [shareUrl, setShareUrl] = useState(null);
 
   if (!restaurant) return null;
 
   const badgeLabel = BADGE_LABELS[restaurant.badge] ?? restaurant.badge;
 
   return (
-    <div className="cc-page">
-      <header className="cc-header">
-        <button className="cc-back-btn" onClick={() => navigate(-1)}>
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <button className={styles.backBtn} onClick={() => navigate(-1)}>
           <img src="/icons/back.svg" alt="뒤로" />
         </button>
-        <span className="cc-logo">Choice Eat</span>
-        <div className="cc-header-right">
-        </div>
+        <span className={styles.logo}>Choice Eat</span>
+        <div className={styles.headerRight}></div>
       </header>
 
-      <div className="cc-body">
-        <div className="cc-check-wrap">
-          <div className="cc-check-circle">✓</div>
+      <div className={styles.body}>
+        <div className={styles.checkWrap}>
+          <img
+            src="/icons/check-default.svg"
+            alt="완료"
+            className={styles.checkIcon}
+          />
         </div>
 
-        <div className="cc-char">
+        <div className={styles.char}>
           <img src="/char-smile.png" alt="" />
         </div>
 
-        <p className="cc-title">선택이 완료되었어요!</p>
+        <p className={styles.title}>선택이 완료되었어요!</p>
 
-        <div className="cc-card">
-          <p className="cc-card__badge">{badgeLabel}</p>
-          <p className="cc-card__name">{restaurant.name}</p>
-          <div className="cc-card__info">
-            <p className="cc-card__meta">
+        <div className={styles.card}>
+          <p className={styles.cardBadge}>{badgeLabel}</p>
+          <p className={styles.cardName}>{restaurant.name}</p>
+          <div className={styles.cardInfo}>
+            <p className={styles.cardMeta}>
               {restaurant.category} • {restaurant.distanceKm}km
             </p>
-            <p className="cc-card__sub">영업시간: {restaurant.hours}</p>
-            <p className="cc-card__sub">전화: {restaurant.phone}</p>
+            <p className={styles.cardSub}>영업시간: {restaurant.hours}</p>
+            <p className={styles.cardSub}>전화: {restaurant.phone}</p>
           </div>
-          <div className="cc-card__actions">
-            <button className="cc-card__action-btn" aria-label="공유">
-              <img src="/icons/share.svg" alt="공유" />
+          <div className={styles.cardActions}>
+            <button
+              className={styles.shareBtn}
+              aria-label="공유"
+              onClick={() => {
+                const url =
+                  restaurant.placeUrl ||
+                  `https://map.kakao.com/link/map/${encodeURIComponent(restaurant.name)},${restaurant.lat},${restaurant.lng}`;
+                setShareUrl(url);
+              }}
+            >
+              <img src="/icons/share-detail.svg" />
             </button>
 
-            <button className="cc-card__action-btn" aria-label="복사">
-              <img src="/icons/copy.svg" alt="복사" />
-            </button>
+            {shareUrl && (
+              <div className={styles.sharePopup}>
+                <p className={styles.shareLabel}>공유 링크</p>
+                <div className={styles.shareRow}>
+                  <span className={styles.shareUrlText}>{shareUrl}</span>
+                  <button
+                    className={styles.shareCopyBtn}
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareUrl);
+                      setShareUrl(null);
+                      alert("복사되었습니다!");
+                    }}
+                  >
+                    복사
+                  </button>
+                </div>
+                <button
+                  className={styles.shareClose}
+                  onClick={() => setShareUrl(null)}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="cc-footer">
-        <button className="cc-home-btn" onClick={() => navigate("/")}>
+      <div className={styles.footer}>
+        <button className={styles.homeBtn} onClick={() => navigate("/home")}>
           처음으로
         </button>
       </div>

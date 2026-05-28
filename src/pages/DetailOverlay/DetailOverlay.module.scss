@@ -1,0 +1,318 @@
+@use "../../styles/variables" as *;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: max(0px, calc(50% - 196.5px));
+  width: min(100%, 393px);
+  z-index: 100;
+  background: #e4f0ec;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(100%);
+  transition: transform 0.44s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.overlayOpen {
+  transform: translateY(0);
+}
+
+.header {
+  flex-shrink: 0;
+  position: relative;
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 16px;
+}
+
+.backBtn {
+  position: absolute;
+  top: 45px;
+  left: 24px;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f9065;
+  letter-spacing: -0.35px;
+  text-align: center;
+  margin: 0;
+}
+
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 35px 40px;
+}
+
+.card {
+  background: $white;
+  border: 1px solid #e7f1f0;
+  border-radius: 20px;
+  box-shadow: 0 8px 8px 0 rgba(24, 150, 108, 0.1);
+  overflow: hidden;
+}
+
+.cardBtns {
+  padding: 16px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.imageWrap {
+  position: relative;
+  margin: 18px 18px 0;
+  height: 296px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.mainImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.imgGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(72, 72, 72, 0) 37%,
+    rgb(26, 26, 26) 100%
+  );
+  border-radius: 20px;
+}
+
+.shareBtn {
+  position: absolute;
+  top: 17px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(250, 250, 250, 0.82);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #5fb095;
+  padding: 0;
+}
+
+.namePrice {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #e4f0ec;
+  letter-spacing: -0.6px;
+  margin: 0;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e4f0ec;
+  letter-spacing: -0.35px;
+  margin: 0;
+}
+
+.ratingBadge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 2px;
+  padding: 5px 7px;
+  background: rgba(250, 250, 250, 0.82);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: 12px;
+  color: #5fb095;
+}
+
+.ratingStar {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.ratingNum {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.375px;
+}
+
+.info {
+  padding: 20px 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ratingFull {
+  font-size: 16px;
+  font-weight: 500;
+  color: #0f9065;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+.meta,
+.hours,
+.phone {
+  font-size: 12px;
+  font-weight: 500;
+  color: #0b2c21;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.features {
+  font-size: 10px;
+  color: #5c736b;
+  letter-spacing: -0.25px;
+  margin: 0;
+}
+
+.btns {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+
+.btn {
+  flex: 1;
+  height: 46px;
+  background: $green;
+  border: none;
+  border-radius: 100px;
+  color: $white;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.35px;
+  cursor: pointer;
+  box-shadow: 0 8px 4px rgba(24, 150, 108, 0.1);
+  transition:
+    transform 0.14s ease,
+    opacity 0.14s ease;
+
+  &:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+}
+
+.btnConfirm {
+  width: 100%;
+  flex: unset;
+  height: 46px;
+  background: $white;
+  border: none;
+  border-radius: 100px;
+  color: #5c736b;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.35px;
+  cursor: pointer;
+  box-shadow: 0 8px 4px rgba(24, 150, 108, 0.1);
+  transition:
+    transform 0.14s ease,
+    opacity 0.14s ease;
+
+  &:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+}
+
+.sharePopup {
+  position: absolute;
+  top: 60px;
+  right: 15px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  padding: 12px 14px;
+  z-index: 10;
+  width: 240px;
+}
+
+.shareLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5c736b;
+  margin: 0 0 8px;
+}
+
+.shareRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.shareUrlText {
+  font-size: 11px;
+  color: #0b2c21;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shareCopyBtn {
+  flex-shrink: 0;
+  background: $green;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.shareClose {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #5c736b;
+  cursor: pointer;
+  padding: 0;
+}

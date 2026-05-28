@@ -1,18 +1,21 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./DetailOverlay.scss";
-
-const BADGE_KR = {
-  "QUALITY PICK": "퀄리티 픽",
-  "BALANCE PICK": "밸런스 픽",
-  "VALUE PICK": "가성비 픽",
-};
+import styles from "./DetailOverlay.module.scss";
+import { useAuth } from "../../hooks/useAuth";
+import { useHistory } from "../../hooks/useHistory";
+import { BADGE_KR } from "../../data/constants";
 
 export default function DetailOverlay() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const restaurant = state?.restaurant;
+  const fromRecommend = state?.fromRecommend ?? false;
+  const fromHistory = state?.fromHistory ?? false;
   const scrollRef = useRef(null);
+  const { user } = useAuth();
+  const nickname = user?.nickname ?? "00";
+  const { addItem } = useHistory();
+  const [shareUrl, setShareUrl] = useState(null);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
@@ -21,87 +24,136 @@ export default function DetailOverlay() {
   if (!restaurant) return null;
 
   const onClose = () => navigate(-1);
-  const onConfirm = () => navigate("/confirm", { state: { restaurant } });
+  const onConfirm = () => {
+    addItem(restaurant);
+    navigate("/confirm", { state: { restaurant } });
+  };
   const onDirections = () => navigate("/directions", { state: { restaurant } });
+  const onMenuRecommend = () =>
+    navigate("/menu-recommend", { state: { restaurant } });
 
-  const ratingValue = restaurant.rating.split(" ").pop();
-  const koreanBadge = BADGE_KR[restaurant.badge] ?? restaurant.badge;
-  const moreCount = restaurant.menus.length + 3;
-
+  const ratingValue = restaurant.rating?.split(" ").pop() ?? null;
+  const koreanBadge = restaurant.badge
+    ? (BADGE_KR[restaurant.badge] ?? restaurant.badge)
+    : null;
   return (
-    <div className="do-overlay do-overlay--open">
-      <div className="do-header">
-        <button className="do-back-btn" onClick={onClose}>
+    <div className={`${styles.overlay} ${styles.overlayOpen}`}>
+      <div className={styles.header}>
+        <button className={styles.backBtn} onClick={onClose}>
           <img src="/icons/back.png" alt="뒤로" />
         </button>
-        <p className="do-title">oo님 {koreanBadge}을 선택하신 것 맞나요?</p>
+        <p className={styles.title}>
+          {fromHistory
+            ? restaurant.name
+            : koreanBadge
+              ? `${nickname}님 ${koreanBadge}을 선택하신 것 맞나요?`
+              : restaurant.name}
+        </p>
       </div>
 
-      <div className="do-scroll" ref={scrollRef}>
-        <div className="do-card">
-          {/* 이미지 영역 */}
-          <div className="do-image-wrap">
-            <img className="do-main-img" src={restaurant.image} alt={restaurant.name} />
-            <div className="do-img-gradient" />
+      <div className={styles.scroll} ref={scrollRef}>
+        <div className={styles.card}>
+          <div className={styles.imageWrap}>
+            <img
+              className={styles.mainImg}
+              src={restaurant.image || "/empty-store2.png"}
+              alt={restaurant.name}
+              onError={(e) => {
+                e.currentTarget.src = "/empty-store2.png";
+              }}
+            />
+            <div className={styles.imgGradient} />
 
-            <button className="do-share-btn" aria-label="공유">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="18" cy="5" r="3" />
-                <circle cx="6" cy="12" r="3" />
-                <circle cx="18" cy="19" r="3" />
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-              </svg>
+            <button
+              className={styles.shareBtn}
+              aria-label="공유"
+              onClick={() => {
+                const url =
+                  restaurant.placeUrl ||
+                  `https://map.kakao.com/link/map/${encodeURIComponent(restaurant.name)},${restaurant.lat},${restaurant.lng}`;
+                setShareUrl(url);
+              }}
+            >
+              <img src="/icons/share-detail.svg" />
             </button>
 
-            <div className="do-name-price">
-              <h2 className="do-name">{restaurant.name}</h2>
-              <p className="do-price">{restaurant.price} 평균</p>
-            </div>
+            {shareUrl && (
+              <div className={styles.sharePopup}>
+                <p className={styles.shareLabel}>공유 링크</p>
+                <div className={styles.shareRow}>
+                  <span className={styles.shareUrlText}>{shareUrl}</span>
+                  <button
+                    className={styles.shareCopyBtn}
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareUrl);
+                      setShareUrl(null);
+                      alert("복사되었습니다!");
+                    }}
+                  >
+                    복사
+                  </button>
+                </div>
+                <button
+                  className={styles.shareClose}
+                  onClick={() => setShareUrl(null)}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
 
-            <div className="do-rating-badge">
-              <span className="do-rating-star">★</span>
-              <span className="do-rating-num">{ratingValue}</span>
+            <div className={styles.namePrice}>
+              <h2 className={styles.name}>{restaurant.name}</h2>
+              {ratingValue && (
+                <div className={styles.ratingBadge}>
+                  <span className={styles.ratingStar}>★</span>
+                  <span className={styles.ratingNum}>{ratingValue}</span>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* 상세 정보 */}
-          <div className="do-info">
-            <p className="do-rating-full">
-              {restaurant.rating} (리뷰 {restaurant.reviews}개)
-            </p>
-            <p className="do-meta">
-              {restaurant.category} • {restaurant.address} • {restaurant.distance}
-            </p>
-            <p className="do-hours">영업시간: {restaurant.hours}</p>
-            <p className="do-phone">전화: {restaurant.phone}</p>
-            <p className="do-features">{restaurant.features.join(" • ")}</p>
+          <div className={styles.info}>
+            {restaurant.rating && (
+              <p className={styles.ratingFull}>
+                {restaurant.rating}{restaurant.reviews != null ? ` (리뷰 ${restaurant.reviews}개)` : ""}
+              </p>
+            )}
+            {(restaurant.category || restaurant.address || restaurant.distance) && (
+              <p className={styles.meta}>
+                {[restaurant.category, restaurant.address, restaurant.distance]
+                  .filter(Boolean)
+                  .join(" • ")}
+              </p>
+            )}
+            {restaurant.hours && (
+              <p className={styles.hours}>영업시간: {restaurant.hours}</p>
+            )}
+            {restaurant.phone && (
+              <p className={styles.phone}>전화: {restaurant.phone}</p>
+            )}
+            {restaurant.features?.length > 0 && (
+              <p className={styles.features}>{restaurant.features.join(" • ")}</p>
+            )}
           </div>
 
-          {/* 사진 썸네일 */}
-          <div className="do-photos">
-            <div className="do-photo">
-              <img src={restaurant.image} alt="" />
+          <div className={styles.cardBtns}>
+            <div className={styles.btns}>
+              {restaurant.kakaoPlaceId && (
+                <button className={styles.btn} onClick={onMenuRecommend}>
+                  메뉴 추천
+                </button>
+              )}
+              <button className={styles.btn} onClick={onDirections}>
+                길찾기
+              </button>
             </div>
-            <div className="do-photo">
-              <img src={restaurant.image} alt="" />
-            </div>
-            <div className="do-photo">
-              <img src={restaurant.image} alt="" />
-            </div>
-            <div className="do-photo do-photo--more">
-              <img src={restaurant.image} alt="" />
-              <span>+{moreCount}</span>
-            </div>
+            {fromRecommend && (
+              <button className={styles.btnConfirm} onClick={onConfirm}>
+                선택 확정
+              </button>
+            )}
           </div>
-        </div>
-      </div>
-
-      {/* 고정 하단 버튼 영역 */}
-      <div className="do-footer">
-        <div className="do-btns">
-          <button className="do-btn" onClick={onConfirm}>선택 확정</button>
-          <button className="do-btn" onClick={onDirections}>길찾기</button>
         </div>
       </div>
     </div>

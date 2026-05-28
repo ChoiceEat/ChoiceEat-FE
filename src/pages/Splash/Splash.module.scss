@@ -1,51 +1,59 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 .container {
-  min-height: 100dvh;
-  background: $bg;
+  height: 100dvh;
+  background: $white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 80px 20px 48px;
+  justify-content: flex-start;
+  padding: 80px 24px 0;
+  box-sizing: border-box;
 }
 
 .logoArea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
 }
 
 .charImg {
-  width: 180px;
-  height: 180px;
+  width: 147px;
+  height: 145px;
   object-fit: contain;
+  margin-top: clamp(40px, 22vh, 191px);
+  margin-bottom: 11px;
 }
 
 .appName {
-  font-family: 'Alfa Slab One', serif;
+  font-family: $font-logo;
   font-size: 40px;
   letter-spacing: 0.02em;
   color: $green;
 }
 
 .tagline {
+  font-family: $font-title;
   font-size: 20px;
-  color: #17110e;
+  font-weight: 400;
+  color: $text-black;
 }
 
 .startBtn {
+  font-family: $font-content;
   width: 100%;
   padding: 18px;
   border: none;
   border-radius: 99px;
   background: $green;
-  color: #fff;
-  font-size: 17px;
+  color: $white;
+  font-size: 20px;
   font-weight: 700;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  margin-top: 172px;
 
-  &:active { opacity: 0.85; }
+  &:active {
+    opacity: 0.85;
+  }
 }

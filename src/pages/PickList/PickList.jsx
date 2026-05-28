@@ -1,18 +1,28 @@
-import { useNavigate } from "react-router-dom";
-import { RESTAURANTS } from "../../data/restaurants";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 import styles from "./PickList.module.scss";
 
 const PICKS = [
-  { key: "balance", label: "밸런스 픽", icon: "⚖️" },
-  { key: "value", label: "가성비 픽", icon: "💰" },
-  { key: "quality", label: "퀄리티 픽", icon: "🎁" },
+  { key: "balance", label: "밸런스 픽", icon: "/icons/pick-balance.svg" },
+  { key: "value", label: "가성비 픽", icon: "/icons/pick-value.svg" },
+  { key: "quality", label: "퀄리티 픽", icon: "/icons/pick-quality.svg" },
 ];
 
 export default function PickList() {
+  const { state } = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const restaurants = state?.restaurants ?? {};
 
   const handleSelect = (key) => {
-    navigate("/result", { state: { selectedType: key } });
+    navigate("/result", {
+      state: {
+        restaurants,
+        selectedType: key,
+        adWatched: state?.adWatched ?? false,
+        answers: state?.answers,
+      },
+    });
   };
 
   return (
@@ -21,13 +31,20 @@ export default function PickList() {
         <h1 className={styles.logo}>Choice Eat</h1>
       </header>
 
-      <div className={styles.bubble}>
-        <p className={styles.bubbleText}>이 중에 마음에 드는게 있을까요?</p>
+      <div className={styles.bubbleRow}>
+        <div className={styles.bubble}>
+          <p className={styles.bubbleText}>
+            {user?.nickname ?? "OO"}님, 이 중에 마음에 드는게 있을까요?
+          </p>
+        </div>
+        <img src="/char-vibe.png" alt="" className={styles.char} />
       </div>
 
       <div className={styles.list}>
         {PICKS.map(({ key, label, icon }) => {
-          const restaurant = RESTAURANTS[key];
+          const restaurant = restaurants[key];
+          if (!restaurant) return null;
+
           return (
             <button
               key={key}
@@ -35,20 +52,20 @@ export default function PickList() {
               onClick={() => handleSelect(key)}
             >
               <img
-                src={restaurant.image}
+                src={restaurant.image || "/empty-store2.png"}
                 alt={restaurant.name}
                 className={styles.cardImg}
+                onError={(e) => {
+                  e.currentTarget.src = "/empty-store2.png";
+                }}
               />
               <div className={styles.overlay} />
-              <div className={styles.badge}>
-                <span className={styles.badgeIcon}>{icon}</span>
-                <span className={styles.badgeLabel}>{label}</span>
-              </div>
               <div className={styles.cardInfo}>
-                <p className={styles.cardName}>{restaurant.name}</p>
-                <p className={styles.cardMeta}>
-                  {restaurant.rating} · {restaurant.category}
-                </p>
+                <img src={icon} alt="" className={styles.pickIcon} />
+                <div className={styles.cardTexts}>
+                  <p className={styles.cardName}>{restaurant.name}</p>
+                  <p className={styles.cardLabel}>{label}</p>
+                </div>
               </div>
             </button>
           );

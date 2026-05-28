@@ -3,23 +3,28 @@ import { createContext, useState } from "react";
 const SurveyContext = createContext(null);
 
 export function SurveyProvider({ children }) {
-  const [answers, setAnswers] = useState({
-    budget: null, // Step1에서 선택한 예산
-    vibe: null, // Step2에서 선택한 분위기
-    menu: null, // Step3에서 선택한 메뉴
+  const [answers, setAnswers] = useState(() => {
+    const saved = sessionStorage.getItem("surveyAnswers");
+    return saved ? JSON.parse(saved) : { menu: null, vibe: null, budget: null };
   });
 
   const setAnswer = (key, value) => {
-    setAnswers((prev) => ({ ...prev, [key]: value }));
+    setAnswers((prev) => {
+      const next = { ...prev, [key]: value };
+      sessionStorage.setItem("surveyAnswers", JSON.stringify(next));
+      return next;
+    });
   };
 
   const resetAnswers = () => {
-    setAnswers({ budget: null, vibe: null, menu: null });
+    const reset = { menu: null, vibe: null, budget: null };
+    sessionStorage.setItem("surveyAnswers", JSON.stringify(reset));
+    setAnswers(reset);
   };
 
   const isSearchable = () => {
     return (
-      answers.budget !== null || answers.vibe !== null || answers.menu !== null
+      answers.menu !== null || answers.vibe !== null || answers.budget !== null
     );
   };
 
