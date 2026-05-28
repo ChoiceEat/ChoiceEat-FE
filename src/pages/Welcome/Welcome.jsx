@@ -8,7 +8,6 @@ export default function Welcome() {
   const { user } = useAuth();
   const nickname = user?.nickname ?? "";
 
-
   return (
     <div className={styles.container}>
       <p className={styles.topText}>반가워요 {nickname}님!</p>

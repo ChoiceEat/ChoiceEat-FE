@@ -15,7 +15,7 @@ export default function DetailOverlay() {
   const nickname = user?.nickname ?? "00";
   const { addItem } = useHistory();
   const [shareUrl, setShareUrl] = useState(null);
-  
+
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
   }, []);
@@ -56,12 +56,13 @@ export default function DetailOverlay() {
               }}
             />
             <div className={styles.imgGradient} />
-            
+
             <button
               className={styles.shareBtn}
               aria-label="공유"
               onClick={() => {
-                const url = restaurant.placeUrl ||
+                const url =
+                  restaurant.placeUrl ||
                   `https://map.kakao.com/link/map/${encodeURIComponent(restaurant.name)},${restaurant.lat},${restaurant.lng}`;
                 setShareUrl(url);
               }}
@@ -85,7 +86,12 @@ export default function DetailOverlay() {
                     복사
                   </button>
                 </div>
-                <button className={styles.shareClose} onClick={() => setShareUrl(null)}>✕</button>
+                <button
+                  className={styles.shareClose}
+                  onClick={() => setShareUrl(null)}
+                >
+                  ✕
+                </button>
               </div>
             )}
 

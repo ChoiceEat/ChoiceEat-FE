@@ -9,8 +9,11 @@ export default function Loading() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { answers: contextAnswers } = useSurvey();
-  const isValidAnswers = (a) => a != null && Object.values(a).some((v) => v !== null);
-  const answers = isValidAnswers(state?.answers) ? state.answers : contextAnswers;
+  const isValidAnswers = (a) =>
+    a != null && Object.values(a).some((v) => v !== null);
+  const answers = isValidAnswers(state?.answers)
+    ? state.answers
+    : contextAnswers;
   const { user } = useAuth();
   const { fetch, reroll, restaurants, error } = useRecommendations();
 

@@ -122,7 +122,11 @@ export default function MainHome() {
                       <img
                         src={restaurant.image || "/char-main.png"}
                         alt={restaurant.name}
-                        className={restaurant.image ? styles.cardImage : styles.cardImageFallback}
+                        className={
+                          restaurant.image
+                            ? styles.cardImage
+                            : styles.cardImageFallback
+                        }
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.src = "/char-main.png";

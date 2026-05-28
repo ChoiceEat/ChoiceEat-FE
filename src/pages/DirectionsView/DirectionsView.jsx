@@ -39,7 +39,7 @@ export default function DirectionsView() {
   };
 
   const handlePointerDown = (e) => {
-    if (e.target.closest('a, button')) return; // 추가
+    if (e.target.closest("a, button")) return; // 추가
     if (!sheetRef.current) return;
     isDraggingRef.current = true;
     startYRef.current = e.clientY;

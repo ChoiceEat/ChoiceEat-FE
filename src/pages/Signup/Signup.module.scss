@@ -1,11 +1,10 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 .page {
   min-height: 100dvh;
   background: $white;
   padding: 0 24px 48px;
 }
-
 
 .header {
   display: flex;
@@ -27,7 +26,10 @@
   flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
 
-  img { width: 100%; height: 100%; }
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .headerTitle {
@@ -40,7 +42,6 @@
   color: $text-black;
   white-space: nowrap;
 }
-
 
 .form {
   display: flex;
@@ -61,7 +62,6 @@
   gap: 12px;
 }
 
-
 .underlineField {
   flex: 1;
   display: flex;
@@ -71,8 +71,12 @@
   padding: 10px 0 16px;
   transition: border-color 0.15s ease;
 
-  &.fieldOk   { border-bottom-color: $green; }
-  &.fieldError { border-bottom-color: $error; }
+  &.fieldOk {
+    border-bottom-color: $green;
+  }
+  &.fieldError {
+    border-bottom-color: $error;
+  }
 }
 
 .underlineInput {
@@ -87,9 +91,13 @@
   color: #9eb1aa;
   letter-spacing: -0.35px;
 
-  &::placeholder { color: #9eb1aa; }
+  &::placeholder {
+    color: #9eb1aa;
+  }
 
-  &.inputFilled { color: $text-black; }
+  &.inputFilled {
+    color: $text-black;
+  }
 }
 
 .eyeBtn {
@@ -108,7 +116,6 @@
     object-fit: contain;
   }
 }
-
 
 .checkBtn {
   flex-shrink: 0;
@@ -130,10 +137,11 @@
     background: $green;
     cursor: pointer;
 
-    &:active { opacity: 0.85; }
+    &:active {
+      opacity: 0.85;
+    }
   }
 }
-
 
 .helperMsg {
   font-family: $font-content;
@@ -143,10 +151,15 @@
   margin: 0;
 }
 
-.msgGuide  { color: #5c736b; }
-.msgOk     { color: $green; }
-.msgError  { color: $error; }
-
+.msgGuide {
+  color: #5c736b;
+}
+.msgOk {
+  color: $green;
+}
+.msgError {
+  color: $error;
+}
 
 .submitBtn {
   width: 100%;
@@ -167,6 +180,8 @@
     background: $green;
     cursor: pointer;
 
-    &:active { opacity: 0.85; }
+    &:active {
+      opacity: 0.85;
+    }
   }
 }

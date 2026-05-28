@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 .page {
   position: relative;
@@ -52,7 +52,7 @@
   margin: 0;
 }
 
-// 입력 필드 
+// 입력 필드
 .inputWrap {
   height: 52px;
   display: flex;
@@ -142,11 +142,13 @@
     background: $green;
     cursor: pointer;
 
-    &:active { opacity: 0.85; }
+    &:active {
+      opacity: 0.85;
+    }
   }
 }
 
-// 회원가입 링크 
+// 회원가입 링크
 .signupLink {
   background: none;
   border: none;

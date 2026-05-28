@@ -10,7 +10,7 @@ export default function MenuHistory() {
   const { user } = useAuth();
   const nickname = user?.nickname ?? "멋사";
 
-  const { list } = useHistory(); 
+  const { list } = useHistory();
   return (
     <div className={styles.container}>
       <div className={styles.header}>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./ConfirmComplete.module.scss";
 import { BADGE_LABELS } from "../../data/constants";
@@ -6,6 +7,7 @@ export default function ConfirmComplete() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const restaurant = state?.restaurant;
+  const [shareUrl, setShareUrl] = useState(null);
 
   if (!restaurant) return null;
 
@@ -47,9 +49,43 @@ export default function ConfirmComplete() {
             <p className={styles.cardSub}>전화: {restaurant.phone}</p>
           </div>
           <div className={styles.cardActions}>
-            <button className={styles.cardActionBtn} aria-label="공유">
-              <img src="/icons/share.svg" alt="공유" />
+            <button
+              className={styles.shareBtn}
+              aria-label="공유"
+              onClick={() => {
+                const url =
+                  restaurant.placeUrl ||
+                  `https://map.kakao.com/link/map/${encodeURIComponent(restaurant.name)},${restaurant.lat},${restaurant.lng}`;
+                setShareUrl(url);
+              }}
+            >
+              <img src="/icons/share-detail.svg" />
             </button>
+
+            {shareUrl && (
+              <div className={styles.sharePopup}>
+                <p className={styles.shareLabel}>공유 링크</p>
+                <div className={styles.shareRow}>
+                  <span className={styles.shareUrlText}>{shareUrl}</span>
+                  <button
+                    className={styles.shareCopyBtn}
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareUrl);
+                      setShareUrl(null);
+                      alert("복사되었습니다!");
+                    }}
+                  >
+                    복사
+                  </button>
+                </div>
+                <button
+                  className={styles.shareClose}
+                  onClick={() => setShareUrl(null)}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

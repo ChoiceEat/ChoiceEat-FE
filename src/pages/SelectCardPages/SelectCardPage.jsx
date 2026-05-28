@@ -29,7 +29,7 @@ export default function SelectCardPage() {
   const { answers } = useSurvey();
 
   const [activeTags, setActiveTags] = useState({
-    value:   [...(restaurants?.value?.selectedTags   ?? [])],
+    value: [...(restaurants?.value?.selectedTags ?? [])],
     balance: [...(restaurants?.balance?.selectedTags ?? [])],
     quality: [...(restaurants?.quality?.selectedTags ?? [])],
   });
@@ -68,7 +68,8 @@ export default function SelectCardPage() {
     ? {
         transform: "translateY(-110vh) scale(0.84)",
         opacity: 0,
-        transition: "transform 0.38s cubic-bezier(0.4,0,0.8,0.5), opacity 0.28s ease-in",
+        transition:
+          "transform 0.38s cubic-bezier(0.4,0,0.8,0.5), opacity 0.28s ease-in",
         pointerEvents: "none",
       }
     : verticalDrag < 0
@@ -157,13 +158,14 @@ export default function SelectCardPage() {
   };
 
   const dragProps = {
-    onMouseDown:  (e) => startDrag(e.clientX, e.clientY),
-    onMouseMove:  (e) => moveDrag(e.clientX, e.clientY),
-    onMouseUp:    (e) => endDrag(e.clientX, e.clientY),
+    onMouseDown: (e) => startDrag(e.clientX, e.clientY),
+    onMouseMove: (e) => moveDrag(e.clientX, e.clientY),
+    onMouseUp: (e) => endDrag(e.clientX, e.clientY),
     onMouseLeave: (e) => endDrag(e.clientX, e.clientY),
     onTouchStart: (e) => startDrag(e.touches[0].clientX, e.touches[0].clientY),
-    onTouchMove:  (e) => moveDrag(e.touches[0].clientX, e.touches[0].clientY),
-    onTouchEnd:   (e) => endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY),
+    onTouchMove: (e) => moveDrag(e.touches[0].clientX, e.touches[0].clientY),
+    onTouchEnd: (e) =>
+      endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY),
   };
 
   return (
@@ -243,7 +245,9 @@ export default function SelectCardPage() {
           <div className={styles.swipeHintText}>위로 밀어서 선택</div>
         </div>
         <div className={styles.bottom}>
-          {!adWatched &&(<p className={styles.bottomHint}>마음에 들지 않는다면?</p>)}
+          {!adWatched && (
+            <p className={styles.bottomHint}>마음에 들지 않는다면?</p>
+          )}
           {!adWatched && (
             <button className={styles.bottomAd} onClick={handleAdClick}>
               광고 시청 후 다시 뽑기

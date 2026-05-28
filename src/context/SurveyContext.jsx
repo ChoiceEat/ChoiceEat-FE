@@ -5,9 +5,7 @@ const SurveyContext = createContext(null);
 export function SurveyProvider({ children }) {
   const [answers, setAnswers] = useState(() => {
     const saved = sessionStorage.getItem("surveyAnswers");
-    return saved
-      ? JSON.parse(saved)
-      : { menu: null, vibe: null, budget: null };
+    return saved ? JSON.parse(saved) : { menu: null, vibe: null, budget: null };
   });
 
   const setAnswer = (key, value) => {
