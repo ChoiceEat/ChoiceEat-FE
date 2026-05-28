@@ -21,7 +21,8 @@ export default function MainHome() {
         <h1 className={styles.logo}>Choice Eat</h1>
         <div className={styles.headerBottom}>
           <p className={styles.greeting}>
-            어서오세요, <strong>{nickname}</strong>님 !
+            어서오세요,{" "}
+            <span className={styles.nicknameHighlight}>{nickname}</span>님 !
           </p>
           <div className={styles.location}>
             <img
@@ -75,7 +76,7 @@ export default function MainHome() {
         </div>
         <div className={styles.bannerMascot}>
           <img
-            src="char-main.svg"
+            src="/char-main.png"
             alt="초이스잇 마스코트"
             className={styles.mascotImg}
           />
@@ -96,47 +97,57 @@ export default function MainHome() {
 
           {historyList.length === 0 ? (
             <div className={styles.emptyHistory}>
-              <p>초이스잇과 함께 첫 맛집을 찾아볼까요? 🍚</p>
               <img
                 src="/char-smile.png"
                 alt="empty"
                 className={styles.emptyIcon}
               />
+              <p>초이스잇과 함께 첫 맛집을 찾아볼까요?✨</p>
             </div>
           ) : (
             <div className={styles.restaurantGrid}>
-              {historyList.map((restaurant) => (
-                <div
-                  key={restaurant.name}
-                  className={styles.restaurantCard}
-                  onClick={() => navigate("/detail", { state: { restaurant } })}
-                >
-                  <div className={styles.cardImageWrap}>
-                    <img
-                      src={restaurant.image || "/empty-store.png"}
-                      alt={restaurant.name}
-                      className={styles.cardImage}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "/empty-store.png";
-                      }}
-                    />
+              {historyList
+                .filter(
+                  (r, i, arr) => arr.findIndex((x) => x.name === r.name) === i,
+                )
+                .slice(0, 4)
+                .map((restaurant) => (
+                  <div
+                    key={restaurant.name}
+                    className={styles.restaurantCard}
+                    onClick={() =>
+                      navigate("/detail", { state: { restaurant } })
+                    }
+                  >
+                    <div className={styles.cardImageWrap}>
+                      <img
+                        src={restaurant.image || "/char-main.png"}
+                        alt={restaurant.name}
+                        className={restaurant.image ? styles.cardImage : styles.cardImageFallback}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/char-main.png";
+                          e.target.className = styles.cardImageFallback;
+                        }}
+                      />
+                    </div>
+                    <div className={styles.cardInfo}>
+                      <p className={styles.cardName}>{restaurant.name}</p>
+                      <p className={styles.cardTag}>{restaurant.tag}</p>
+                    </div>
                   </div>
-                  <div className={styles.cardInfo}>
-                    <p className={styles.cardName}>{restaurant.name}</p>
-                    <p className={styles.cardTag}>{restaurant.tag}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
           )}
         </section>
 
-        <div className={styles.infoBar}>
-          <p className={styles.infoText}>
-            초이스잇이 초이스 한 추천 맛집!&nbsp; 마음에 드시는 곳이 있나요?
-          </p>
-        </div>
+        {historyList.length > 0 && (
+          <div className={styles.infoBar}>
+            <p className={styles.infoText}>
+              초이스잇이 초이스 한 추천 맛집!&nbsp; 마음에 드시는 곳이 있나요?
+            </p>
+          </div>
+        )}
       </main>
 
       <BottomNav activePage="home" />

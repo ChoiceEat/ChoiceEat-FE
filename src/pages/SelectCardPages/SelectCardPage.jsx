@@ -181,7 +181,7 @@ export default function SelectCardPage() {
           ))}
         </nav>
         <div className={styles.char}>
-          <img src="/char-vibe.svg" alt="" draggable={false} />
+          <img src="/char-vibe.png" alt="" draggable={false} />
         </div>
       </div>
 

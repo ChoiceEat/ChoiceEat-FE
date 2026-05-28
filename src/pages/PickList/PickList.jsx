@@ -36,7 +36,7 @@ export default function PickList() {
             {user?.nickname ?? "OO"}님, 이 중에 마음에 드는게 있을까요?
           </p>
         </div>
-        <img src="/char-vibe.svg" alt="" className={styles.char} />
+        <img src="/char-vibe.png" alt="" className={styles.char} />
       </div>
 
       <div className={styles.list}>
@@ -51,11 +51,11 @@ export default function PickList() {
               onClick={() => handleSelect(key)}
             >
               <img
-                src={restaurant.image || "/empty-store2.svg"}
+                src={restaurant.image || "/empty-store2.png"}
                 alt={restaurant.name}
                 className={styles.cardImg}
                 onError={(e) => {
-                  e.currentTarget.src = "/empty-store2.svg";
+                  e.currentTarget.src = "/empty-store2.png";
                 }}
               />
               <div className={styles.overlay} />

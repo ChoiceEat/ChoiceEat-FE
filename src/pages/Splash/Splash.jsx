@@ -15,7 +15,7 @@ export default function Splash() {
     <div className={styles.container}>
       <div className={styles.logoArea}>
         <img
-          src="/char-main.svg"
+          src="/char-main.png"
           alt="Choice Eat 캐릭터"
           className={styles.charImg}
         />

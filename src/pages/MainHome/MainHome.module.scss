@@ -10,25 +10,12 @@
   max-width: 480px;
   margin: 0 auto;
   position: relative;
-
-  @media (min-width: 768px) {
-    max-width: 100%;
-    flex-direction: row;
-  }
 }
 
 .header {
   flex-shrink: 0;
   padding: 20px 24px 0;
   background: $white;
-
-  @media (min-width: 768px) {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    padding: 24px 32px 0;
-    box-shadow: 0 1px 0 #e4f0ec;
-  }
 }
 
 .logo {
@@ -36,7 +23,7 @@
   font-size: 20px;
   font-weight: 400;
   color: $green;
-  margin: 0 0 8px;
+  margin: 0 0 38px;
   letter-spacing: -0.3px;
 }
 
@@ -51,13 +38,18 @@
   font-family: $font-content;
   font-size: 16px;
   color: $text-black;
-  margin: 0;
+  margin: 0 0 9;
   font-weight: 400;
   letter-spacing: -0.4px;
 
   strong {
     font-weight: 600;
   }
+}
+
+.nicknameHighlight {
+  font-weight: 600;
+  color: $green;
 }
 
 .location {
@@ -118,22 +110,6 @@
   height: 187px;
   display: flex;
   align-items: center;
-
-  @media (min-width: 768px) {
-    width: 320px;
-    min-width: 280px;
-    height: 100dvh;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 40px 0;
-    border-radius: 0 24px 24px 0;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 1280px) {
-    width: 380px;
-  }
 }
 
 .bannerContent {
@@ -145,11 +121,6 @@
   gap: 12px;
   z-index: 2;
   align-items: center;
-
-  @media (min-width: 768px) {
-    left: 28px;
-    bottom: 100px;
-  }
 }
 
 .bannerText {
@@ -163,11 +134,6 @@
 
   strong {
     font-weight: 700;
-  }
-
-  @media (min-width: 768px) {
-    font-size: 42px;
-    line-height: 50px;
   }
 }
 
@@ -208,15 +174,6 @@
   align-items: flex-end;
   overflow: hidden;
   z-index: 1;
-
-  @media (min-width: 768px) {
-    scale: 130%;
-    bottom: 130px;
-    right: 30px;
-    width: 160px;
-    height: 180px;
-    top: 480px;
-  }
 }
 
 .mascotImg {
@@ -230,27 +187,18 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 0 8px;
+  padding: 0 0 130px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
     display: none;
   }
-
-  @media (min-width: 768px) {
-    height: 100dvh;
-    padding-bottom: 100px;
-  }
 }
 
 .section {
   padding: 0 16px;
-  margin-top: 12px;
-
-  @media (min-width: 768px) {
-    padding: 0 32px;
-  }
+  margin-top: 20px;
 }
 
 .sectionTitle {
@@ -270,10 +218,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-
-  @media (min-width: 768px) {
-    gap: 16px;
-  }
 }
 
 .restaurantCard {
@@ -308,6 +252,14 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.cardImageFallback {
+  width: 98%;
+  height: 98%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
 }
 
 .cardInfo {
@@ -363,7 +315,8 @@
 }
 
 .emptyIcon {
-  width: 160px;
+  filter: grayscale(100%);
+  width: 75px;
   height: auto;
   object-fit: contain;
   margin-bottom: 8px;
@@ -377,10 +330,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  @media (min-width: 768px) {
-    margin: 16px 32px 8px;
-  }
 }
 
 .infoText {

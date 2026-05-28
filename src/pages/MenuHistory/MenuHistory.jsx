@@ -1,22 +1,16 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MenuHistory.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "../../hooks/useHistory";
+import { BADGE_KR } from "../../data/constants";
 
 export default function MenuHistory() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const nickname = user?.nickname ?? "멋사";
 
-  const { list, deleteItem, save } = useHistory();
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleDone = () => {
-    save(list);
-    setIsEditing(false);
-  };
+  const { list } = useHistory();
 
   return (
     <div className={styles.container}>
@@ -30,15 +24,6 @@ export default function MenuHistory() {
             식당
           </h1>
         </div>
-        <div className={styles.editRow}>
-          <button
-            className={styles.editBtn}
-            onClick={() => (isEditing ? handleDone() : setIsEditing(true))}
-          >
-            <img src="/icons/edit.svg" />
-            {isEditing ? "완료" : "편집"}
-          </button>
-        </div>
       </div>
 
       <div className={styles.headerDivider} />
@@ -51,22 +36,19 @@ export default function MenuHistory() {
                 className={styles.item}
                 role="button"
                 tabIndex={0}
-                onClick={() => {
-                  if (!isEditing)
-                    navigate("/detail", { state: { restaurant } });
-                }}
+                onClick={() => navigate("/detail", { state: { restaurant } })}
                 onKeyDown={(e) => {
-                  if ((e.key === "Enter" || e.key === " ") && !isEditing)
+                  if (e.key === "Enter" || e.key === " ")
                     navigate("/detail", { state: { restaurant } });
                 }}
               >
                 <div className={styles.thumb}>
                   <img
-                    src={restaurant.image || "/empty-store.png"}
+                    src={restaurant.image || "/empty-store2.png"}
                     alt={restaurant.name}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = "/empty-store.png";
+                      e.target.src = "/empty-store2.png";
                     }}
                   />
                 </div>
@@ -74,20 +56,13 @@ export default function MenuHistory() {
                   <p className={styles.name}>{restaurant.name}</p>
                   <p className={styles.meta}>
                     {restaurant.category}
-                    {restaurant.distance ? ` • ${restaurant.distance}` : ""}
+                    {restaurant.badge
+                      ? ` • ${BADGE_KR[restaurant.badge] ?? restaurant.badge}`
+                      : ""}
                   </p>
                   <p className={styles.date}>{restaurant._histDate}</p>
                 </div>
               </div>
-              {isEditing && (
-                <button
-                  className={styles.deleteBtn}
-                  onClick={() => deleteItem(restaurant.name)}
-                  aria-label="삭제"
-                >
-                  ✕
-                </button>
-              )}
             </div>
             {index < list.length - 1 && <div className={styles.rowDivider} />}
           </div>

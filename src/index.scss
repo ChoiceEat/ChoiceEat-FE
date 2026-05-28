@@ -13,6 +13,24 @@ body,
   width: 100%;
 }
 
+/* 데스크톱: 393px 고정 너비로 중앙 정렬 */
+@media (min-width: 768px) {
+  body {
+    display: flex;
+    justify-content: center;
+    background: #e8efed;
+  }
+
+  #root {
+    width: 393px;
+    min-width: 393px;
+    max-width: 393px;
+    position: relative;
+    overflow-x: hidden;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+  }
+}
+
 body {
   font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   -webkit-font-smoothing: antialiased;

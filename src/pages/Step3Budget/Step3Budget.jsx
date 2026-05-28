@@ -19,7 +19,7 @@ export default function Step3Budget() {
       onSelect={(value) => setAnswer("budget", value)} // 선택 시 저장
       prevPath="/step2"
       nextPath="/loading"
-      charImg="/char-budget.svg"
+      charImg="/char-budget.png"
       speechText={`${nickname}님의 예산안을 기준점으로 맛집을 찾아드릴게요!`}
       manualNext={true} // 선택해도 자동으로 안 넘어감
     />

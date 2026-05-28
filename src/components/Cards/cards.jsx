@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./cards.module.scss";
 
-const FALLBACK_IMG = "/empty-store2.svg";
+const FALLBACK_IMG = "/empty-store2.png";
 
 export default function Card({
   image,

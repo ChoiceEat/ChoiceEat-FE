@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./MenuRecommend.module.scss";
 import BottomNav from "../../components/BottomNav/BottomNav";
+import { useAuth } from "../../hooks/useAuth";
 import { fetchMenuRecommendations } from "../../apis/Menupickapi";
 
 export default function MenuRecommend() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const restaurant = state?.restaurant;
+  const { user } = useAuth();
+  const nickname = user?.nickname ?? "멋사";
 
   const [menus, setMenus] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,10 +48,12 @@ export default function MenuRecommend() {
       <div className={styles.intro}>
         <div className={styles.badgeWrap}>
           <div className={styles.badge}>
-            <span>{restaurant.placeName ?? restaurant.name}의 인기 메뉴들이에요!</span>
+            <span>
+              {nickname}님, {restaurant.placeName ?? restaurant.name}의 인기 메뉴들이에요!
+            </span>
           </div>
         </div>
-        <img className={styles.mascot} src="/char-vibe.svg" alt="" />
+        <img className={styles.mascot} src="/char-vibe.png" alt="" />
       </div>
 
       <div className={styles.list}>
