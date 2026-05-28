@@ -38,12 +38,12 @@ export default function Address() {
     try {
       const result = await saveSelectedDestination({
         kakaoPlaceId: item.kakaoPlaceId,
-        placeName:    item.placeName,
-        address:      item.address,
-        roadAddress:  item.roadAddress,
-        latitude:     item.latitude,
-        longitude:    item.longitude,
-        placeUrl:     item.placeUrl ?? "",
+        placeName: item.placeName,
+        address: item.address,
+        roadAddress: item.roadAddress,
+        latitude: item.latitude,
+        longitude: item.longitude,
+        placeUrl: item.placeUrl ?? "",
       });
       console.log("목적지 저장 성공:", result);
 
@@ -72,8 +72,16 @@ export default function Address() {
     return (
       <div className={`${styles.container} ${styles.resultsView}`}>
         <div className={styles.pillWrap}>
-          <button className={styles.pillBack} onClick={handleBack} aria-label="뒤로가기">
-            <img className={styles.backIcon} src="/icons/backToaddress.svg" alt="뒤로가기" />
+          <button
+            className={styles.pillBack}
+            onClick={handleBack}
+            aria-label="뒤로가기"
+          >
+            <img
+              className={styles.backIcon}
+              src="/icons/backToaddress.svg"
+              alt="뒤로가기"
+            />
           </button>
           <input
             className={styles.pillInput}
@@ -84,8 +92,16 @@ export default function Address() {
             placeholder="예) 성북구, 강남역"
             autoFocus
           />
-          <button className={styles.pillSearch} onClick={handleSearch} aria-label="검색">
-            <img src="/icons/address-search.svg" alt="검색" className={styles.searchIcon} />
+          <button
+            className={styles.pillSearch}
+            onClick={handleSearch}
+            aria-label="검색"
+          >
+            <img
+              src="/icons/address-search.svg"
+              alt="검색"
+              className={styles.searchIcon}
+            />
           </button>
         </div>
 
@@ -101,10 +117,15 @@ export default function Address() {
                 tabIndex={0}
                 onClick={() => handleSelectAddress(item)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") handleSelectAddress(item);
+                  if (e.key === "Enter" || e.key === " ")
+                    handleSelectAddress(item);
                 }}
               >
-                <img src="/icons/location.svg" alt="위치" className={styles.resultPin} />
+                <img
+                  src="/icons/location.svg"
+                  alt="위치"
+                  className={styles.resultPin}
+                />
                 <div className={styles.resultText}>
                   <p className={styles.resultName}>{item.placeName}</p>
                   <p className={styles.resultAddress}>{item.address}</p>
@@ -121,7 +142,11 @@ export default function Address() {
 
   return (
     <div className={styles.container}>
-      <button className={styles.back} onClick={handleBack} aria-label="뒤로가기">
+      <button
+        className={styles.back}
+        onClick={handleBack}
+        aria-label="뒤로가기"
+      >
         <img src="/icons/backG.svg" alt="뒤로가기" />
       </button>
 
@@ -143,8 +168,16 @@ export default function Address() {
           />
           <div className={styles.searchLine} />
         </div>
-        <button className={styles.searchBtn} onClick={handleSearch} aria-label="검색">
-          <img src="/icons/address-search.svg" alt="검색" className={styles.searchIcon} />
+        <button
+          className={styles.searchBtn}
+          onClick={handleSearch}
+          aria-label="검색"
+        >
+          <img
+            src="/icons/address-search.svg"
+            alt="검색"
+            className={styles.searchIcon}
+          />
         </button>
       </div>
 

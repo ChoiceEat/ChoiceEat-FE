@@ -49,7 +49,8 @@ export default function MenuRecommend() {
         <div className={styles.badgeWrap}>
           <div className={styles.badge}>
             <span>
-              {nickname}님, {restaurant.placeName ?? restaurant.name}의 인기 메뉴들이에요!
+              {nickname}님, {restaurant.placeName ?? restaurant.name}의 인기
+              메뉴들이에요!
             </span>
           </div>
         </div>
@@ -76,7 +77,9 @@ export default function MenuRecommend() {
               <div className={styles.cardInfo}>
                 <p className={styles.cardName}>{menu.menuName}</p>
                 <p className={styles.cardPrice}>
-                  {menu.price ? `${menu.price.toLocaleString()}원` : "가격 미정"}
+                  {menu.price
+                    ? `${menu.price.toLocaleString()}원`
+                    : "가격 미정"}
                 </p>
               </div>
             </div>

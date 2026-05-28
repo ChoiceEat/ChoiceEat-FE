@@ -20,6 +20,7 @@ export default function PickList() {
         restaurants,
         selectedType: key,
         adWatched: state?.adWatched ?? false,
+        answers: state?.answers,
       },
     });
   };

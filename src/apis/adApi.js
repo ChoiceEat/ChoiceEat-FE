@@ -5,7 +5,13 @@ export const getRandomAd = async () => {
   return response.data;
 };
 
-export const postAdView = async ({ advertisementId, completed = true } = {}) => {
-  const response = await api.post("/api/ad/view", { advertisementId, completed });
+export const postAdView = async ({
+  advertisementId,
+  completed = true,
+} = {}) => {
+  const response = await api.post("/api/ad/view", {
+    advertisementId,
+    completed,
+  });
   return response.data;
 };

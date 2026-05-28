@@ -4,13 +4,15 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-
   // 백엔드 서버 주소
   baseURL: BASE_URL,
 });
 
-
-const PUBLIC_URLS = ["/api/users/login", "/api/users/signup", "/api/users/check-email"];
+const PUBLIC_URLS = [
+  "/api/users/login",
+  "/api/users/signup",
+  "/api/users/check-email",
+];
 
 api.interceptors.request.use((config) => {
   const isPublic = PUBLIC_URLS.some((url) => config.url?.startsWith(url));

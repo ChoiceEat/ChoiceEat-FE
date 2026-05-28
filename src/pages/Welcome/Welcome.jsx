@@ -1,19 +1,12 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Welcome.module.scss";
 import WelcomeImg from "../../assets/welcome-img.svg";
 import { useAuth } from "../../hooks/useAuth";
-import { useSurvey } from "../../hooks/useSurvey";
 
 export default function Welcome() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const nickname = user?.nickname ?? "";
-  const { resetAnswers } = useSurvey();
-
-  useEffect(() => {
-    resetAnswers();
-  }, []);
 
   return (
     <div className={styles.container}>

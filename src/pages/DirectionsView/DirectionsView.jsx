@@ -39,6 +39,7 @@ export default function DirectionsView() {
   };
 
   const handlePointerDown = (e) => {
+    if (e.target.closest("a, button")) return; // 추가
     if (!sheetRef.current) return;
     isDraggingRef.current = true;
     startYRef.current = e.clientY;
@@ -123,15 +124,14 @@ export default function DirectionsView() {
         </div>
 
         <div className={styles.btns}>
-          <button
+          <a
             className={styles.navBtn}
-            onClick={() => {
-              const url = `https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`;
-              window.open(url, "_blank");
-            }}
+            href={`https://map.kakao.com/link/to/${encodeURIComponent(name)},${lat},${lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             길찾기
-          </button>
+          </a>
         </div>
       </div>
     </div>

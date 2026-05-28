@@ -6,7 +6,13 @@ const CARD_LABELS = {
   value: "가성비 맛집",
 };
 
-export default function PickCard({ type, restaurant, activeTags, onTagClick, isActive }) {
+export default function PickCard({
+  type,
+  restaurant,
+  activeTags,
+  onTagClick,
+  isActive,
+}) {
   if (!restaurant) return null;
 
   const {

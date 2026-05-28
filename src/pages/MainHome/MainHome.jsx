@@ -13,8 +13,7 @@ export default function MainHome() {
   const [savedAddress] = useState(() =>
     JSON.parse(localStorage.getItem("savedAddress") || "null"),
   );
-  const { list: historyList } = useHistory();
-
+  const { list: historyList } = useHistory({ home: true });
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -123,7 +122,11 @@ export default function MainHome() {
                       <img
                         src={restaurant.image || "/char-main.png"}
                         alt={restaurant.name}
-                        className={restaurant.image ? styles.cardImage : styles.cardImageFallback}
+                        className={
+                          restaurant.image
+                            ? styles.cardImage
+                            : styles.cardImageFallback
+                        }
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.src = "/char-main.png";

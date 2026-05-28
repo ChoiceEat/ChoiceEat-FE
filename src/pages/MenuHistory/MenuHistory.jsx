@@ -11,7 +11,6 @@ export default function MenuHistory() {
   const nickname = user?.nickname ?? "멋사";
 
   const { list } = useHistory();
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
