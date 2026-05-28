@@ -26,8 +26,7 @@ export default function SelectCardPage() {
   const [ready, setReady] = useState(false);
   const [showAd, setShowAd] = useState(false);
   const [adWatched] = useState(state?.adWatched ?? false);
-  const { answers: contextAnswers } = useSurvey();
-  const answers = state?.answers ?? contextAnswers;
+  const { answers } = useSurvey();
 
   const [activeTags, setActiveTags] = useState({
     value:   [...(restaurants?.value?.selectedTags   ?? [])],
@@ -244,7 +243,7 @@ export default function SelectCardPage() {
           <div className={styles.swipeHintText}>위로 밀어서 선택</div>
         </div>
         <div className={styles.bottom}>
-          <p className={styles.bottomHint}>마음에 들지 않는다면?</p>
+          {!adWatched &&(<p className={styles.bottomHint}>마음에 들지 않는다면?</p>)}
           {!adWatched && (
             <button className={styles.bottomAd} onClick={handleAdClick}>
               광고 시청 후 다시 뽑기
