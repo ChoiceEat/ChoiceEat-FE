@@ -3,6 +3,7 @@ import { fetchHistories, fetchHomeHistories } from "../apis/historyApi";
 
 function normalize(item) {
   return {
+    historyId: item.historyId,
     name: item.restaurantName,
     image: item.imageUrl ?? "",
     category: item.category ?? "",
