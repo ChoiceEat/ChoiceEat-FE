@@ -29,16 +29,22 @@ export default function MenuHistory() {
 
       <main className={styles.main}>
         {list.map((restaurant, index) => (
-          <div key={restaurant.name}>
+          <div key={restaurant.historyId}>
             <div className={styles.itemWrap}>
               <div
                 className={styles.item}
                 role="button"
                 tabIndex={0}
-                onClick={() => navigate("/detail", { state: { restaurant, fromHistory: true } })}
+                onClick={() =>
+                  navigate("/detail", {
+                    state: { restaurant, fromHistory: true },
+                  })
+                }
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ")
-                    navigate("/detail", { state: { restaurant, fromHistory: true } });
+                    navigate("/detail", {
+                      state: { restaurant, fromHistory: true },
+                    });
                 }}
               >
                 <div className={styles.thumb}>
