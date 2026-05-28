@@ -66,11 +66,7 @@ export default function AdInterstitial({ onClose }) {
           </div>
         ) : adData ? (
           <video
-            src={
-              adData.videoUrl.startsWith("http")
-                ? adData.videoUrl
-                : `${import.meta.env.VITE_SERVER_URL}${adData.videoUrl}`
-            }
+            src={adData.videoUrl}
             autoPlay
             muted
             playsInline
