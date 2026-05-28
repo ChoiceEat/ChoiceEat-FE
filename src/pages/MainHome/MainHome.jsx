@@ -13,8 +13,7 @@ export default function MainHome() {
   const [savedAddress] = useState(() =>
     JSON.parse(localStorage.getItem("savedAddress") || "null"),
   );
-  const { list: historyList } = useHistory();
-
+  const { list: historyList } = useHistory({ home: true });
   return (
     <div className={styles.container}>
       <header className={styles.header}>

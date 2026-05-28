@@ -21,6 +21,7 @@ export default function Loading() {
   }, []);
 
   useEffect(() => {
+    console.log("answers:", JSON.stringify(answers)); // 추
     if (restaurants) {
       navigate("/pick", {
         state: {
