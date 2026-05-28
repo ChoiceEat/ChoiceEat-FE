@@ -104,14 +104,13 @@ export default function DetailOverlay() {
 
             <div className={styles.namePrice}>
               <h2 className={styles.name}>{restaurant.name}</h2>
+              {ratingValue && (
+                <div className={styles.ratingBadge}>
+                  <span className={styles.ratingStar}>★</span>
+                  <span className={styles.ratingNum}>{ratingValue}</span>
+                </div>
+              )}
             </div>
-
-            {ratingValue && (
-              <div className={styles.ratingBadge}>
-                <span className={styles.ratingStar}>★</span>
-                <span className={styles.ratingNum}>{ratingValue}</span>
-              </div>
-            )}
           </div>
 
           <div className={styles.info}>
