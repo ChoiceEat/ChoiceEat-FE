@@ -19,4 +19,3 @@ export async function getAllHistories() {
 }
 
 export const fetchHistories = getAllHistories;
-export const fetchHomeHistories = getHomeHistories;

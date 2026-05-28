@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchHistories, fetchHomeHistories } from "../apis/historyApi";
+import { fetchHistories } from "../apis/historyApi";
 
 function normalize(item) {
   return {
@@ -38,7 +38,7 @@ export function useHomeHistoryData() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchHomeHistories()
+    fetchHistories()
       .then((data) => setList((data ?? []).map(normalize)))
       .catch(() => setList([]))
       .finally(() => setLoading(false));
